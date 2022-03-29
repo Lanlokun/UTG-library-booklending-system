@@ -44,20 +44,15 @@ Shelf
    -  roles
    -  password
 
-   StudentBook
-   
-   - id
-   - book_id
-   - student_id
-   - date borrowed 
-   - date expected 
 
-  StaffBook
-  
+   Borrow   
    - id
    - book_id
-   - staff_id
+   - borrower_id
+   - is_staff
    - date borrowed 
    - date expected 
+   - date returned
+   
    
    
