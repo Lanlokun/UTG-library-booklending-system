@@ -13,28 +13,28 @@ Book Catlogue
   -
  Student
  
-  -Date
-  -Names
-  -Faculty
-  -Mat #
-  -Time In 
-  -Time Out 
+  - Date
+  - Names
+  - Faculty
+  - Mat #
+  - Time In 
+  - Time Out 
   
   
   Staff
   
-   -Date 
-   -Names
-   -Department
-   -Time In 
-   -Time Out
+   -  Date 
+   -  Names
+   -  Department
+   -  Time In 
+   -  Time Out
    
    User
    
-   -id
-   -name
-   -email
-   -roles
-   -password
+   -  id
+   -  name
+   -  email
+   -  roles
+   -  password
    
    
