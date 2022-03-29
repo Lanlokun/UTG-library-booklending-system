@@ -43,5 +43,21 @@ Shelf
    -  email
    -  roles
    -  password
+
+   StudentBook
+   
+   - id
+   - book_id
+   - student_id
+   - date borrowed 
+   - date expected 
+
+  StaffBook
+  
+   - id
+   - book_id
+   - staff_id
+   - date borrowed 
+   - date expected 
    
    
