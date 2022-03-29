@@ -10,7 +10,14 @@ Book Catlogue
   - ISBN
   - Class No
   - No of Copies
-  -
+  - Shelf_id
+
+Shelf 
+
+  - id
+  - name
+  - number
+
  Student
  
   - Date
