@@ -14,4 +14,14 @@ class Shelf extends Model
         'category_id',
         'capacity',
     ];
+
+    public function book_copies()
+    {
+        return $this->hasMany(BookCopy::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

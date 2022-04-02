@@ -18,4 +18,19 @@ class Student extends Model
         
         
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
+    }
 }

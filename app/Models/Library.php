@@ -14,4 +14,24 @@ class Library extends Model
         'name',
         'address'
     ];
+
+    public function books()
+    {
+        return $this->hasMany(Book::class); 
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function book_copies()
+    {
+        return $this->hasMany(BookCopy::class);
+    }
+
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
+    }
 }

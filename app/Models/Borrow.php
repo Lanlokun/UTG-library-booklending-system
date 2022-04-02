@@ -18,4 +18,24 @@ class Borrow extends Model
         'date_expected',
         'date_returned'
     ];
+
+    public function book_copy()
+    {
+        return $this->belongsTo(BookCopy::class);
+    }
+
+    public function library()
+    {
+        return $this->belongsTo(Library::class);
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
 }

@@ -22,7 +22,23 @@ class Book extends Model
         'year',
         'isbn',
         'class_no',
-        'no_of_copies',
         'more_details'
     ];
+
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
+    }
+
+    public function book_copies()
+    {
+        return $this->hasMany(BookCopy::class);
+    }
+
 }

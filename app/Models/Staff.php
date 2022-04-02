@@ -15,4 +15,19 @@ class Staff extends Model
         'email',
         'department'
     ];
+
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
+    }
 }
