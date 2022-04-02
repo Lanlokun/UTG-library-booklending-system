@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('borrows', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreingId("book_copy_id");
-            $table->foreingId("library_id");
-            $table->foreingId("student_id");
-            $table->foreingId("staff_id");
-            $table->datetime("date_borrowed");
-            $table->datetime("date_expected");
-            $table->datetime("date_returned");
+            $table->foreignId("student_id");
+            $table->foreignId("library_id");
+            $table->foreignId("staff_id");
+            $table->datetime("time_in");
+            $table->datetime("time_out");
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('borrows');
+        Schema::dropIfExists('attendances');
     }
 };

@@ -18,7 +18,8 @@ class ShelfResource extends JsonResource
 
         return  [
             'name' => $this->name,
-            'number' => $this->number
+            'category_id' => $this->category->id,
+            'capaciy' => $this->capacity
         ];
     }
 }

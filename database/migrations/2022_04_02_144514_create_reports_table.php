@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('borrows', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreingId("book_copy_id");
-            $table->foreingId("library_id");
-            $table->foreingId("student_id");
-            $table->foreingId("staff_id");
-            $table->datetime("date_borrowed");
-            $table->datetime("date_expected");
-            $table->datetime("date_returned");
+            $table->string("name");
+            $table->date("date");
+            $table->file("file");
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('borrows');
+        Schema::dropIfExists('reports');
     }
 };

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBorrowRequest;
-use App\Http\Requests\UpdateBorrowRequest;
-use App\Models\Borrow;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
-class BorrowController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +30,10 @@ class BorrowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBorrowRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BorrowRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +41,10 @@ class BorrowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Borrow $borrow)
+    public function show(Category $category)
     {
         //
     }
@@ -53,10 +52,10 @@ class BorrowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Borrow $borrow)
+    public function edit(Category $category)
     {
         //
     }
@@ -64,11 +63,11 @@ class BorrowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBorrowRequest  $request
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(BorrowRequest $request, Borrow $borrow)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -76,10 +75,10 @@ class BorrowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Borrow $borrow)
+    public function destroy(Category $category)
     {
         //
     }

@@ -12,12 +12,17 @@ class Book extends Model
     protected $fillable = [
         'title',
         'author',
+        'edition',
+        'category_id',
+        'publisher_id',
+        'author_1',
+        'author_2',
+        'etla',
         'place_of_pub',
-        'publishers',
         'year',
         'isbn',
         'class_no',
         'no_of_copies',
-        'shelf_id'
+        'more_details'
     ];
 }

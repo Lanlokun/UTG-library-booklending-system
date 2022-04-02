@@ -18,9 +18,10 @@ class BorrowResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'book' => $this->book->id,
-            'borrower' => $this->borrower->id,
-            'is_staff' => $this->staff,
+            'book_copy_id' => $this->book_copy->id,
+            'library_id' => $this->library->id,
+            'student_id' => $this->student->id,
+            'staff_id' => $this->staff->id,
             'date_borrowed' => $this->borrowed,
             'date_expected' => $this_expected,
             'date_returned' => $this->returned

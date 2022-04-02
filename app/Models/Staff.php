@@ -11,7 +11,8 @@ class Staff extends Model
 
     protected $fillable = [
         'staff_id',
-        'time_in',
-        'time_out'
+        'name',
+        'email',
+        'department'
     ];
 }

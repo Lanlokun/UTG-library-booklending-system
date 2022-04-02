@@ -25,7 +25,8 @@ class ShelfRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'number' => 'required',
+            'category_id' => 'required',
+            'capacity' => 'required'
         ];
     }
 }

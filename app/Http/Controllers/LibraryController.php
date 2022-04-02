@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBorrowRequest;
-use App\Http\Requests\UpdateBorrowRequest;
-use App\Models\Borrow;
+use App\Http\Requests\StoreLibraryRequest;
+use App\Http\Requests\UpdateLibraryRequest;
+use App\Models\Library;
 
-class BorrowController extends Controller
+class LibraryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class BorrowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBorrowRequest  $request
+     * @param  \App\Http\Requests\StoreLibraryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BorrowRequest $request)
+    public function store(StoreLibraryRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class BorrowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Models\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function show(Borrow $borrow)
+    public function show(Library $library)
     {
         //
     }
@@ -53,10 +53,10 @@ class BorrowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Models\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function edit(Borrow $borrow)
+    public function edit(Library $library)
     {
         //
     }
@@ -64,11 +64,11 @@ class BorrowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBorrowRequest  $request
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Http\Requests\UpdateLibraryRequest  $request
+     * @param  \App\Models\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function update(BorrowRequest $request, Borrow $borrow)
+    public function update(UpdateLibraryRequest $request, Library $library)
     {
         //
     }
@@ -76,10 +76,10 @@ class BorrowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \App\Models\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Borrow $borrow)
+    public function destroy(Library $library)
     {
         //
     }

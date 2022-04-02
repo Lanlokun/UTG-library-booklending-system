@@ -17,13 +17,17 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("author");
+            $table->string("edition");
+            $table->foreignId("category_id");
+            $table->string("publisher_id");
+            $table->string("author_1");
+            $table->string("author_2");
+            $table->string("etla");
             $table->string("Place of Pub");
-            $table->string("Publishers");
             $table->integer("year");
             $table->integer("ISBN");
             $table->integer("Class No");
-            $table->integer("No of Copies");
-            $table->foreignId("shelf_id");
+            $table->string("more_details");
             $table->timestamps();
         });
     }

@@ -20,13 +20,16 @@ class BookResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'author' => $this->author,
+            'category_id' => $this->category->id,
+            'publisher_id' => $this->publisher->id,
+            'author_1' => $this->author_1,
+            'author_2' => $this->auhtor_2,
+            'etla' => $this->etla,
             'place_of_pub' => $this->place_of_pub,
-            'publishers' => $this->publishers,
             'year' => $this->year,
             'isbn' => $this->isbn,
             'class_no' => $this->class_no,
-            'no_of_copies' => $this->no_of_copies,
-            'shelf_id' => $this->shelf->id
+            'more_details' => $this->more_details
         ];
     }
 }

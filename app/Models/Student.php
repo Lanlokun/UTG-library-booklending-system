@@ -11,8 +11,11 @@ class Student extends Model
 
     protected $fillable = [
         'student_id',
-        'time_in',
-        'time_out',
+        'name',
+        'mat_number',
+        'department',
+        'email'
+        
         
     ];
 }

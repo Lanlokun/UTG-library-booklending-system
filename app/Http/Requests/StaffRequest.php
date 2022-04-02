@@ -25,8 +25,7 @@ class StaffRequest extends FormRequest
     {
         return [
             'staff_id' => 'required',
-            'time_in' => 'required',
-            'time_out' => 'required'
+            
         ];
     }
 }
