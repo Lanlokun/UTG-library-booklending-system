@@ -18,8 +18,8 @@ class ShelfResource extends JsonResource
 
         return  [
             'name' => $this->name,
-            'category_id' => $this->category->id,
-            'capaciy' => $this->capacity
+            'categories' => Category::collection($this->whenLoaded('categories')),
+            'capacity' => $this->capacity
         ];
     }
 }

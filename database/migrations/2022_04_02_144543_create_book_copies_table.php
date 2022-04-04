@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('book_copies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("copy_id");
+            $table->integer("copy_id");
             $table->foreignId("book_id");
             $table->foreignId("library_id");
             $table->foreignId("shelf_id");

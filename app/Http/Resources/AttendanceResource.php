@@ -18,9 +18,9 @@ class AttendanceResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'student_id' => $this->student->id,
-            'library_id' => $this->library->id,
-            'staff_id' => $this->staff->id,
+            'students' => Student::collection($this->whenLoaded('students')),
+            'libraries' => Library::collection($this->whenLoaded('libraries')),
+            'staffs' => Staff::collection($this->whenLoaded('staffs')),
             'time_in' => $this->time_in,
             'time_out' => $this->time_out
         ];

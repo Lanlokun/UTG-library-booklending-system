@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("address");
+            $table->string("name", 50);
+            $table->string("address", 50);
             $table->timestamps();
         });
     }

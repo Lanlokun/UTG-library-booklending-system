@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBorrowRequest;
-use App\Http\Requests\UpdateBorrowRequest;
-use App\Models\Borrow;
+use Illuminate\Http\Request;
 
 class BorrowController extends Controller
 {
@@ -19,22 +17,12 @@ class BorrowController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBorrowRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BorrowRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,21 +30,10 @@ class BorrowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Borrow $borrow)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Borrow  $borrow
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Borrow $borrow)
+    public function show($id)
     {
         //
     }
@@ -64,11 +41,11 @@ class BorrowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBorrowRequest  $request
-     * @param  \App\Models\Borrow  $borrow
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BorrowRequest $request, Borrow $borrow)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +53,10 @@ class BorrowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Borrow  $borrow
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Borrow $borrow)
+    public function destroy($id)
     {
         //
     }

@@ -17,10 +17,10 @@ class BookCopyResource extends JsonResource
         return parent::toArray($request);
 
         return [
-            'copy_id' => $this->copy->id,
-            'book_id' => $this->book->id,
-            'library_id' => $this->library->id,
-            'shelf_id' => $this->shelf->id
+            'copy' => $this->copy_id,
+            'books' => Book::collection($this->whenLoaded('copies')),
+            'libraries' => Library::collection($this->whenLoaded('libraries')),
+            'shelves' => Shelf::collection($this->whenLoaded('shelves'))
 
         ];
         

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreingId("book_copy_id");
             $table->foreingId("library_id");
-            $table->foreingId("student_id");
-            $table->foreingId("staff_id");
+            $table->foreingId("student_id")->nullable();
+            $table->foreingId("staff_id")->nullable();
             $table->datetime("date_borrowed");
             $table->datetime("date_expected");
             $table->datetime("date_returned");

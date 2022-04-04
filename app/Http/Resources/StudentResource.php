@@ -17,8 +17,10 @@ class StudentResource extends JsonResource
         return parent::toArray($request);
 
         return [
-            'student' => $this->student->id,
-            
+            'student' => Student::collection($this->whenLoaded('students')),
+            'name' => $this->name,
+            'email' => $this->email,
+            'department' => $this->department
         ];
     }
 }

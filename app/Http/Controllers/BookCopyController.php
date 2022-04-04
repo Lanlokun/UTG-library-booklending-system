@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookCopy;
 use Illuminate\Http\Request;
 
 class BookCopyController extends Controller
@@ -13,16 +12,6 @@ class BookCopyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -41,21 +30,10 @@ class BookCopyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BookCopy  $bookCopy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BookCopy $bookCopy)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\BookCopy  $bookCopy
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BookCopy $bookCopy)
+    public function show($id)
     {
         //
     }
@@ -64,10 +42,10 @@ class BookCopyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BookCopy  $bookCopy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BookCopy $bookCopy)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +53,10 @@ class BookCopyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BookCopy  $bookCopy
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BookCopy $bookCopy)
+    public function destroy($id)
     {
         //
     }

@@ -17,9 +17,11 @@ class StaffResource extends JsonResource
         return parent::toArray($request);
 
         return [
-            'staff' => $this->staff->id,
-            'time_in' => $this->time_in,
-            'time_out' => $this->time_out
+            'staffs' => Staff::collection($this->whenLoaded('staffs')),
+            'name' => $this->name,
+            'email' => $this->email,
+            'department' => $this->department
+            
         ];
     }
 }

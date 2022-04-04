@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("student_id");
+            $table->foreignId("student_id")->nullable();
             $table->foreignId("library_id");
-            $table->foreignId("staff_id");
+            $table->foreignId("staff_id")->nullable();
             $table->datetime("time_in");
-            $table->datetime("time_out");
+            $table->datetime("time_out");   
             $table->timestamps();
         });
     }

@@ -18,10 +18,10 @@ class BorrowResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'book_copy_id' => $this->book_copy->id,
-            'library_id' => $this->library->id,
-            'student_id' => $this->student->id,
-            'staff_id' => $this->staff->id,
+            'book_copies' => BookCopy::collection($this->whenLoaded('book_copies')),
+            'libraries' => Library::collection($this->whenLoaded('libraries')),
+            'students' => Student::collection($this->whenLoaded('students')),
+            'staffs' => Staff::collection($this->whenLoaded('staffs')),
             'date_borrowed' => $this->borrowed,
             'date_expected' => $this_expected,
             'date_returned' => $this->returned

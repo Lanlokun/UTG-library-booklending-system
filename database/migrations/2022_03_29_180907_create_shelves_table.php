@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('shelves', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->string("name", 50);
             $table->foreignId("category_id");
-            $table->integer("capacity");
+            $table->integer("capacity")->nullable();
             $table->timestamps();
         });
     }
