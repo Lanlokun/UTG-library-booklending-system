@@ -13,7 +13,16 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        $report = Report::all();
+
+        return Inertia::render('Report', ['report' => $report]);
+
+    }
+
+    public function create()
+    {
+        return Inertia::render('Report/create');
+
     }
 
     /**
@@ -22,9 +31,15 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReportRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Report::create($data);
+
+        return  Redirect::route('Report.index');
+
+        
     }
 
     /**
@@ -35,7 +50,8 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
+        return Report::find($id);
+
     }
 
     /**
@@ -45,9 +61,13 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReportRequest $request, Report $report)
     {
-        //
+        $data = $request->validated();
+
+        $report->update($data);
+
+        return  Redirect::route('report.index');
     }
 
     /**
@@ -56,8 +76,10 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Report $report)
     {
-        //
+        $report->delete();
+
+        return Redirect::route('report.index');
     }
 }

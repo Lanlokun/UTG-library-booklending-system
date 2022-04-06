@@ -13,7 +13,15 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        return Attendance::all();
+        $attendance = Attendance::all();
+
+        return Inertia::render('Attendance/Index', ['attendance' => $attendance]);
+
+    }
+
+    public function create()
+    {
+        return  Inertia::render('Attendance/Create');
     }
 
     /**
@@ -22,13 +30,13 @@ class AttendanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AttendanceRequest $request)
     {
-        $validated = $request->validated();
+        $data = $request->validated();
 
-        $validated->save();
+        Attendance::create($data);
 
-        return response("Attendance successfully saved", 201);
+        return Redirect::route("attendance.index");
     }
 
     /**
@@ -51,9 +59,14 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AttendanceRequest $request, Attendance $attendance)
     {
-        //
+
+        $data = $request->validated();
+
+        $attendance->update($data);
+
+        return Redirect::route('attendance.index');
     }
 
     /**
@@ -62,10 +75,9 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Attendance $attendance)
     {
-        Attendance::find($id)->delete();
-
-        return response('Attendance Successfully deleted', 201);
+        $attendance->delete();
+        return Redirect::route('attendance.index');
     }
 }

@@ -13,7 +13,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all()->orderByName();
+
+        return Inertia::render('Users', ['users' => $users ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('User/create');
     }
 
     /**
@@ -22,9 +29,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        User::create($data);
+
+        return Redirect('student.index');
     }
 
     /**
@@ -35,7 +46,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id);
+
     }
 
     /**
@@ -45,9 +57,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+
+        $user->update($data);
+
+        return Redirect::route('user.index');
     }
 
     /**
@@ -56,8 +72,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return Redirect::route('user.index');
     }
 }

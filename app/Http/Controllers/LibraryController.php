@@ -13,7 +13,14 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        //
+        $library = Library::all();
+
+        return Inertia::render('Library', ['library' => $library]);
+    }
+
+    public function create()
+    {
+        return  Inertia::render('Library/create');
     }
 
     /**
@@ -22,9 +29,15 @@ class LibraryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LibraryRequest $request)
     {
-        //
+
+        $data = $request->validated();
+
+        Attendance::create($data);
+
+        return Redirect('library.index');
+
     }
 
     /**
@@ -35,7 +48,7 @@ class LibraryController extends Controller
      */
     public function show($id)
     {
-        //
+        return Library::find($id);
     }
 
     /**
@@ -45,9 +58,13 @@ class LibraryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LibraryRequest $request, Library $library)
     {
-        //
+        $data = $request->validated();
+
+        $library->update($data);
+
+        return Redirect('library.index');
     }
 
     /**
@@ -56,8 +73,10 @@ class LibraryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Library $library,$id)
     {
-        //
+        $library->delete();
+
+        return Redirect('library.index');
     }
 }

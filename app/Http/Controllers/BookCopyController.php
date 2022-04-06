@@ -13,7 +13,14 @@ class BookCopyController extends Controller
      */
     public function index()
     {
-        //
+        $book_copy = BookCopy::all();
+
+        return Inertia::render('BookCopy', ['book_copy' => $book_copy]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('BookCopy/create');
     }
 
     /**
@@ -22,9 +29,13 @@ class BookCopyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookCopyRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        BookCopy::create($data);
+
+        return Redirect::route("book_copy.index");
     }
 
     /**
@@ -35,7 +46,7 @@ class BookCopyController extends Controller
      */
     public function show($id)
     {
-        //
+        return BookCopy::find($id);
     }
 
     /**
@@ -45,9 +56,13 @@ class BookCopyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookCopyRequest $request, BookCopy $book_copy)
     {
-        //
+        $data = $request->validated();
+
+        $book_copy->update($data);
+
+        return Redirect::route('book_copy.index');
     }
 
     /**
@@ -58,6 +73,7 @@ class BookCopyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book_copy->delete();
+        return Redirect::route('book_copy.index');
     }
 }

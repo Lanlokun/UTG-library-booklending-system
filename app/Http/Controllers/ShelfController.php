@@ -13,7 +13,15 @@ class ShelfController extends Controller
      */
     public function index()
     {
-        //
+        $shelf = Shelf::all();
+
+        return Inertia::render('Shelf', ['shelf' => $shelf]);
+
+    }
+
+    public function create()
+    {
+        return Inertia::render('Shelf/create');
     }
 
     /**
@@ -22,9 +30,14 @@ class ShelfController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShelfRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Shelf::create($data);
+
+        return Inertia::render('publisher.index'); 
+
     }
 
     /**
@@ -35,7 +48,7 @@ class ShelfController extends Controller
      */
     public function show($id)
     {
-        //
+        return Shelf::find($id);
     }
 
     /**
@@ -45,9 +58,14 @@ class ShelfController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShelfRequest $request, Shelf $shelf)
     {
-        //
+        $data = $request->validted();
+
+        $shelf->update($data);
+
+        return  Redirect::route('shelf.index');
+ 
     }
 
     /**
@@ -56,8 +74,10 @@ class ShelfController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Shelf $shelf)
     {
-        //
+         $shelf->delete();
+
+         return redirect('shelf.index');
     }
 }

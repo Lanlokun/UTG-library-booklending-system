@@ -13,18 +13,29 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        $publisher = Publisher::all();
+
+        return Inertia::render('Publisher', ['publisher' => $publisher]);
     }
 
+
+    public function create()
+    {
+        return  Inertia::render('Publisher/create');
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PublisherRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Publisher::create($data);
+        
+        return Inertia::render('publisher.index'); 
     }
 
     /**
@@ -35,7 +46,7 @@ class PublisherController extends Controller
      */
     public function show($id)
     {
-        //
+        return Publisher::find($id);
     }
 
     /**
@@ -45,9 +56,15 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PublisherRequest $request, Publisher $publisher)
     {
-        //
+        $data = $request->validated();
+
+        $publisher->update($data);
+
+        return Redirect('publisher.index');
+
+
     }
 
     /**
@@ -56,8 +73,10 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Publisher $publisher)
     {
-        //
+        $publisher->delete();
+
+        return Redirect('publisher.index');
     }
 }

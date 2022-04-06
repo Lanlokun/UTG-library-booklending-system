@@ -13,7 +13,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::all();
+
+        return $category;
+    }
+
+    public function create()
+    {
+        return  Inertia::render('Category/create');
     }
 
     /**
@@ -22,9 +29,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Category::create($data);
+
+        return Redirect::route("category.index");
+
     }
 
     /**
@@ -35,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return Category::find($id);
     }
 
     /**
@@ -45,9 +57,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->validated();
+
+        $category->update($data);
+
+        return Redirect('category.index');
+ 
     }
 
     /**
@@ -56,8 +73,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+
+        $category->delete();
+
+        return  Redirect::route('category.index');
+        
     }
 }

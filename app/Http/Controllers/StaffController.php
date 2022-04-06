@@ -13,7 +13,14 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        $staff = Staff::all();
+
+        return Inetia::render('Staff', ['staff' => $staff]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Staff/create');
     }
 
     /**
@@ -22,9 +29,13 @@ class StaffController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StaffRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Staff::create($data);
+
+        return Redirect::route('staff.index');
     }
 
     /**
@@ -35,7 +46,7 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        //
+        return Staff::find($id);
     }
 
     /**
@@ -45,9 +56,13 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StaffRequest $request, Staff $staff)
     {
-        //
+        $data = $request->validated();
+
+        $staff->update($data);
+
+        return Redirect::route('staff.index');
     }
 
     /**
@@ -56,8 +71,10 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Staff $staff)
     {
-        //
+        $staff->delete();
+
+        return Redirect::route('staff.index');
     }
 }

@@ -13,7 +13,14 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        //
+        $borrow = Borrow::all();
+
+        return Inertia::render('Borrow', ['borrow' => $borrow]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Borrow/create');
     }
 
     /**
@@ -22,9 +29,13 @@ class BorrowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BorrowRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Borrow::create($data);
+
+        return Redirect::route("borrow.index");
     }
 
     /**
@@ -35,7 +46,7 @@ class BorrowController extends Controller
      */
     public function show($id)
     {
-        //
+        return Borrow::find($id);
     }
 
     /**
@@ -45,9 +56,13 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BorrowRequest $request, Borrow $borrow)
     {
-        //
+        $data = $request->validated();
+
+        $borrow->update($data);
+
+        return Redirect::route('borrow.index');
     }
 
     /**
@@ -56,8 +71,12 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Borrow $borrow)
     {
-        //
+        $borrow->delete();
+
+        return Redirect::route('borrow.index');
+
+
     }
 }
