@@ -1,0 +1,13 @@
+# 6th April, 2022
+- Use `foreign` instead of `foreignId` to add foreign keys to a migration.
+- From previous work with Danso, he's saying separating tables is better for performance. So instead of just having;
+- Attendance, separate to StudentAttendance and StaffAttendance models.
+- Cast all fillables on your models which are of special data type like; datetime, date, json, etc.
+- In `Attendance` migration, `time_out` should be nullable. Because when someone clocks in, exit is not know yet.
+- In `Book` migration, `publisher_id` should be foreign entry not string.
+- `BookCopies` migration has `copy_id`, must be a mistake.
+- Wrong spelling of `foreingId` in Borrow migration.
+- Increase `address` column string length in the Library migration.
+- In Report migration, there is no `file` column type.
+- 
+- 

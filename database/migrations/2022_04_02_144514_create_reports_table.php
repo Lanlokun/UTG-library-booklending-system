@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("name", 50);
             $table->date("date");
-            $table->file("file");
+            $table->file("file_url");
             $table->timestamps();
         });
     }
