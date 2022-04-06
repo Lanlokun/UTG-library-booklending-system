@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string("name", 50);
             $table->date("date");
+<<<<<<< HEAD
             $table->string("file");
+=======
+            $table->file("file_url");
+>>>>>>> 05cf804906228f5c5140c7bc4492bd33308ed6d0
             $table->timestamps();
         });
     }

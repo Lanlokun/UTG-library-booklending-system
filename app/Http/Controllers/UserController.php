@@ -35,7 +35,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return Redirect('student.index');
+        return Redirect('user.index');
     }
 
     /**
@@ -46,8 +46,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::find($id);
+        $user = User::find($id);
 
+        return $user;
     }
 
     /**
@@ -57,9 +58,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, $id)
     {
         $data = $request->validated();
+
+        $user = User::find($id);
 
         $user->update($data);
 
@@ -72,8 +75,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+
+
+        $user = User::find($id);
+        
         $user->delete();
 
         return Redirect::route('user.index');

@@ -21,6 +21,16 @@ Route::get('/', function(){
     return inertia('Welcome');
 });
 
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{user}', [UserController::class, 'show']);
+Route::get('/create', [UserController::class, 'create']);
+Route::post('/users/{user}', [UserController::class, 'delete']);
+Route::post('/users/{user}', [UserController::class, 'update']);
+
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
