@@ -38,4 +38,10 @@ class Borrow extends Model
     {
         return $this->belongsTo(Staff::class);
     }
+
+    protected $casts = [
+        'date_borrowed' => 'datetime',
+        'date_expected' => 'datetime',
+        'date_returned' => 'datetime'
+    ];
 }

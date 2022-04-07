@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use app\Models\User;
+
 class UserController extends Controller
 {
     /**
@@ -46,7 +48,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         return $user;
     }
@@ -69,6 +71,13 @@ class UserController extends Controller
         return Redirect::route('user.index');
     }
 
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+
+        return Inertia::render('User/edit', ['user' => $user]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -77,10 +86,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = User::findOrFail($id);
 
-
-        $user = User::find($id);
-        
         $user->delete();
 
         return Redirect::route('user.index');

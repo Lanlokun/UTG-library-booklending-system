@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+
+use app\Models\Library;
 
 class LibraryController extends Controller
 {
@@ -48,7 +51,7 @@ class LibraryController extends Controller
      */
     public function show($id)
     {
-        return Library::find($id);
+        return Library::findOrFail($id);
     }
 
     /**
@@ -67,14 +70,24 @@ class LibraryController extends Controller
         return Redirect('library.index');
     }
 
+    public function edit($id)
+    {
+        $library = Library::findOrFail($id);
+
+        return Inertia::render('Library/edit', ['library' => $library]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Library $library,$id)
+    public function destroy($id)
     {
+
+        $library = Library::findOrFail($id);
+
         $library->delete();
 
         return Redirect('library.index');

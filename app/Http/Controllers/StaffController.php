@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+
+use app\Models\Staff;
 
 class StaffController extends Controller
 {
@@ -15,7 +18,7 @@ class StaffController extends Controller
     {
         $staff = Staff::all();
 
-        return Inetia::render('Staff', ['staff' => $staff]);
+        return Inertia::render('Staff', ['staff' => $staff]);
     }
 
     public function create()
@@ -46,7 +49,7 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        return Staff::find($id);
+        return Staff::findOrFail($id);
     }
 
     /**
@@ -65,14 +68,24 @@ class StaffController extends Controller
         return Redirect::route('staff.index');
     }
 
+    public function edit($id)
+    {
+        $staff = Staff::findOrFail($id);
+
+        return Inertia::render('Staff/edit', ['staff' => $staff]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Staff $staff)
+    public function destroy($id)
     {
+
+        $staff = Staff::findOrFail($id);
+
         $staff->delete();
 
         return Redirect::route('staff.index');

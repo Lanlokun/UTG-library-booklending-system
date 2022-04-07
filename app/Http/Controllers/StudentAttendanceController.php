@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
-use app\Models\Category;
-class CategoryController extends Controller
+use app\Models\StudentAttendance;
+
+class StudentAttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +16,17 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
+        $student_attendance = StudentAttendance::all();
 
-        return $category;
+        return Inertia::render('StudentAttendance', ['student_attendance' => $student_attendance]);
+
     }
 
     public function create()
     {
-        return  Inertia::render('Category/create');
+
+        return  Inertia::render('StudentAttendance/Create');
+
     }
 
     /**
@@ -31,14 +35,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(StudentAttendanceRequest $request)
     {
         $data = $request->validated();
 
-        Category::create($data);
+        StudentAttendance::create($data);
 
-        return Redirect::route("category.index");
-
+        return Redirect::route("student_attendance.index");
     }
 
     /**
@@ -49,7 +52,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return Category::findOrFail($id);
+        return StudentAttendance::findOrFail($id);
+
+
     }
 
     /**
@@ -59,21 +64,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(StudentAttendanceRequest $request, StudentAttendance $student_attendance)
     {
+
         $data = $request->validated();
 
-        $category->update($data);
+        $student_attendance->update($data);
 
-        return Redirect('category.index');
-
+        return Redirect::route('student_attendance.index');
     }
 
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+        $student_attendance = StudentAttendance::findOrFail($id);
 
-        return Inertia::render('Category/edit', ['category' => $category]);
+        return Inertia::render('StudentAttendance/edit', ['student_attendance' => $student_attendance]);
     }
 
     /**
@@ -84,12 +89,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $student_attendance = StudentAtendance::find($id);
 
-        $category = Category::findOrFail($id);
+        $student_attendance->delete();
 
-        $category->delete();
-
-        return  Redirect::route('category.index');
-
+        return Redirect::route('student_attendance.index');
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+
+use app\Models\Publisher;
 
 class PublisherController extends Controller
 {
@@ -34,8 +37,8 @@ class PublisherController extends Controller
         $data = $request->validated();
 
         Publisher::create($data);
-        
-        return Inertia::render('publisher.index'); 
+
+        return Inertia::render('publisher.index');
     }
 
     /**
@@ -67,14 +70,23 @@ class PublisherController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        $publisher = Publisher::findOrFail($id);
+
+        return Inertia::render('Publisher/edit', ['publisher' => $publisher]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publisher $publisher)
+    public function destroy($id)
     {
+
+        $publisher = Publisher::findOrFail($id);
         $publisher->delete();
 
         return Redirect('publisher.index');

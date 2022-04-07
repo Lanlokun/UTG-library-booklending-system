@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+
+use app\Models\Shelf;
 
 class ShelfController extends Controller
 {
@@ -16,12 +19,6 @@ class ShelfController extends Controller
         $shelf = Shelf::all();
 
         return Inertia::render('Shelf', ['shelf' => $shelf]);
-
-    }
-
-    public function create()
-    {
-        return Inertia::render('Shelf/create');
     }
 
     /**
@@ -36,7 +33,7 @@ class ShelfController extends Controller
 
         Shelf::create($data);
 
-        return Inertia::render('publisher.index'); 
+        return Inertia::render('publisher.index');
 
     }
 
@@ -48,7 +45,7 @@ class ShelfController extends Controller
      */
     public function show($id)
     {
-        return Shelf::find($id);
+        return Shelf::findOrFail($id);
     }
 
     /**
@@ -65,7 +62,14 @@ class ShelfController extends Controller
         $shelf->update($data);
 
         return  Redirect::route('shelf.index');
- 
+
+    }
+
+    public function edit($id)
+    {
+        $shelf = Shelf::findOrFail($id);
+
+        return Inertia::render('Shelf/edit', ['shelf' => $shelf]);
     }
 
     /**
@@ -74,9 +78,12 @@ class ShelfController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shelf $shelf)
+    public function destroy($id)
     {
-         $shelf->delete();
+
+        $shelf = Shelf::findOrFail($id);
+
+        $shelf->delete();
 
          return redirect('shelf.index');
     }

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
-use app\Models\Student;
-
-class StudentController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +14,19 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $student = Student::all();
+        $book = Book::all();
 
-        return Inertia::render('Student', ['student' => $student]);
-
-
+        return Inertia::render('Book', ['book' => $book]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-
-        return Inertia::render('Student/create');
-
+        return Inertia::render('Book/create');
     }
 
     /**
@@ -36,13 +35,13 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StudentRequest $request)
+    public function store(BookRequest $request)
     {
         $data = $request->validated();
 
-        Student::create($data);
+        Book::create($data);
 
-        return Redirect::route('student.index');
+        return Redirect::route("book.index");
     }
 
     /**
@@ -53,9 +52,22 @@ class StudentController extends Controller
      */
     public function show($id)
     {
+        $book = Book::findOrFail($id);
 
-        return Staff::findOrFail($id);
+        return Inertia::render('Book/show', ['book' => $book]);
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $book = Book::findOrFail($id);
+
+        return Inertia::render('Book/edit', ['book' => $book]);
     }
 
     /**
@@ -65,20 +77,13 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StudentRequest $request, Student $student)
+    public function update(BookRequest $request, Book $book)
     {
         $data = $request->validated();
 
-        $student->update($data);
+        $book->update($data);
 
-        return Redirect::route('student.index');
-    }
-
-    public function edit($id)
-    {
-        $student = Student::findOrFail($id);
-
-        return Inertia::render('Student/edit', ['student' => $student]);
+        return Redirect::route('book.index');
     }
 
     /**
@@ -89,10 +94,10 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::findOrFail($id);
+        $book = Book::find($id);
 
-        $student->delete();
+        $book->delete();
 
-        return  Redirect::route('student.index');
+        return Redirect::route('book.index');
     }
 }

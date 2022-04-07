@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+
+use app\Models\Report;
 
 class ReportController extends Controller
 {
@@ -39,7 +42,7 @@ class ReportController extends Controller
 
         return  Redirect::route('Report.index');
 
-        
+
     }
 
     /**
@@ -50,7 +53,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        return Report::find($id);
+        return Report::findOrFail($id);
 
     }
 
@@ -70,14 +73,24 @@ class ReportController extends Controller
         return  Redirect::route('report.index');
     }
 
+    public function edit($id)
+    {
+        $report = Report::findOrFail($id);
+
+        return Inertia::render('Report/edit', ['report' => $report]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Report $report)
+    public function destroy($id)
     {
+
+        $report = Report::findKrFail($id);
+
         $report->delete();
 
         return Redirect::route('report.index');

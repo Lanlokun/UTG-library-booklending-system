@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('student_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("student_id")->nullable();
             $table->foreignId("library_id");
-            $table->foreignId("staff_id")->nullable();
+            $table->foreignId("student_id")->nullable();
             $table->datetime("time_in");
-            $table->datetime("time_out");   
+            $table->datetime("time_out")->nullable();   
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('student_attendances');
     }
 };

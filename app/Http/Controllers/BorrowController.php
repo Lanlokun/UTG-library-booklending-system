@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
+
+use app\Models\Borrow;
 
 class BorrowController extends Controller
 {
@@ -46,7 +49,7 @@ class BorrowController extends Controller
      */
     public function show($id)
     {
-        return Borrow::find($id);
+        return Borrow::findOrFail($id);
     }
 
     /**
@@ -65,14 +68,23 @@ class BorrowController extends Controller
         return Redirect::route('borrow.index');
     }
 
+    public function edit($id)
+    {
+        $borrow = Borrow::findOrFail($id);
+
+        return Inertia::render('Borrow/edit', ['borrow' => $borrow]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Borrow $borrow)
+    public function destroy($id)
     {
+
+        $borrow = Borrow::findOrFail($id);
         $borrow->delete();
 
         return Redirect::route('borrow.index');
