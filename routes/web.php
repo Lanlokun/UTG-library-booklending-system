@@ -23,10 +23,11 @@ Route::get('/', function(){
 
 
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{user}', [UserController::class, 'show']);
-Route::get('/create', [UserController::class, 'create']);
-Route::post('/users/{user}', [UserController::class, 'delete']);
-Route::post('/users/{user}', [UserController::class, 'update']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/user/create', [UserController::class, 'create']);
+Route::get('/user/edit/{id}', [UserController::class, 'edit']);
+Route::post('/users/{id}', [UserController::class, 'delete']);
+Route::post('/users/{id}', [UserController::class, 'update']);
 
 
 
