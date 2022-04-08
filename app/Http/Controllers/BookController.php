@@ -16,7 +16,7 @@ class BookController extends Controller
     {
         $book = Book::all();
 
-        return Inertia::render('Book', ['book' => $book]);
+        return Inertia::render('Book/index', ['book' => $book]);
     }
 
     /**
@@ -41,7 +41,7 @@ class BookController extends Controller
 
         Book::create($data);
 
-        return Redirect::route("book.index");
+        return Redirect::route("Book.index");
     }
 
     /**
@@ -83,7 +83,7 @@ class BookController extends Controller
 
         $book->update($data);
 
-        return Redirect::route('book.index');
+        return Redirect::route('Book.index');
     }
 
     /**
@@ -98,6 +98,6 @@ class BookController extends Controller
 
         $book->delete();
 
-        return Redirect::route('book.index');
+        return Redirect::route('Book.index');
     }
 }

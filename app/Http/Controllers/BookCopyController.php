@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use Illuminate\Http\Request;
 
 use app\Models\BookCopy;
@@ -18,7 +17,7 @@ class BookCopyController extends Controller
     {
         $book_copy = BookCopy::all();
 
-        return Inertia::render('BookCopy', ['book_copy' => $book_copy]);
+        return Inertia::render('BookCopy/index', ['book_copy' => $book_copy]);
     }
 
     public function create()
@@ -38,7 +37,7 @@ class BookCopyController extends Controller
 
         BookCopy::create($data);
 
-        return Redirect::route("book_copy.index");
+        return Redirect::route("BookCopy.index");
     }
 
     /**
@@ -51,7 +50,7 @@ class BookCopyController extends Controller
     {
         $book_copy = BookCopy::findOrFail($id);
 
-        return $book_copy;
+        return Inertia::render('BookCopy/show', ['book_copy' => $book_copy]);
     }
 
     public function edit($id)
@@ -74,7 +73,7 @@ class BookCopyController extends Controller
 
         $book_copy->update($data);
 
-        return Redirect::route('book_copy.index');
+        return Redirect::route('BookCopy.index');
     }
 
     /**
@@ -89,6 +88,6 @@ class BookCopyController extends Controller
 
         $book_copy->delete();
 
-        return Redirect::route('book_copy.index');
+        return Redirect::route('BookCopy.index');
     }
 }

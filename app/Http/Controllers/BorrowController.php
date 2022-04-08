@@ -18,7 +18,7 @@ class BorrowController extends Controller
     {
         $borrow = Borrow::all();
 
-        return Inertia::render('Borrow', ['borrow' => $borrow]);
+        return Inertia::render('Borrow/index', ['borrow' => $borrow]);
     }
 
     public function create()
@@ -38,7 +38,7 @@ class BorrowController extends Controller
 
         Borrow::create($data);
 
-        return Redirect::route("borrow.index");
+        return Redirect::route("Borrow.index");
     }
 
     /**
@@ -49,7 +49,9 @@ class BorrowController extends Controller
      */
     public function show($id)
     {
-        return Borrow::findOrFail($id);
+        $borrow = Borrow::findOrFail($id);
+
+        return Inertia::render('Borrow/show', ['borrow' => $borrow]);
     }
 
     /**
@@ -65,7 +67,7 @@ class BorrowController extends Controller
 
         $borrow->update($data);
 
-        return Redirect::route('borrow.index');
+        return Redirect::route('Borrow.index');
     }
 
     public function edit($id)
@@ -87,7 +89,7 @@ class BorrowController extends Controller
         $borrow = Borrow::findOrFail($id);
         $borrow->delete();
 
-        return Redirect::route('borrow.index');
+        return Redirect::route('Borrow.index');
 
 
     }

@@ -18,7 +18,7 @@ class ReportController extends Controller
     {
         $report = Report::all();
 
-        return Inertia::render('Report', ['report' => $report]);
+        return Inertia::render('Report/index', ['report' => $report]);
 
     }
 
@@ -53,7 +53,9 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        return Report::findOrFail($id);
+        $report = Report::findOrFail($id);
+
+        return Inertia::render('Report/show', ['report' => $report]);
 
     }
 
@@ -70,7 +72,7 @@ class ReportController extends Controller
 
         $report->update($data);
 
-        return  Redirect::route('report.index');
+        return  Redirect::route('Report.index');
     }
 
     public function edit($id)
@@ -93,6 +95,6 @@ class ReportController extends Controller
 
         $report->delete();
 
-        return Redirect::route('report.index');
+        return Redirect::route('Report.index');
     }
 }

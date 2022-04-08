@@ -18,7 +18,7 @@ class ShelfController extends Controller
     {
         $shelf = Shelf::all();
 
-        return Inertia::render('Shelf', ['shelf' => $shelf]);
+        return Inertia::render('Shelf/index', ['shelf' => $shelf]);
     }
 
     /**
@@ -33,7 +33,7 @@ class ShelfController extends Controller
 
         Shelf::create($data);
 
-        return Inertia::render('publisher.index');
+        return Inertia::render('shelf.index');
 
     }
 
@@ -45,7 +45,9 @@ class ShelfController extends Controller
      */
     public function show($id)
     {
-        return Shelf::findOrFail($id);
+        $shelf = Shelf::findOrFail($id);
+
+        return Inertia::render('Shelf/show', ['shelf' => $shelf]);
     }
 
     /**
@@ -61,7 +63,7 @@ class ShelfController extends Controller
 
         $shelf->update($data);
 
-        return  Redirect::route('shelf.index');
+        return  Redirect::route('Shelf.index');
 
     }
 
@@ -85,6 +87,6 @@ class ShelfController extends Controller
 
         $shelf->delete();
 
-         return redirect('shelf.index');
+         return redirect('Shelf.index');
     }
 }

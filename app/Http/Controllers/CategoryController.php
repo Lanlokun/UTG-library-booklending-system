@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         $category = Category::all();
 
-        return $category;
+        return Inertia::render('Category/index', ['category' => $category]);
     }
 
     public function create()
@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return Redirect::route("category.index");
+        return Redirect::route("Category.index");
 
     }
 
@@ -49,7 +49,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return Category::findOrFail($id);
+        $category = Category::find($id);
+
+        return Inertia::render('Category/show', ['category' => $category]);
     }
 
     /**
@@ -65,7 +67,7 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return Redirect('category.index');
+        return Redirect('Category.index');
 
     }
 
@@ -89,7 +91,7 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return  Redirect::route('category.index');
+        return  Redirect::route('Category.index');
 
     }
 }

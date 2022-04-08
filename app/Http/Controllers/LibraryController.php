@@ -18,7 +18,7 @@ class LibraryController extends Controller
     {
         $library = Library::all();
 
-        return Inertia::render('Library', ['library' => $library]);
+        return Inertia::render('Library/index', ['library' => $library]);
     }
 
     public function create()
@@ -39,7 +39,7 @@ class LibraryController extends Controller
 
         Attendance::create($data);
 
-        return Redirect('library.index');
+        return Redirect('Library.index');
 
     }
 
@@ -51,7 +51,9 @@ class LibraryController extends Controller
      */
     public function show($id)
     {
-        return Library::findOrFail($id);
+        $library = Library::findOrFail($id);
+
+        return Inertia::render('Library/show', ['library' => $library]);
     }
 
     /**
@@ -90,6 +92,6 @@ class LibraryController extends Controller
 
         $library->delete();
 
-        return Redirect('library.index');
+        return Redirect('Library.index');
     }
 }

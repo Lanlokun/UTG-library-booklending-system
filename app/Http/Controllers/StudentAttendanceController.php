@@ -18,7 +18,7 @@ class StudentAttendanceController extends Controller
     {
         $student_attendance = StudentAttendance::all();
 
-        return Inertia::render('StudentAttendance', ['student_attendance' => $student_attendance]);
+        return Inertia::render('StudentAttendance/index', ['student_attendance' => $student_attendance]);
 
     }
 
@@ -52,8 +52,9 @@ class StudentAttendanceController extends Controller
      */
     public function show($id)
     {
-        return StudentAttendance::findOrFail($id);
+        $student_attendance = Book::findOrFail($id);
 
+        return Inertia::render('StudentAttendance/show', ['student_attendance' => $student_attendance]);
 
     }
 

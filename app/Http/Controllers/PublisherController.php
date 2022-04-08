@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Library;
 use Illuminate\Http\Request;
 
 use app\Models\Publisher;
@@ -18,7 +19,7 @@ class PublisherController extends Controller
     {
         $publisher = Publisher::all();
 
-        return Inertia::render('Publisher', ['publisher' => $publisher]);
+        return Inertia::render('Publisher/index', ['publisher' => $publisher]);
     }
 
 
@@ -38,7 +39,7 @@ class PublisherController extends Controller
 
         Publisher::create($data);
 
-        return Inertia::render('publisher.index');
+        return Inertia::render('Publisher.index');
     }
 
     /**
@@ -49,8 +50,9 @@ class PublisherController extends Controller
      */
     public function show($id)
     {
-        return Publisher::find($id);
-    }
+        $publisher = Publisher::findOrFail($id);
+
+        return Inertia::render('Publisher/show', ['publisher' => $publisher]);    }
 
     /**
      * Update the specified resource in storage.
@@ -65,7 +67,7 @@ class PublisherController extends Controller
 
         $publisher->update($data);
 
-        return Redirect('publisher.index');
+        return Redirect('Publisher.index');
 
 
     }
@@ -89,6 +91,6 @@ class PublisherController extends Controller
         $publisher = Publisher::findOrFail($id);
         $publisher->delete();
 
-        return Redirect('publisher.index');
+        return Redirect('Publisher.index');
     }
 }

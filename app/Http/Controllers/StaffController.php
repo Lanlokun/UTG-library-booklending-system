@@ -18,7 +18,7 @@ class StaffController extends Controller
     {
         $staff = Staff::all();
 
-        return Inertia::render('Staff', ['staff' => $staff]);
+        return Inertia::render('Staff/index', ['staff' => $staff]);
     }
 
     public function create()
@@ -49,8 +49,9 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        return Staff::findOrFail($id);
-    }
+        $staff = Staff::findOrFail($id);
+
+        return Inertia::render('Staff/show', ['staff' => $staff]);    }
 
     /**
      * Update the specified resource in storage.
@@ -65,7 +66,7 @@ class StaffController extends Controller
 
         $staff->update($data);
 
-        return Redirect::route('staff.index');
+        return Redirect::route('Staff.index');
     }
 
     public function edit($id)
@@ -88,6 +89,6 @@ class StaffController extends Controller
 
         $staff->delete();
 
-        return Redirect::route('staff.index');
+        return Redirect::route('Staff.index');
     }
 }

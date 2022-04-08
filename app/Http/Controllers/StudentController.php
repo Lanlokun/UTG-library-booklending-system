@@ -18,7 +18,7 @@ class StudentController extends Controller
     {
         $student = Student::all();
 
-        return Inertia::render('Student', ['student' => $student]);
+        return Inertia::render('Student/index', ['student' => $student]);
 
 
     }
@@ -42,7 +42,7 @@ class StudentController extends Controller
 
         Student::create($data);
 
-        return Redirect::route('student.index');
+        return Redirect::route('Student.index');
     }
 
     /**
@@ -54,8 +54,9 @@ class StudentController extends Controller
     public function show($id)
     {
 
-        return Staff::findOrFail($id);
+        $student = Student::findOrFail($id);
 
+        return Inertia::render('Student/show', ['student' => $student]);
     }
 
     /**
@@ -71,7 +72,7 @@ class StudentController extends Controller
 
         $student->update($data);
 
-        return Redirect::route('student.index');
+        return Redirect::route('Student.index');
     }
 
     public function edit($id)
@@ -93,6 +94,6 @@ class StudentController extends Controller
 
         $student->delete();
 
-        return  Redirect::route('student.index');
+        return  Redirect::route('Student.index');
     }
 }

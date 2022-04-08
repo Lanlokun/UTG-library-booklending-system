@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::all()->orderByName();
 
-        return Inertia::render('Users', ['users' => $users ]);
+        return Inertia::render('User/index', ['users' => $users ]);
     }
 
     public function create()
@@ -37,7 +37,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return Redirect('user.index');
+        return Redirect('User.index');
     }
 
     /**
@@ -50,8 +50,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return $user;
-    }
+        return Inertia::render('User/show', ['user' => $user]);    }
 
     /**
      * Update the specified resource in storage.

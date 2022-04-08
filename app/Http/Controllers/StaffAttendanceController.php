@@ -18,7 +18,7 @@ class StaffAttendanceController extends Controller
     {
         $staff_attendance = StaffAttendance::all();
 
-        return Inertia::render('StaffAttendance', ['staff_attendance' => $staff_attendance]);
+        return Inertia::render('StaffAttendance/index', ['staff_attendance' => $staff_attendance]);
 
     }
 
@@ -41,7 +41,7 @@ class StaffAttendanceController extends Controller
 
         StaffAttendance::create($data);
 
-        return Redirect::route("staff_attendance.index");
+        return Redirect::route("StaffAttendance.index");
     }
 
     /**
@@ -52,9 +52,10 @@ class StaffAttendanceController extends Controller
      */
     public function show($id)
     {
-        return StaffAttendance::findOrFail($id);
 
+        $staff = Staff::findOrFail($id);
 
+        return Inertia::render('StaffAttendance/show', ['staff' => $staff]);
     }
 
     /**
@@ -71,7 +72,7 @@ class StaffAttendanceController extends Controller
 
         $staff_attendance->update($data);
 
-        return Redirect::route('staff_attendance.index');
+        return Redirect::route('StaffAttendance.index');
     }
 
     public function edit($id)
@@ -93,6 +94,6 @@ class StaffAttendanceController extends Controller
 
         $staff_attendance->delete();
 
-        return Redirect::route('staff_attendance.index');
+        return Redirect::route('StaffAttendance.index');
     }
 }
