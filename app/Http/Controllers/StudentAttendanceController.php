@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\StudentAttendanceRequest;
 use Illuminate\Http\Request;
 
-use app\Models\StudentAttendance;
+use App\Models\StudentAttendance;
+use Inertia\Inertia;
 
 class StudentAttendanceController extends Controller
 {
@@ -16,16 +17,16 @@ class StudentAttendanceController extends Controller
      */
     public function index()
     {
-        $student_attendance = StudentAttendance::all();
+        $student_attendance = StudentAttendance::paginate();
 
-        return Inertia::render('StudentAttendance/index', ['student_attendance' => $student_attendance]);
+        return Inertia::render('Admin/StudentAttendance/Index', ['student_attendance' => $student_attendance]);
 
     }
 
     public function create()
     {
 
-        return  Inertia::render('StudentAttendance/Create');
+        return  Inertia::render('Admin/StudentAttendance/Create');
 
     }
 
@@ -41,7 +42,8 @@ class StudentAttendanceController extends Controller
 
         StudentAttendance::create($data);
 
-        return Redirect::route("student_attendance.index");
+        return redirect()->route('student-attendance.index')->with('success', 'Successfully updated.');
+
     }
 
     /**
@@ -50,11 +52,10 @@ class StudentAttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(StudentAttendance $student_attendance)
     {
-        $student_attendance = Book::findOrFail($id);
 
-        return Inertia::render('StudentAttendance/show', ['student_attendance' => $student_attendance]);
+        return Inertia::render('Admin/StudentAttendance/Show', ['student_attendance' => $student_attendance]);
 
     }
 
@@ -72,14 +73,14 @@ class StudentAttendanceController extends Controller
 
         $student_attendance->update($data);
 
-        return Redirect::route('student_attendance.index');
+        return redirect()->route('student-attendance.index')->with('success', 'successfully updated.');
+
     }
 
-    public function edit($id)
+    public function edit(StudentAttendance $student_attendance)
     {
-        $student_attendance = StudentAttendance::findOrFail($id);
 
-        return Inertia::render('StudentAttendance/edit', ['student_attendance' => $student_attendance]);
+        return Inertia::render('Admin/StudentAttendance/Edit', ['student_attendance' => $student_attendance]);
     }
 
     /**
@@ -88,12 +89,12 @@ class StudentAttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(StudentAttendance $student_attendance)
     {
-        $student_attendance = StudentAtendance::find($id);
 
         $student_attendance->delete();
 
-        return Redirect::route('student_attendance.index');
+        return redirect()->route('student-attendance.index')->with('success', 'Deleted successfully');
+
     }
 }

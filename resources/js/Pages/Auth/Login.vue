@@ -39,6 +39,8 @@
                     Log in
                 </jet-button>
             </div>
+
+
         </form>
     </jet-authentication-card>
 </template>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\LibraryRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Library;
+use App\Models\Library;
+use Inertia\Inertia;
 
 class LibraryController extends Controller
 {
@@ -16,14 +17,14 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        $library = Library::all();
+        $library = Library::paginate();
 
-        return Inertia::render('Library/index', ['library' => $library]);
+        return Inertia::render('Admin/Library/Index', ['library' => $library]);
     }
 
     public function create()
     {
-        return  Inertia::render('Library/create');
+        return  Inertia::render('Admin/Library/Create');
     }
 
     /**
@@ -39,7 +40,8 @@ class LibraryController extends Controller
 
         Attendance::create($data);
 
-        return Redirect('Library.index');
+        return redirect()->route('libraries.index')->with('success', 'Library successfully updated.');
+
 
     }
 
@@ -49,11 +51,10 @@ class LibraryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Library $library)
     {
-        $library = Library::findOrFail($id);
 
-        return Inertia::render('Library/show', ['library' => $library]);
+        return Inertia::render('Admin/Library/Show', ['library' => $library]);
     }
 
     /**
@@ -69,14 +70,14 @@ class LibraryController extends Controller
 
         $library->update($data);
 
-        return Redirect('library.index');
+        return redirect()->route('libraries.index')->with('success', 'Library successfully updated.');
+
     }
 
-    public function edit($id)
+    public function edit(Library $library)
     {
-        $library = Library::findOrFail($id);
 
-        return Inertia::render('Library/edit', ['library' => $library]);
+        return Inertia::render('Admin/Library/Edit', ['library' => $library]);
     }
 
     /**
@@ -85,13 +86,11 @@ class LibraryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Library $library)
     {
-
-        $library = Library::findOrFail($id);
-
         $library->delete();
 
-        return Redirect('Library.index');
+        return redirect()->route('libraries.index')->with('success', 'Library delelted successfully.');
+
     }
 }

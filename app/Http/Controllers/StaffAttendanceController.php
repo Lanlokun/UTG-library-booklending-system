@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\StaffAttendanceRequest;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
-use app\Models\StaffAttendance;
+use App\Models\StaffAttendance;
+use Inertia\Inertia;
 
 class StaffAttendanceController extends Controller
 {
@@ -16,16 +18,16 @@ class StaffAttendanceController extends Controller
      */
     public function index()
     {
-        $staff_attendance = StaffAttendance::all();
+        $staff_attendance = StaffAttendance::paginate();
 
-        return Inertia::render('StaffAttendance/index', ['staff_attendance' => $staff_attendance]);
+        return Inertia::render('Admin/StaffAttendance/Index', ['staff_attendance' => $staff_attendance]);
 
     }
 
     public function create()
     {
 
-        return  Inertia::render('StaffAttendance/Create');
+        return  Inertia::render('Admin/StaffAttendance/Create');
 
     }
 
@@ -41,7 +43,7 @@ class StaffAttendanceController extends Controller
 
         StaffAttendance::create($data);
 
-        return Redirect::route("StaffAttendance.index");
+        return Redirect::route("staff-attendance.index");
     }
 
     /**
@@ -50,12 +52,10 @@ class StaffAttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(StaffAttendance $staff_attendance)
     {
 
-        $staff = Staff::findOrFail($id);
-
-        return Inertia::render('StaffAttendance/show', ['staff' => $staff]);
+        return Inertia::render('Admin/StaffAttendance/show', ['staff_attendance' => $staff_attendance]);
     }
 
     /**
@@ -72,14 +72,14 @@ class StaffAttendanceController extends Controller
 
         $staff_attendance->update($data);
 
-        return Redirect::route('StaffAttendance.index');
+        return redirect()->route('staff-attendance.index')->with('success', 'successfully updated.');
+
     }
 
-    public function edit($id)
+    public function edit(StaffAttendance $staff_attendance)
     {
-        $staff_attendance = StaffAttendance::findOrFail($id);
 
-        return Inertia::render('StaffAttendance/edit', ['staff_attendance' => $staff_attendance]);
+        return Inertia::render('Admin/StaffAttendance/Edit', ['staff_attendance' => $staff_attendance]);
     }
 
     /**
@@ -88,12 +88,11 @@ class StaffAttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(StaffAttendance $staff_attendance)
     {
-        $staff_attendance = StaffAtendance::find($id);
-
         $staff_attendance->delete();
 
-        return Redirect::route('StaffAttendance.index');
+        return redirect()->route('staff-attendance.index')->with('success', 'Successfully updated.');
+
     }
 }

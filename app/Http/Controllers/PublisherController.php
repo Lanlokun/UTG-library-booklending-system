@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Library;
+use App\Http\Requests\PublisherRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Publisher;
+use App\Models\Publisher;
+use Inertia\Inertia;
 
 class PublisherController extends Controller
 {
@@ -17,15 +17,15 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publisher = Publisher::all();
+        $publisher = Publisher::paginate();
 
-        return Inertia::render('Publisher/index', ['publisher' => $publisher]);
+        return Inertia::render('Admin/Publisher/Index', ['publisher' => $publisher]);
     }
 
 
     public function create()
     {
-        return  Inertia::render('Publisher/create');
+        return  Inertia::render('Admin/Publisher/Create');
     }
     /**
      * Store a newly created resource in storage.
@@ -39,7 +39,8 @@ class PublisherController extends Controller
 
         Publisher::create($data);
 
-        return Inertia::render('Publisher.index');
+        return redirect()->route('publishers.index')->with('success', 'Publisher successfully updated.');
+
     }
 
     /**
@@ -48,11 +49,9 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pubisher $publisher)
     {
-        $publisher = Publisher::findOrFail($id);
-
-        return Inertia::render('Publisher/show', ['publisher' => $publisher]);    }
+        return Inertia::render('Admin/Publisher/Show', ['publisher' => $publisher]);    }
 
     /**
      * Update the specified resource in storage.
@@ -67,16 +66,13 @@ class PublisherController extends Controller
 
         $publisher->update($data);
 
-        return Redirect('Publisher.index');
-
+        return redirect()->route('publishers.index')->with('success', 'Publisher successfully updated.');
 
     }
 
-    public function edit($id)
+    public function edit(Publisher $publisher)
     {
-        $publisher = Publisher::findOrFail($id);
-
-        return Inertia::render('Publisher/edit', ['publisher' => $publisher]);
+        return Inertia::render('Admin/Publisher/Edit', ['publisher' => $publisher]);
     }
 
     /**
@@ -85,12 +81,12 @@ class PublisherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Publisher $publisher)
     {
 
-        $publisher = Publisher::findOrFail($id);
         $publisher->delete();
 
-        return Redirect('Publisher.index');
+        return redirect()->route('publishers.index')->with('success', 'Publisher deleted successfully.');
+
     }
 }

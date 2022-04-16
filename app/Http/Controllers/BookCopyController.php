@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookCopyRequest;
 use Illuminate\Http\Request;
 
-use app\Models\BookCopy;
+use App\Models\BookCopy;
+use Inertia\Inertia;
 
 class BookCopyController extends Controller
 {
@@ -15,19 +17,19 @@ class BookCopyController extends Controller
      */
     public function index()
     {
-        $book_copy = BookCopy::all();
+        $book_copy = BookCopy::paginate();
 
-        return Inertia::render('BookCopy/index', ['book_copy' => $book_copy]);
+        return Inertia::render('Admin/BookCopy/Index', ['book_copy' => $book_copy]);
     }
 
     public function create()
     {
-        return Inertia::render('BookCopy/create');
+        return Inertia::render('Admin/BookCopy/Create');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
+     *the images
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -37,7 +39,7 @@ class BookCopyController extends Controller
 
         BookCopy::create($data);
 
-        return Redirect::route("BookCopy.index");
+        return Redirect::route("book-copy.index");
     }
 
     /**
@@ -46,18 +48,14 @@ class BookCopyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(BookCopy $book_copy)
     {
-        $book_copy = BookCopy::findOrFail($id);
-
-        return Inertia::render('BookCopy/show', ['book_copy' => $book_copy]);
+        return Inertia::render('Admin/BookCopy/Show', ['book_copy' => $book_copy]);
     }
 
-    public function edit($id)
+    public function edit(BookCopy $book_copy)
     {
-        $book_copy = BookCopy::findOrFail($id);
-
-        return Inertia::render('BookCopy/edit', ['book_copy' => $book_copy]);
+        return Inertia::render('Admin/BookCopy/Edit', ['book_copy' => $book_copy]);
     }
 
     /**
@@ -73,7 +71,8 @@ class BookCopyController extends Controller
 
         $book_copy->update($data);
 
-        return Redirect::route('BookCopy.index');
+        return redirect()->route('book-copies.index')->with('success', 'Book Copy successfully updated.');
+
     }
 
     /**
@@ -82,12 +81,11 @@ class BookCopyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BookCopy $book_copy)
     {
-        $book_copy = BookCopy::find($id);
-
         $book_copy->delete();
 
-        return Redirect::route('BookCopy.index');
+        return redirect()->route('book-copies.index')->with('success', 'Book copy deleted successfully.');
+
     }
 }

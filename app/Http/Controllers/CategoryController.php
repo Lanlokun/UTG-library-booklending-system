@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Category;
+use App\Models\Category;
+use Inertia\Inertia;
+
 class CategoryController extends Controller
 {
     /**
@@ -15,14 +17,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
+        $category = Category::paginate();
 
-        return Inertia::render('Category/index', ['category' => $category]);
+        return Inertia::render('Admin/Category/Index', ['category' => $category]);
     }
 
     public function create()
     {
-        return  Inertia::render('Category/create');
+        return  Inertia::render('Admin/Category/Create');
     }
 
     /**
@@ -37,7 +39,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return Redirect::route("Category.index");
+        return redirect()->route('categories.index')->with('success', 'Category successfully updated.');
 
     }
 
@@ -47,11 +49,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = Category::find($id);
-
-        return Inertia::render('Category/show', ['category' => $category]);
+        return Inertia::render('Admin/Category/Show', ['category' => $category]);
     }
 
     /**
@@ -67,15 +67,13 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return Redirect('Category.index');
+        return redirect()->route('categories.index')->with('success', 'Category successfully updated.');
 
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-
-        return Inertia::render('Category/edit', ['category' => $category]);
+        return Inertia::render('Admin/Category/Edit', ['category' => $category]);
     }
 
     /**
@@ -84,14 +82,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-
-        $category = Category::findOrFail($id);
-
         $category->delete();
 
-        return  Redirect::route('Category.index');
-
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
 }

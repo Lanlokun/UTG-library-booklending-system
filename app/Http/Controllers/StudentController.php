@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Student;
+use App\Models\Student;
+use Inertia\Inertia;
 
 class StudentController extends Controller
 {
@@ -16,9 +17,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $student = Student::all();
+        $student = Student::paginate();
 
-        return Inertia::render('Student/index', ['student' => $student]);
+        return Inertia::render('Admin/Student/Index', ['student' => $student]);
 
 
     }
@@ -26,7 +27,7 @@ class StudentController extends Controller
     public function create()
     {
 
-        return Inertia::render('Student/create');
+        return Inertia::render('Admin/Student/Create');
 
     }
 
@@ -42,7 +43,8 @@ class StudentController extends Controller
 
         Student::create($data);
 
-        return Redirect::route('Student.index');
+        return redirect()->route('student.index')->with('success', 'Student successfully updated.');
+
     }
 
     /**
@@ -51,12 +53,11 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Student $student)
     {
 
-        $student = Student::findOrFail($id);
+        return Inertia::render('Admin/Student/Show', ['student' => $student]);
 
-        return Inertia::render('Student/show', ['student' => $student]);
     }
 
     /**
@@ -72,14 +73,12 @@ class StudentController extends Controller
 
         $student->update($data);
 
-        return Redirect::route('Student.index');
+        return Redirect::route('students.index');
     }
 
-    public function edit($id)
+    public function edit(Student $student)
     {
-        $student = Student::findOrFail($id);
-
-        return Inertia::render('Student/edit', ['student' => $student]);
+        return Inertia::render('Admin/Student/Edit', ['student' => $student]);
     }
 
     /**
@@ -88,12 +87,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        $student = Student::findOrFail($id);
-
         $student->delete();
 
-        return  Redirect::route('Student.index');
+        return redirect()->route('student.index')->with('success', 'Student successfully updated.');
     }
 }

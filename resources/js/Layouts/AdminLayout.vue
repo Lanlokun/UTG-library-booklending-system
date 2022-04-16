@@ -39,6 +39,7 @@
                                                 </svg>
                                             </button>
                                         </span>
+
                                         </template>
 
                                         <template #content>

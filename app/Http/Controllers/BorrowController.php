@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\BorrowRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Borrow;
+use App\Models\Borrow;
+use Inertia\Inertia;
 
 class BorrowController extends Controller
 {
@@ -16,14 +17,14 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $borrow = Borrow::all();
+        $borrow = Borrow::paginate();
 
-        return Inertia::render('Borrow/index', ['borrow' => $borrow]);
+        return Inertia::render('Admin/Borrow/Index', ['borrow' => $borrow]);
     }
 
     public function create()
     {
-        return Inertia::render('Borrow/create');
+        return Inertia::render('Admin/Borrow/Create');
     }
 
     /**
@@ -38,7 +39,8 @@ class BorrowController extends Controller
 
         Borrow::create($data);
 
-        return Redirect::route("Borrow.index");
+        return redirect()->route('borrows.index')->with('success', 'Book successfully updated.');
+
     }
 
     /**
@@ -47,11 +49,10 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Borrow $borrow)
     {
-        $borrow = Borrow::findOrFail($id);
 
-        return Inertia::render('Borrow/show', ['borrow' => $borrow]);
+        return Inertia::render('Admin/Borrow/Show', ['borrow' => $borrow]);
     }
 
     /**
@@ -67,14 +68,13 @@ class BorrowController extends Controller
 
         $borrow->update($data);
 
-        return Redirect::route('Borrow.index');
+        return redirect()->route('borrows.index')->with('success', 'successfully updated.');
+
     }
 
-    public function edit($id)
+    public function edit(Borrow $borrow)
     {
-        $borrow = Borrow::findOrFail($id);
-
-        return Inertia::render('Borrow/edit', ['borrow' => $borrow]);
+        return Inertia::render('Admin/Borrow/Edit', ['borrow' => $borrow]);
     }
 
     /**
@@ -83,14 +83,11 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Borrow $borrow)
     {
-
-        $borrow = Borrow::findOrFail($id);
         $borrow->delete();
 
-        return Redirect::route('Borrow.index');
-
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully');
 
     }
 }

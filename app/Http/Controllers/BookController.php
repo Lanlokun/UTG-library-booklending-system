@@ -2,102 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookRequest;
 use App\Models\Book;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Response;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $book = Book::all();
 
-        return Inertia::render('Book/index', ['book' => $book]);
+    public function index(): Response
+    {
+        $books = Book::paginate();
+
+        return inertia('Admin/Book/Index', ['books' => $books]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): Response
     {
-        return Inertia::render('Book/create');
+        return inertia('Admin/Book/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(BookRequest $request)
+    public function store(BookRequest $request): RedirectResponse
     {
         $data = $request->validated();
 
         Book::create($data);
 
-        return Redirect::route("Book.index");
+        return redirect()->route("books.index")->with('success', 'Book successfully added.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Book $book): Response
     {
-        $book = Book::findOrFail($id);
-
-        return Inertia::render('Book/show', ['book' => $book]);
+        return inertia('Admin/Book/Show', ['book' => $book]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Book $book): Response
     {
-        $book = Book::findOrFail($id);
-
-        return Inertia::render('Book/edit', ['book' => $book]);
+        return inertia('Admin/Book/Edit', ['book' => $book]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(BookRequest $request, Book $book)
+    public function update(BookRequest $request, Book $book): RedirectResponse
     {
         $data = $request->validated();
 
         $book->update($data);
 
-        return Redirect::route('Book.index');
+        return redirect()->route('books.index')->with('success', 'Book successfully updated.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Book $book): RedirectResponse
     {
-        $book = Book::find($id);
-
         $book->delete();
 
-        return Redirect::route('Book.index');
+        return redirect()->route('books.index')->with('success', 'Book successfully deleted.');
     }
 }

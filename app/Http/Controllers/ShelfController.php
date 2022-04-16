@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\ShelfRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Shelf;
+use App\Models\Shelf;
+use Inertia\Inertia;
 
 class ShelfController extends Controller
 {
@@ -16,9 +17,14 @@ class ShelfController extends Controller
      */
     public function index()
     {
-        $shelf = Shelf::all();
+        $shelf = Shelf::paginate();
 
-        return Inertia::render('Shelf/index', ['shelf' => $shelf]);
+        return Inertia::render('Admin/Shelf/Index', ['shelf' => $shelf]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Shelf/Create');
     }
 
     /**
@@ -43,11 +49,9 @@ class ShelfController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Shelf $shelf)
     {
-        $shelf = Shelf::findOrFail($id);
-
-        return Inertia::render('Shelf/show', ['shelf' => $shelf]);
+        return Inertia::render('Admin/Shelf/Show', ['shelf' => $shelf]);
     }
 
     /**
@@ -63,15 +67,14 @@ class ShelfController extends Controller
 
         $shelf->update($data);
 
-        return  Redirect::route('Shelf.index');
+        return redirect()->route('shelves.index')->with('success', 'Shelf successfully updated.');
 
     }
 
-    public function edit($id)
+    public function edit(Shelf $shelf)
     {
-        $shelf = Shelf::findOrFail($id);
 
-        return Inertia::render('Shelf/edit', ['shelf' => $shelf]);
+        return Inertia::render('Admin/Shelf/Edit', ['shelf' => $shelf]);
     }
 
     /**
@@ -80,13 +83,11 @@ class ShelfController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Shelf $shelf)
     {
-
-        $shelf = Shelf::findOrFail($id);
-
         $shelf->delete();
 
-         return redirect('Shelf.index');
+        return redirect()->route('shelves.index')->with('success', 'Shelf deleted successfully .');
+
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReportRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
-use app\Models\Report;
+use App\Models\Report;
+use Inertia\Inertia;
 
 class ReportController extends Controller
 {
@@ -16,15 +18,15 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $report = Report::all();
+        $report = Report::paginate();
 
-        return Inertia::render('Report/index', ['report' => $report]);
+        return Inertia::render('Admin/Report/Index', ['report' => $report]);
 
     }
 
     public function create()
     {
-        return Inertia::render('Report/create');
+        return Inertia::render('Admin/Report/Create');
 
     }
 
@@ -40,8 +42,7 @@ class ReportController extends Controller
 
         Report::create($data);
 
-        return  Redirect::route('Report.index');
-
+        return redirect()->route('reports.index')->with('success', 'Report successfully updated.');
 
     }
 
@@ -51,11 +52,10 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Report $report)
     {
-        $report = Report::findOrFail($id);
 
-        return Inertia::render('Report/show', ['report' => $report]);
+        return Inertia::render('Admin/Report/Show', ['report' => $report]);
 
     }
 
@@ -72,14 +72,14 @@ class ReportController extends Controller
 
         $report->update($data);
 
-        return  Redirect::route('Report.index');
+            return redirect()->route('reports.index')->with('success', 'Report successfully updated.');
+
     }
 
-    public function edit($id)
+    public function edit(Report $report)
     {
-        $report = Report::findOrFail($id);
 
-        return Inertia::render('Report/edit', ['report' => $report]);
+        return Inertia::render('Admin/Report/Edit', ['report' => $report]);
     }
 
     /**
@@ -88,13 +88,12 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Report $report)
     {
-
-        $report = Report::findKrFail($id);
 
         $report->delete();
 
-        return Redirect::route('Report.index');
+        return redirect()->route('reports.index')->with('success', 'Report deleted successfully.');
+
     }
 }

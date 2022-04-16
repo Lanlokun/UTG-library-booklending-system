@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Http\Requests\StaffRequest;
 use Illuminate\Http\Request;
 
-use app\Models\Staff;
+use App\Models\Staff;
+use Inertia\Inertia;
 
 class StaffController extends Controller
 {
@@ -16,14 +17,14 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $staff = Staff::all();
+        $staff = Staff::paginate();
 
-        return Inertia::render('Staff/index', ['staff' => $staff]);
+        return Inertia::render('Admin/Staff/Index', ['staff' => $staff]);
     }
 
     public function create()
     {
-        return Inertia::render('Staff/create');
+        return Inertia::render('Admin/Staff/Create');
     }
 
     /**
@@ -38,7 +39,8 @@ class StaffController extends Controller
 
         Staff::create($data);
 
-        return Redirect::route('staff.index');
+        return redirect()->route('staffs.index')->with('success', 'Staff successfully updated.');
+
     }
 
     /**
@@ -47,11 +49,9 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Staff $staff)
     {
-        $staff = Staff::findOrFail($id);
-
-        return Inertia::render('Staff/show', ['staff' => $staff]);    }
+        return Inertia::render('Admin/Staff/Show', ['staff' => $staff]);    }
 
     /**
      * Update the specified resource in storage.
@@ -66,14 +66,12 @@ class StaffController extends Controller
 
         $staff->update($data);
 
-        return Redirect::route('Staff.index');
+        return Redirect::route('staffs.index');
     }
 
-    public function edit($id)
+    public function edit(Staff $staff)
     {
-        $staff = Staff::findOrFail($id);
-
-        return Inertia::render('Staff/edit', ['staff' => $staff]);
+        return Inertia::render('Admin/Staff/Edit', ['staff' => $staff]);
     }
 
     /**
@@ -82,13 +80,11 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Staff $staff)
     {
-
-        $staff = Staff::findOrFail($id);
-
         $staff->delete();
 
-        return Redirect::route('Staff.index');
+        return redirect()->route('staffs.index')->with('success', 'Staff  deleted successfully');
+
     }
 }

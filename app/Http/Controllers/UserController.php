@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 
 use app\Models\User;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -15,14 +17,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->orderByName();
-
-        return Inertia::render('User/index', ['users' => $users ]);
+        $users = User::paginate();
+        return Inertia::render('Admin/User/Index', ['users' => $users ]);
     }
 
     public function create()
     {
-        return Inertia::render('User/create');
+        return Inertia::render('Admin/User/Create');
     }
 
     /**
@@ -37,7 +38,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return Redirect('User.index');
+        return redirect()->route('student_attendance.index')->with('success', 'User successfully added.');
     }
 
     /**
@@ -46,11 +47,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::findOrFail($id);
 
-        return Inertia::render('User/show', ['user' => $user]);    }
+        return Inertia::render('Admin/User/Show', ['user' => $user]);    }
 
     /**
      * Update the specified resource in storage.
@@ -59,22 +59,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, User $user)
     {
         $data = $request->validated();
 
-        $user = User::find($id);
-
         $user->update($data);
 
-        return Redirect::route('user.index');
+        return redirect()->route('user.index')->with('success', 'User successfully updated.');
+
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
-
-        return Inertia::render('User/edit', ['user' => $user]);
+        return Inertia::render('Admin/User/Edit', ['user' => $user]);
     }
 
     /**
@@ -83,12 +80,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($id);
-
         $user->delete();
 
-        return Redirect::route('user.index');
+        return redirect()->route('user.index')->with('success', 'Usrr deleted successfully');
+
     }
 }
