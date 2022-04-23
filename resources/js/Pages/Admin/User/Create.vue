@@ -22,17 +22,30 @@
               <div class="col-span-3 sm:col-span-3">
                 <label for="name" class="block text-sm font-medium text-gray-700"> Full Name</label>
                 <input required v-model="form.name" type="text" name="name" id="name" autocomplete="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                  <div v-if="errors.name">{{ errors.name }}</div>
+
               </div>
 
               <div class="col-span-3 sm:col-span-3">
                 <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
                 <input required v-model="form.email" type="text" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                  <div v-if="errors.email">{{ errors.password }}</div>
+
               </div>
 
                 <div class="col-span-6 sm:col-span-6">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password </label>
-                <input required v-model="form.password" type="password" name="password" id="password" autocomplete="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-              </div>
+                <input required v-model="form.password" type="password" name="password" id="password" autocomplete="password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <div v-if="errors.password">{{ errors.password }}</div>
+
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Telephone </label>
+                    <input required v-model="form.tel" type="text" name="tel" id="tel" autocomplete="tel" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <div v-if="errors.tel">{{ errors.tel }}</div>
+
+                </div>
 
               <div class="col-span-6 sm:col-span-3">
                 <label for="roles" class="block text-sm font-medium text-gray-700">Roles</label>
@@ -41,6 +54,9 @@
                   <option>User</option>
                   <option>Staff</option>
                 </select>
+
+                  <div v-if="errors.roles">{{ errors.roles }}</div>
+
               </div>
 
             </div>
@@ -67,6 +83,10 @@ import  {useForm} from "@inertiajs/inertia-vue3"
 
 export default {
 
+    props: {
+        errors: Object
+    },
+
     components: {
         AdminLayout
     },
@@ -77,6 +97,7 @@ export default {
             name: '',
             email: '',
             password: '',
+            tel: ''
 
         })
 

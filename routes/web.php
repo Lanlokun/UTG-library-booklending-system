@@ -167,7 +167,7 @@ Route::get('/', function(){
 //Route::post('/studentattendance/{id}', [StudentAttendanceController::class, 'delete']);
 
 Route::resources([
-    
+
     'books' => BookController::class,
     'book-copies' => BookCopyController::class,
     'staff-attendance' => StaffAttendanceController::class,
@@ -189,7 +189,7 @@ Route::resources([
 
 Route::get('/dashboard', function () {
     return inertia('Admin/Index');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard');
 
 require __DIR__.'/auth.php';
 

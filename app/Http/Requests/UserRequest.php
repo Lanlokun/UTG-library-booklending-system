@@ -27,10 +27,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required',
-            'password' => [
-                'required',
-                Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()
-            ],
+            'password' => 'required | min:6',
             'roles' => 'json',
             'tel' => 'integer',
             'google_id' => 'exists:google,id',
