@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Library;
+use App\Models\Staff;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StaffAttendanceResource extends JsonResource

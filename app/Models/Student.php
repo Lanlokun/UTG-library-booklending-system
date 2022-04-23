@@ -15,8 +15,8 @@ class Student extends Model
         'mat_number',
         'department',
         'email'
-        
-        
+
+
     ];
 
     public function student()
@@ -24,9 +24,9 @@ class Student extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function attendances()
+    public function student_attendances()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(StudentAttendance::class);
     }
 
     public function borrows()

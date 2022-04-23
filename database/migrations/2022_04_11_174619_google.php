@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function ($table) {
 
-            $table->string('google_id')->nullable();
+            $table->string('add_google_id')->nullable();
 
         });
 

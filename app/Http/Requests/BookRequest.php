@@ -25,18 +25,17 @@ class BookRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
             'edition' => 'required|max:255',
-            'category_id' => 'required',
-            'publisher_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'publisher_id' => 'required|exists:publishers,id',
             'author_1' => 'required',
             'author_2' => 'required',
             'etla' => 'required',
             'place_of_pub' => 'required',
-            'year' => 'required',
-            'isbn' => 'required',
-            'class_no' => 'required',
-            'more_details' => 'required'
+            'year' => 'required | integer',
+            'isbn' => 'sometimes | integer',
+            'class_no' => 'sometimes | integer',
+            'more_details' => 'sometimes',
         ];
     }
 }

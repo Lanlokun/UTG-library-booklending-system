@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StaffAttendanceRequest;
+use App\Models\Library;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,10 @@ class StaffAttendanceController extends Controller
     public function create()
     {
 
-        return  Inertia::render('Admin/StaffAttendance/Create');
+        return  Inertia::render('Admin/StaffAttendance/Create', [
+            'libraries' => Library::get(),
+            'staff' => Staff::get(),
+        ]);
 
     }
 

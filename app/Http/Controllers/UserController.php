@@ -38,7 +38,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('student_attendance.index')->with('success', 'User successfully added.');
+        return redirect()->route('user.index')->with('success', 'User successfully added.');
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentAttendanceRequest;
+use App\Models\Library;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 use App\Models\StudentAttendance;
@@ -26,7 +28,9 @@ class StudentAttendanceController extends Controller
     public function create()
     {
 
-        return  Inertia::render('Admin/StudentAttendance/Create');
+        return  Inertia::render('Admin/StudentAttendance/Create', [
+            'libraries' => Library::get(),
+            'students' => Student::get(),]);
 
     }
 
@@ -42,7 +46,7 @@ class StudentAttendanceController extends Controller
 
         StudentAttendance::create($data);
 
-        return redirect()->route('student-attendance.index')->with('success', 'Successfully updated.');
+        return redirect()->route('student-attendance.index')->with('success', 'Student attendance successfully created.');
 
     }
 
@@ -73,7 +77,7 @@ class StudentAttendanceController extends Controller
 
         $student_attendance->update($data);
 
-        return redirect()->route('student-attendance.index')->with('success', 'successfully updated.');
+        return redirect()->route('student-attendance.index')->with('success', 'Student attendance successfully updated.');
 
     }
 

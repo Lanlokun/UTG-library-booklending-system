@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Library;
+use App\Models\Student;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentAttendanceResource extends JsonResource
@@ -19,7 +21,7 @@ class StudentAttendanceResource extends JsonResource
         return [
             'id' => $this->id,
             'libraries' => Library::collection($this->whenLoaded('libraries')),
-            'student' => Student::collection($this->whenLoaded('students')),
+            'students' => Student::collection($this->whenLoaded('students')),
             'time_in' => $this->time_in,
             'time_out' => $this->time_out
         ];

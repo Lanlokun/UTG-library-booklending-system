@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Publisher;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
@@ -19,7 +21,10 @@ class BookController extends Controller
 
     public function create(): Response
     {
-        return inertia('Admin/Book/Create');
+        return inertia('Admin/Book/Create', [
+            'publishers' => Publisher::get(),
+            'categories' => Category::get()
+        ]);
     }
 
     public function store(BookRequest $request): RedirectResponse

@@ -24,8 +24,8 @@ class StudentAttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id' => 'required',
-            'library_id' => 'required',
+            'student_id' => 'required|exists:students,id',
+            'library_id' => 'required|exists:libraries,id',
             'time_in' => 'required',
             'time_out' => 'required'
         ];

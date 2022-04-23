@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookCopyRequest;
+use App\Models\Book;
+use App\Models\Library;
+use App\Models\Shelf;
 use Illuminate\Http\Request;
 
 use App\Models\BookCopy;
@@ -24,7 +27,12 @@ class BookCopyController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/BookCopy/Create');
+        return Inertia::render('Admin/BookCopy/Create', [
+            'books' => Book::get(),
+            'libraries' => Library::get(),
+            'shelves' => Shelf::get(),
+
+        ]);
     }
 
     /**
@@ -39,7 +47,7 @@ class BookCopyController extends Controller
 
         BookCopy::create($data);
 
-        return Redirect::route("book-copy.index");
+        return redirect()->route("book-copies.index")->with('success', "Book Copy successfully created");
     }
 
     /**

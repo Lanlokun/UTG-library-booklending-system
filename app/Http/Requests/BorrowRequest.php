@@ -24,10 +24,10 @@ class BorrowRequest extends FormRequest
     public function rules()
     {
         return [
-            'book_copy_id' => 'required',
-            'library_id' => 'required',
-            'student_id' => 'required',
-            'staff_id' => 'required',
+            'book_copy_id' => 'required|exists:book_copies,id',
+            'library_id' => 'required|exists:libraries,id',
+            'student_id' => 'required|exists:students,id',
+            'staff_id' => 'required|exists:staffs,id',
             'date_borrowed' => 'required',
             'date_expected' => 'required',
             'date_returned' => 'required'

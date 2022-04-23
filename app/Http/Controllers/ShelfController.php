@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ShelfRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Models\Shelf;
@@ -24,7 +25,9 @@ class ShelfController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Shelf/Create');
+        return Inertia::render('Admin/Shelf/Create', [
+            'categories' => Category::get(),
+        ]);
     }
 
     /**
@@ -39,7 +42,7 @@ class ShelfController extends Controller
 
         Shelf::create($data);
 
-        return Inertia::render('shelf.index');
+        return redirect()->route('shelf.index')->with('success', 'Shelf successfully Created.');
 
     }
 

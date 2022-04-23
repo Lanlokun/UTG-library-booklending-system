@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\GoogleController;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -17,11 +18,13 @@ class UserResource extends JsonResource
         return parent::toArray($request);
 
         return [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'roles' => 'required',
-            'tel' => 'required'
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'roles' => $this->password,
+            'tel' => $this->tel,
+            'google' => GoogleController::collection($this->whenLoaded('users'))
         ];
     }
 }

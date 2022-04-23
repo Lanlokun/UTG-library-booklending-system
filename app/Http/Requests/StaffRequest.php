@@ -24,8 +24,8 @@ class StaffRequest extends FormRequest
     public function rules()
     {
         return [
-            'staff_id' => 'required',
-            
+            'staff_id' => 'required|exists:staffs,id',
+
         ];
     }
 }

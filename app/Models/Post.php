@@ -13,6 +13,6 @@ class Post extends Model
 
         'title',
         'description',
-        'img'
+        'file'
     ];
 }

@@ -11,7 +11,6 @@ class Book extends Model
 
     protected $fillable = [
         'title',
-        'author',
         'edition',
         'category_id',
         'publisher_id',
@@ -40,5 +39,7 @@ class Book extends Model
     {
         return $this->hasMany(BookCopy::class);
     }
+
+
 
 }

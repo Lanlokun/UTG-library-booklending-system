@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StaffRequest;
+use App\Models\Library;
 use Illuminate\Http\Request;
 
 use App\Models\Staff;

@@ -26,7 +26,7 @@ class ReportRequest extends FormRequest
         return [
             'name' => 'required',
             'date' => 'required',
-            'file' => 'required'
+            'file' => 'string'
         ];
     }
 }

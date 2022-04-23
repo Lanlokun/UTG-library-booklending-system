@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return redirect()->route('categories.index')->with('success', 'Category successfully updated.');
+        return redirect()->route('category.index')->with('success', 'Category successfully updated.');
 
     }
 

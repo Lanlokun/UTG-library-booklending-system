@@ -22,6 +22,8 @@ class StaffAttendance extends Model
         return $this->belongsTo(Library::class);
 
     }
+
+
     public function staff()
     {
 

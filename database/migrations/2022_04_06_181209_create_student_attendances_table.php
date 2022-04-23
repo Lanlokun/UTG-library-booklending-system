@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('student_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("library_id");
-            $table->foreignId("student_id")->nullable();
+            $table->foreignId("library_id")->constrained();
+            $table->foreignId("student_id")->constrained();
             $table->datetime("time_in");
-            $table->datetime("time_out")->nullable();   
+            $table->datetime("time_out")->nullable();
             $table->timestamps();
         });
     }

@@ -39,7 +39,7 @@ class PublisherController extends Controller
 
         Publisher::create($data);
 
-        return redirect()->route('publishers.index')->with('success', 'Publisher successfully updated.');
+        return redirect()->route('publisher.index')->with('success', 'Publisher successfully updated.');
 
     }
 

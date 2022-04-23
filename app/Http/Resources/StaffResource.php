@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Staff;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StaffResource extends JsonResource
@@ -21,7 +22,7 @@ class StaffResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'department' => $this->department
-            
+
         ];
     }
 }

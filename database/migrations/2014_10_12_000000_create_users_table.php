@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->json('roles')->nullable();
             $table->integer('tel')->nullable();
-
+            $table->foreignId('google_id')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

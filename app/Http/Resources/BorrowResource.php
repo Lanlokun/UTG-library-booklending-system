@@ -2,6 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\BookCopy;
+use App\Models\Library;
+use App\Models\Staff;
+use App\Models\Student;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BorrowResource extends JsonResource

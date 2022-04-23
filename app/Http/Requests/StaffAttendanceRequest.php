@@ -24,8 +24,8 @@ class StaffAttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'library_id' => 'required',
-            'staff_id' => 'required',
+            'library_id' => 'required|exists:libraries,id',
+            'staff_id' => 'required|exists:staffs,id',
             'time_in' => 'required',
             'time_out' => 'required'
         ];

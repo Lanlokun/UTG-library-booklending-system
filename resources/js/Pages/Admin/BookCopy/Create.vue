@@ -15,42 +15,49 @@
  <div class="mt-10 sm:mt-0">
   <div class="md:grid md:grid-cols-6 md:gap-6">
     <div class="mt-1 md:mt-9 md:col-span-9">
-      <form action="#" method="POST">
+      <form @submit.prevent="form.post(route('book-copies.store'))">
         <div class="shadow overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
 
               <div class="col-span-6 sm:col-span-3">
                 <label for="book" class="block text-sm font-medium text-gray-700">Book</label>
-                <select id="book" name="book" autocomplete="book" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <option>Great Expectations</option>
-                  <option>Things Fall Apart</option>
-                  <option>Women Of Owu</option>
+                <select required v-model="form.book_id" id="book" name="book" autocomplete="book" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <option v-for="book in books" :key="book.id" :value="book.id"> {{ book.title }}</option>
                 </select>
+
+                  <div v-if="errors.book_id">{{ errors.book_id }}</div>
               </div>
 
                  <div class="col-span-6">
                 <label for="number" class="block text-sm font-medium text-gray-700">Book Number</label>
-                <input type="text" name="number" id="number" autocomplete="number" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input required v-model="form.number" type="text" name="number" id="number" autocomplete="number" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+
+                     <div v-if="errors.number">{{ errors.number }}</div>
+
               </div>
 
-             
+
 
            <div class="col-span-6 sm:col-span-3">
                 <label for="library" class="block text-sm font-medium text-gray-700">Library</label>
-                <select id="library" name="library" autocomplete="library" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <option>Kanifing</option>
-                  <option> Brikama</option>
-                  <option>Banjul</option>
+                <select required v-model="form.library_id" id="library" name="library" autocomplete="library" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <option v-for="library in libraries" :key="library.id" :value="library.id"> {{ library.name }}</option>
+
+                    <div v-if="errors.library_id">{{ errors.library_id }}</div>
+
+
                 </select>
               </div>
 
                <div class="col-span-6 sm:col-span-3">
                 <label for="shelf" class="block text-sm font-medium text-gray-700">Shelf</label>
-                <select id="shelf" name="shelf" autocomplete="shelf" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <option>1</option>
-                  <option> 2</option>
-                  <option>3</option>
+                <select required v-model="form.shelf_id" id="shelf" name="shelf" autocomplete="shelf" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <option v-for="shelf in shelves" :key="shelf.id" :value="shelf.id"> {{ shelf.name }}</option>
+
+                    <div v-if="errors.shelf_id">{{ errors.shelf_id }}</div>
+
+
                 </select>
               </div>
 
@@ -70,13 +77,43 @@
     </admin-layout>
 </template>
 
-<script setup>
+<script>
 
 import  AdminLayout from '../../../Layouts/AdminLayout';
+
+import  {useForm} from "@inertiajs/inertia-vue3"
+
+export default {
+
+    props: {
+        errors: Object,
+
+        libraries: Object,
+        books: Object,
+        shelves:Object
+    },
+
+    components: {
+        AdminLayout
+    },
+
+    setup() {
+        const form = useForm({
+
+            number: '',
+            book_id: '',
+            library_id: '',
+            shelf_id: '',
+
+        })
+
+        return {form}
+    }
+}
+
 </script>
 
 <style>
 
 </style>
 
- 

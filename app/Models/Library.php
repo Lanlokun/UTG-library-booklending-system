@@ -9,7 +9,7 @@ class Library extends Model
 {
     use HasFactory;
 
-    protected $fillable = 
+    protected $fillable =
     [
         'name',
         'address'
@@ -17,12 +17,12 @@ class Library extends Model
 
     public function books()
     {
-        return $this->hasMany(Book::class); 
+        return $this->hasMany(Book::class);
     }
 
-    public function attendances()
+    public function student_attendances()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(StudentAttendance::class);
     }
 
     public function book_copies()

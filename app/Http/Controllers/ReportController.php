@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReportRequest;
 use App\Models\Book;
-use Illuminate\Http\Request;
+use Request;
 
 use App\Models\Report;
 use Inertia\Inertia;
@@ -36,13 +36,16 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReportRequest $request)
+    public function store()
     {
-        $data = $request->validated();
+        $file = Request::file('file_url')->store('reports', 'public');
+        Report::create([
+            'name' => Request::input('name'),
+            'date' => Request::input('date'),
+            'file_url' => $file
+        ]);
 
-        Report::create($data);
-
-        return redirect()->route('reports.index')->with('success', 'Report successfully updated.');
+        return redirect()->route('report.index')->with('success', 'Report successfully created.');
 
     }
 

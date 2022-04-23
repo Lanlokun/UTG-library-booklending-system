@@ -24,10 +24,10 @@ class BookCopyRequest extends FormRequest
     public function rules()
     {
         return [
-            'copy_id' => 'required',
-            'book_id' => 'required',
-            'library_id' => 'required',
-            'shelf_id' => 'required'
+            'number' => 'required',
+            'book_id' => 'required|exists:books,id',
+            'library_id' => 'required|exists:libraries,id',
+            'shelf_id' => 'required|exists:shelves,id',
         ];
     }
 }

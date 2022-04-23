@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Book;
+use App\Models\Library;
+use App\Models\Shelf;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookCopyResource extends JsonResource
@@ -17,13 +20,13 @@ class BookCopyResource extends JsonResource
         return parent::toArray($request);
 
         return [
-            'copy' => $this->copy_id,
-            'books' => Book::collection($this->whenLoaded('copies')),
+            'number' => $this->number,
+            'books' => Book::collection($this->whenLoaded('books')),
             'libraries' => Library::collection($this->whenLoaded('libraries')),
             'shelves' => Shelf::collection($this->whenLoaded('shelves'))
 
         ];
-        
+
 
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Password;
 
 class UserRequest extends FormRequest
 {
@@ -26,9 +27,13 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
-            'roles' => 'required',
-            'tel' => 'required'
+            'password' => [
+                'required',
+                Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()
+            ],
+            'roles' => 'json',
+            'tel' => 'integer',
+            'google_id' => 'exists:google,id',
         ];
     }
 }

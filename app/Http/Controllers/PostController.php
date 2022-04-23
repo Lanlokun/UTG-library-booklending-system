@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Request;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -37,14 +37,19 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store()
     {
-        $data = $request->validate();
 
-        $post = Post::Create($data);
+        $file = Request::file('img')->store('posts', 'public');
+       Post::create([
+           'title' => Request::input('title'),
+           'description' => Request::input('description'),
+           'file' => $file
+       ]);
 
-        return redirect()->route('posts.index', ['post' => $post])->with('success', 'Post added successfully');
+        return redirect()->route('post.index')->with('success', 'Post added successfully');
     }
+
 
     /**
      * Display the specified resource.

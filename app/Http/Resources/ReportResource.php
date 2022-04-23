@@ -19,7 +19,7 @@ class ReportResource extends JsonResource
         return [
             'name' => $this->name,
             'date' => $this->date,
-            'file' => $this->file
+            'file_url' => $this->file_url
         ];
     }
 }

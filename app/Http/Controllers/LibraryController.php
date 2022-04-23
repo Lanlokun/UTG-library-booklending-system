@@ -38,9 +38,9 @@ class LibraryController extends Controller
 
         $data = $request->validated();
 
-        Attendance::create($data);
+        Library::create($data);
 
-        return redirect()->route('libraries.index')->with('success', 'Library successfully updated.');
+        return redirect()->route('library.index')->with('success', 'Library successfully updated.');
 
 
     }
