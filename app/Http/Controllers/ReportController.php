@@ -18,9 +18,9 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $report = Report::paginate();
+        $report = Report::get();
 
-        return Inertia::render('Admin/Report/Index', ['report' => $report]);
+        return Inertia::render('Admin/Report/Index', ['reports' => $report]);
 
     }
 
@@ -75,14 +75,21 @@ class ReportController extends Controller
 
         $report->update($data);
 
-            return redirect()->route('reports.index')->with('success', 'Report successfully updated.');
+            return redirect()->route('report.index')->with('success', 'Report successfully updated.');
 
     }
 
     public function edit(Report $report)
     {
 
-        return Inertia::render('Admin/Report/Edit', ['report' => $report]);
+        return Inertia::render('Admin/Report/Edit', [
+                'report' => [
+                    'id' => $report->id,
+                    'name' => $report->name,
+                    'date' => $report->date,
+                    'file_url' => $report->file_url
+                ]
+]);
     }
 
     /**

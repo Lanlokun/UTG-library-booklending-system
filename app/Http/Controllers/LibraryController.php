@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LibraryRequest;
+use App\Http\Resources\LibraryResource;
 use Illuminate\Http\Request;
 
 use App\Models\Library;
@@ -17,9 +18,9 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        $library = Library::paginate();
+        $library = Library::get();
 
-        return Inertia::render('Admin/Library/Index', ['library' => $library]);
+        return Inertia::render('Admin/Library/Index', ['libraries' => $library]);
     }
 
     public function create()
@@ -70,14 +71,26 @@ class LibraryController extends Controller
 
         $library->update($data);
 
-        return redirect()->route('libraries.index')->with('success', 'Library successfully updated.');
+        return redirect()->route('library.index')->with('success', 'Library successfully updated.');
 
     }
 
     public function edit(Library $library)
     {
 
-        return Inertia::render('Admin/Library/Edit', ['library' => $library]);
+//                $library = new LibraryResource($library);
+
+
+        return Inertia::render('Admin/Library/Edit', [
+
+                'library' => [
+                    'id' => $library->id,
+                    'name' => $library->name,
+                    'address' => $library->address,
+                    ]
+
+                ]);
+
     }
 
     /**

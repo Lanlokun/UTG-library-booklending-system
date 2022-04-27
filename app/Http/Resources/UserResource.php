@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
-            'roles' => $this->password,
+            'roles' => $this->roles,
             'tel' => $this->tel,
             'google' => GoogleController::collection($this->whenLoaded('users'))
         ];

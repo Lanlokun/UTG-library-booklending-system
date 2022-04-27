@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'name' => 'required',
             'email' => 'required',
             'password' => 'required | min:6',
-            'roles' => 'json',
+            'roles' => 'string',
             'tel' => 'integer',
             'google_id' => 'exists:google,id',
         ];

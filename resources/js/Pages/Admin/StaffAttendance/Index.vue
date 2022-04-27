@@ -23,4 +23,12 @@ import  AdminLayout from '../../../Layouts/AdminLayout';
 
 <style>
 
+
+th{
+    font-weight: 900;
+    font-family: SansSerif;
+
+
+}
+
 </style>

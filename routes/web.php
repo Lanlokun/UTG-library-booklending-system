@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\BorrowController;
@@ -181,7 +182,8 @@ Route::resources([
     'student' => StudentController::class,
     'staff' => StaffController::class,
     'user' => UserController::class,
-    'post' => PostController::class
+    'post' => PostController::class,
+    'attendance' => AttendanceController::class
 
 
 ]);

@@ -17,9 +17,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $publisher = Publisher::paginate();
+        $publisher = Publisher::get();
 
-        return Inertia::render('Admin/Publisher/Index', ['publisher' => $publisher]);
+        return Inertia::render('Admin/Publisher/Index', ['publishers' => $publisher]);
     }
 
 
@@ -66,13 +66,20 @@ class PublisherController extends Controller
 
         $publisher->update($data);
 
-        return redirect()->route('publishers.index')->with('success', 'Publisher successfully updated.');
+        return redirect()->route('publisher.index')->with('success', 'Publisher successfully updated.');
 
     }
 
     public function edit(Publisher $publisher)
     {
-        return Inertia::render('Admin/Publisher/Edit', ['publisher' => $publisher]);
+        return Inertia::render('Admin/Publisher/Edit', [
+            'publisher' => [
+                'id' => $publisher->id,
+                'name' => $publisher->name,
+                'country' => $publisher->country,
+]
+
+            ]);
     }
 
     /**

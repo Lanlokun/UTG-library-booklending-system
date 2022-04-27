@@ -84,6 +84,8 @@ class StudentAttendanceController extends Controller
     public function edit(StudentAttendance $student_attendance)
     {
 
+                $student_attendance = new StudentAttendance($student_attendance);
+
         return Inertia::render('Admin/StudentAttendance/Edit', ['student_attendance' => $student_attendance]);
     }
 

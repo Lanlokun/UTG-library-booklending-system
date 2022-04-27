@@ -97,6 +97,7 @@ export default {
             name: '',
             email: '',
             password: '',
+            roles:'',
             tel: ''
 
         })

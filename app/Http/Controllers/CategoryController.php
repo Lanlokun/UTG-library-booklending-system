@@ -17,9 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::paginate();
+        $category = Category::get();
 
-        return Inertia::render('Admin/Category/Index', ['category' => $category]);
+        return Inertia::render('Admin/Category/Index', ['categories' => $category]);
     }
 
     public function create()

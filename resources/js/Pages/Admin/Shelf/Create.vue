@@ -24,21 +24,27 @@
             <div class="col-span-6">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                 <input required v-model="form.name" type="text" name="name" id="name" autocomplete="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-              </div>
+                <div class = "error" v-if="errors.name">{{ errors.name }}</div>
+
+            </div>
 
 
               <div class="col-span-6 sm:col-span-3">
                 <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
                 <select required v-model="form.category_id" id="category" name="category" autocomplete="book" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   <option v-for="category in categories" :key= "category.id" :value="category.id"> {{category.name}}</option>
-
                 </select>
+
+                  <div class = "error" v-if="errors.category_id">{{ errors.category_id }}</div>
+
               </div>
 
              <div class="col-span-6">
                 <label for="capacity" class="block text-sm font-medium text-gray-700">Capacity</label>
                 <input required v-model="form.capacity" type="text" name="capacity" id="capacity" autocomplete="capacity" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-              </div>
+                 <div class = "error" v-if="errors.capacity">{{ errors.capacity }}</div>
+
+             </div>
 
             </div>
           </div>
@@ -65,7 +71,8 @@ import  {useForm} from "@inertiajs/inertia-vue3"
 export default {
 
     props: {
-        categories: Object
+        categories: Object,
+        errors: Object
     },
 
     components: {
@@ -88,6 +95,10 @@ export default {
 </script>
 
 <style>
+
+.error {
+    color:red;
+}
 
 </style>
 

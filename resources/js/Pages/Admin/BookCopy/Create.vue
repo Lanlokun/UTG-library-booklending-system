@@ -26,14 +26,14 @@
                   <option v-for="book in books" :key="book.id" :value="book.id"> {{ book.title }}</option>
                 </select>
 
-                  <div v-if="errors.book_id">{{ errors.book_id }}</div>
+                  <div class="error" v-if="errors.book_id">{{ errors.book_id }}</div>
               </div>
 
                  <div class="col-span-6">
                 <label for="number" class="block text-sm font-medium text-gray-700">Book Number</label>
                 <input required v-model="form.number" type="text" name="number" id="number" autocomplete="number" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 
-                     <div v-if="errors.number">{{ errors.number }}</div>
+                     <div class="error" v-if="errors.number">{{ errors.number }}</div>
 
               </div>
 
@@ -44,7 +44,7 @@
                 <select required v-model="form.library_id" id="library" name="library" autocomplete="library" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   <option v-for="library in libraries" :key="library.id" :value="library.id"> {{ library.name }}</option>
 
-                    <div v-if="errors.library_id">{{ errors.library_id }}</div>
+                    <div class="error" v-if="errors.library_id">{{ errors.library_id }}</div>
 
 
                 </select>
@@ -55,7 +55,7 @@
                 <select required v-model="form.shelf_id" id="shelf" name="shelf" autocomplete="shelf" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   <option v-for="shelf in shelves" :key="shelf.id" :value="shelf.id"> {{ shelf.name }}</option>
 
-                    <div v-if="errors.shelf_id">{{ errors.shelf_id }}</div>
+                    <div class = "error" v-if="errors.shelf_id">{{ errors.shelf_id }}</div>
 
 
                 </select>
@@ -109,11 +109,14 @@ export default {
 
         return {form}
     }
+
 }
 
 </script>
 
 <style>
-
+.error {
+    color: red;
+}
 </style>
 

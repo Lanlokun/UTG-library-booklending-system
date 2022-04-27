@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->json('roles')->nullable();
+            $table->string('roles')->nullable();
             $table->integer('tel')->nullable();
             $table->foreignId('google_id')->nullable();
             $table->rememberToken();

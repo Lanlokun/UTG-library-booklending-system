@@ -18,9 +18,9 @@ class ShelfController extends Controller
      */
     public function index()
     {
-        $shelf = Shelf::paginate();
+        $shelves = Shelf::get();
 
-        return Inertia::render('Admin/Shelf/Index', ['shelf' => $shelf]);
+        return Inertia::render('Admin/Shelf/Index', ['shelves' => $shelves]);
     }
 
     public function create()
@@ -77,7 +77,16 @@ class ShelfController extends Controller
     public function edit(Shelf $shelf)
     {
 
-        return Inertia::render('Admin/Shelf/Edit', ['shelf' => $shelf]);
+        return Inertia::render('Admin/Shelf/Edit',[
+            'shelf' => [
+                'id' => $shelf->id,
+                'name' => $shelf->name,
+                'categories' => $shelf->when('categories'),
+                'capacity' => $shelf->capacity,
+
+
+]
+            ]);
     }
 
     /**

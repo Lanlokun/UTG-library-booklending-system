@@ -24,8 +24,8 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'date' => 'required',
+            'name' => 'required | string',
+            'date' => 'required | date',
             'file' => 'string'
         ];
     }

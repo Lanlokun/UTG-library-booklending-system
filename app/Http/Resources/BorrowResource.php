@@ -21,7 +21,6 @@ class BorrowResource extends JsonResource
         return parent::toArray($request);
 
         return [
-            'id' => $this->id,
             'book_copies' => BookCopy::collection($this->whenLoaded('book_copies')),
             'libraries' => Library::collection($this->whenLoaded('libraries')),
             'students' => Student::collection($this->whenLoaded('students')),

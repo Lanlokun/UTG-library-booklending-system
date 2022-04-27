@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
 use app\Models\User;
@@ -71,6 +72,20 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+//        $user = new UserResource($user);
+
+        return Inertia::render('Admin/User/Edit', [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $user->password,
+                'tel' => $user->tel,
+                'roles' => $user->roles,
+
+
+            ]
+        ]);
         return Inertia::render('Admin/User/Edit', ['user' => $user]);
     }
 

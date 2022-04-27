@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BorrowRequest;
+use App\Models\BookCopy;
+use App\Models\Library;
+use App\Models\Staff;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 use App\Models\Borrow;
@@ -17,14 +21,20 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $borrow = Borrow::paginate();
+        $borrow = Borrow::get();
 
-        return Inertia::render('Admin/Borrow/Index', ['borrow' => $borrow]);
+        return Inertia::render('Admin/Borrow/Index', ['borrows' => $borrow]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Borrow/Create');
+        return Inertia::render('Admin/Borrow/Create', [
+            'book_copies' => BookCopy::get(),
+            'libraries' => Library::get(),
+            'students' => Student::get(),
+            'staffs' => Staff::get()
+
+        ]);
     }
 
     /**

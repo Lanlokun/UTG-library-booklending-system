@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Http\Resources\BookCopyResource;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Publisher;
@@ -14,7 +15,7 @@ class BookController extends Controller
 
     public function index(): Response
     {
-        $books = Book::paginate();
+        $books = Book::get();
 
         return inertia('Admin/Book/Index', ['books' => $books]);
     }
@@ -43,7 +44,25 @@ class BookController extends Controller
 
     public function edit(Book $book): Response
     {
-        return inertia('Admin/Book/Edit', ['book' => $book]);
+
+        $book = new BookCopyResource($book);
+        return inertia('Admin/Book/Edit', [
+            'book' => [
+                'id' => $book->id,
+                'title' => $book->title,
+                'edition' => $book->edition,
+                'categories' => $book->when('categories'),
+                'publishers' => $book->when('publishers'),
+                'author_1' => $book->author_1,
+                'author_2' => $book->author_2,
+                'etla' => $book->etla,
+                'place_of_pub' => $book->place_of_pub,
+                'year' => $book->year,
+                'isbn' => $book->isbn,
+                'class_no' => $book->class_no,
+                'more_details' => $book->more_details,
+                ]
+            ]);
     }
 
     public function update(BookRequest $request, Book $book): RedirectResponse
