@@ -9,14 +9,14 @@ class BookCopy extends Model
 {
     use HasFactory;
 
-    protected $fillable = 
-    [
-        'number',
-        'book_id',
-        'library_id',
-        'shelf_id',
+    protected $fillable =
+        [
+            'number',
+            'book_id',
+            'library_id',
+            'shelf_id',
 
-    ];
+        ];
 
     public function library()
     {

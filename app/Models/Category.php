@@ -9,11 +9,20 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = 
-    [
+    protected $fillable = [
         'name',
-        'parent'
+        'category_id', // patent colum
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 
     public function books()
     {

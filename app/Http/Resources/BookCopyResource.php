@@ -26,7 +26,5 @@ class BookCopyResource extends JsonResource
             'shelves' => Shelf::collection($this->whenLoaded('shelves'))
 
         ];
-
-
     }
 }

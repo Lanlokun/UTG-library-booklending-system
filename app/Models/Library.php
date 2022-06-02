@@ -10,10 +10,10 @@ class Library extends Model
     use HasFactory;
 
     protected $fillable =
-    [
-        'name',
-        'address'
-    ];
+        [
+            'name',
+            'address'
+        ];
 
     public function books()
     {

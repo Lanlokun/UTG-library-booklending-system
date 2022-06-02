@@ -1,94 +1,107 @@
 <template>
-
     <admin-layout title="Dashboard">
+
         <template #header>
-
-
-
-
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Dashboard
+            </h2>
         </template>
 
+        <div class="py-12">
 
-        <!-- Jumbotron -->
-        <div class="p-6 shadow-lg rounded-lg bg-white-100 text-gray-700">
-            <h2 class="font-bold text-3xl mb-5">DASHBOARD</h2>
-            <p>
-                Welcome to the University of The Gambia's Library Management System
-            </p>
-            <hr class="my-6 border-gray-300" />
-            <p>
-                It uses utility classes for typography and spacing to space content out within the larger
-                container.
-            </p>
-           <a href="/borrow/create"> <button
-                type="button"
-                class="inline-block px-6 py-2.5 mt-4 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="light"
-            >
-               Borrow Book
-            </button> </a>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                    <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                        <div class="w-full flex mb-4 p-2 justify-end">
+                            <Link :href="route('admin.borrows.create')" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Borrow Book  </Link>
+                        </div>
 
-            <div class="float-left flex justify-center">
-                <div class="mb-3 xl:w-96 mx-5 my-3">
-                    <div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
-                        <input type="search" class="form-control relative flex-auto min-w-0 block w-half px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Find book" aria-label="Search" aria-describedby="button-addon3">
-                        <button class="btn inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" id="button-addon3">Search</button>
+                        <div class="mt-8 text-2xl">
+                            Library Database Statistics
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> 2 </span> Users in Database
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                                    </path>
+                                    <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> 3 </span> Publishers in Database
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> 10 </span> Books in Database
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 md:border-l">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> 5</span> Borrowed Books
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
-        <!-- Jumbotron -->
-        <div class="flex justify-center my-40">
-            <div class="block p-6 mx-10 rounded-lg shadow-lg bg-lime-600 max-w-sm">
-                <h5 class="text-white text-xl leading-tight font-medium mb-2">Book Logs</h5>
-                <p class="text-white text-base mb-4">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                </p>
-                <button type="button" class=" inline-block px-6 py-2.5 bg-white text-dark font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-white-800 active:shadow-lg transition duration-150 ease-in-out">View</button>
-            </div>
-            <div class="block mx-10 p-6 rounded-lg shadow-lg bg-sky-700 max-w-sm">
-                <h5 class="text-white text-xl leading-tight font-medium mb-2">Attendance Logs</h5>
-                <p class="text-white text-base mb-4">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                </p>
-                <button type="button" class=" inline-block px-6 py-2.5 bg-white text-dark font-medium text-xs leading-tight uppercase rounded shadow-md hover:text-white hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">View</button>
-            </div>
-
-            <div class="block p-6 mx-10 rounded-lg shadow-lg bg-amber-700 max-w-sm">
-                <h5 class="text-white text-xl leading-tight font-medium mb-2">User Logs</h5>
-                <p class="text-white text-base mb-4">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                </p>
-                <button type="button" class=" inline-block px-6 py-2.5 bg-white text-dark font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">View</button>
-
-
-            </div>
-
-        </div>
-
-
-
-        <a href="../post/create">   <button type="button" class=" float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 px-10 py-10 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center top-2 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-           <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-          </svg>
-        </button></a>
-
     </admin-layout>
-
-
 </template>
 
 <script setup>
 
-import  AdminLayout from '../../Layouts/AdminLayout';
+
+const props = defineProps(
+    {
+        books:Object,
+        filters:Object
+    });
+
+import AdminLayout from  '@/Layouts/AdminLayout.vue';
+
+import { Link } from '@inertiajs/inertia-vue3';
+
+
 </script>
 
-<style>
+<style scoped>
 
 </style>

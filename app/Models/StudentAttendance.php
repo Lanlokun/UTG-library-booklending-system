@@ -15,7 +15,7 @@ class StudentAttendance extends Model
         'time_in',
         'time_out'
     ];
-    
+
     public function library()
     {
 
