@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use Exception;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class FetchUserAPI
 {
-    const API_URL = "https://admin.googleapis.com/admin/directory/v1/";
+    const API_URL = "https://utgerpgsuite.herokuapp.com/";
     private string $API_TOKEN;
 
     public function __construct()
@@ -25,31 +26,28 @@ class FetchUserAPI
         ]);
     }
 
-    public function makeRequest($email): Response|null|PromiseInterface
+    public function makeRequest($email): string|null
     {
         try {
-            $response = $this->getUrl()->get('users/' . $this->parseEmailInput($email));
+            $response = $this->getUrl()->post('get_user', $this->parseEmailInput($email));
 
             if (! $response->successful())
-                throw new \Exception($response->body());
+                throw new Exception($response->body());
 
-            return $this->parseResponse($response);
-        } catch (\Exception $exception) {
+            return $response->json('data');
+        } catch (Exception $exception) {
             Log::emergency($exception);
         }
         return null;
     }
 
-    private function parseResponse($response)
-    {
-        return $response->json();
-    }
-
-    private function parseEmailInput($email)
+    private function parseEmailInput($email): array
     {
         if (! str_contains($email, '@'))
             $email .= '@utg.edu.gm';
 
-        return $email;
+        return [
+            "email_address" => $email,
+        ];
     }
 }
