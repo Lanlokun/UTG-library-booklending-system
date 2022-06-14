@@ -29,7 +29,7 @@ class FetchUserAPI
     public function makeRequest($email): string|null
     {
         try {
-            $response = $this->getUrl()->get('get_user', $this->parseEmailInput($email));
+            $response = $this->getUrl()->post('get_user', $this->parseEmailInput($email));
 
             if (! $response->successful())
                 throw new Exception($response->body());
@@ -41,7 +41,7 @@ class FetchUserAPI
         return null;
     }
 
-    private function parseEmailInput($email)
+    private function parseEmailInput($email): array
     {
         if (! str_contains($email, '@'))
             $email .= '@utg.edu.gm';
