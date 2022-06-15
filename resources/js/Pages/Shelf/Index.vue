@@ -53,7 +53,7 @@
                             <tbody class="bg-white">
                             <tr v-for="shelf in shelves.data" :key="shelf.id" class="text-gray-700">
                                 <td class="px-4 py-3 border"> {{shelf.name}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{shelf.category_id}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">{{shelf.category.name}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">{{shelf.capacity}}</td>
 
 

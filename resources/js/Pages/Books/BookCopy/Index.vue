@@ -12,8 +12,8 @@
                 <section class="container mx-auto p-6 font-mono">
 
 
-                    <div v-for="book in books" :key="book.id" class="w-full flex mb-4 p-2 justify-end">
-                        <Link :href="route('admin.book-copies.create', book.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Book Copy  </Link>
+                    <div class="w-full flex mb-4 p-2 justify-end">
+                        <Link :href="route('admin.book-copies.create', book.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Copy </Link>
                     </div>
 
                     <div class="w-full mb-8 overflow-hidden bg-white rounded-lg shadow-lg">
@@ -45,7 +45,6 @@
                         <Table>
                             <template #tableHead>
                                 <TableHead>Number</TableHead>
-                                <TableHead>Book</TableHead>
                                 <TableHead>Library</TableHead>
                                 <TableHead>Shelf</TableHead>
                                 <TableHead>Manage</TableHead>
@@ -54,19 +53,15 @@
 
                             <TableRow v-for="book_copy in book_copies.data" :key="book_copy.id">
                                 <TableData>{{ book_copy.number }}</TableData>
-                                <TableData>{{ book_copy.book_id }}</TableData>
-                                <TableData>{{ book_copy.library_id }}</TableData>
-                                <TableData>{{ book_copy.shelf_id }}</TableData>
+                                <TableData>{{ book_copy.library.name}}</TableData>
+                                <TableData>{{ book_copy.shelf.name }}</TableData>
 
 
                                 <TableData>
 
-                                    <div class="flex justify-around">
-<!--                                        <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.book-copies.index', book.id)">Copy</ButtonLink>-->
-                                        <ButtonLink :link="route('admin.book-copies.edit', [book.id,book_copies.id])">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.book-copies.destroy', book_copy.id)">Delete</ButtonLink>
+                                    <Link :href="route('admin.book-copies.edit', [book.id,book_copy.id])" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
+                                    <Link :href="route('admin.book-copies.destroy', [book.id,book_copy.id])" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
 
-                                    </div>
                                 </TableData>
 
                             </TableRow>
@@ -101,7 +96,7 @@ import ButtonLink from "@/Components/ButtonLink";
 
 const props = defineProps(
     {
-        books:Object,
+        book:Object,
         book_copies:Object,
         filters:Object
     });
@@ -111,7 +106,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get(`/admin/books/${props.book_copies.id}/book-copies`, { search: value }, {preserveState: true, replace:true})
+    // Inertia.get(`/admin/books/${props.book_copies.id}/book-copies`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

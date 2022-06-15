@@ -32,7 +32,7 @@
                                     </path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> 2 </span> Users in Database
+                                    <span class="text-xl font-bold text-blue-500"> {{ users_count }} </span> Users in Database
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                     <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> 3 </span> Publishers in Database
+                                    <span class="text-xl font-bold text-blue-500"> {{ publishers }} </span> Publishers in Database
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                     </path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> 10 </span> Books in Database
+                                    <span class="text-xl font-bold text-blue-500"> {{ books }} </span> Books in Database
                                 </div>
                             </div>
                         </div>
@@ -75,14 +75,70 @@
                                     </path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> 5</span> Borrowed Books
+                                    <span class="text-xl font-bold text-blue-500"> </span> Borrowed Books
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 md:border-l">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> </span> Student in the Library
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 md:border-l">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> </span> Staffs in the Library
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 md:border-l">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> </span> Borrowed Books
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 md:border-l">
+                            <div class="flex items-center">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     viewBox="0 0 24 24" class="w-8 h-8 text-gray-400">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                                <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+                                    <span class="text-xl font-bold text-blue-500"> </span> Borrowed Books
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
+        </div>
     </admin-layout>
 </template>
 
@@ -91,8 +147,10 @@
 
 const props = defineProps(
     {
-        books:Object,
-        filters:Object
+        books: Object,
+        users_count: Object ,
+        borrows: Object,
+        publishers: Object
     });
 
 import AdminLayout from  '@/Layouts/AdminLayout.vue';

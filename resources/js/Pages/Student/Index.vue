@@ -13,9 +13,9 @@
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <form class="flex space-x-4 shadow bg-white rounded-md m-2 p-2">
                             <div class="p-1 flex items-center">
-                                <label for="mat_number" class="block text-sm font-medium text-gray-700 mr-4">name</label>
+                                <label for="address" class="block text-sm font-medium text-gray-700 mr-4">Email</label>
                                 <div class="relative rounded-md shadow-sm">
-                                    <input v-model="matNumber" id="mat_number" name="mat_number" class="px-3 py-2 border border-gray-300 rounded" placeholder="Mat Number" />
+                                    <input v-model="email_address" id="address" name="address" class="px-3 py-2 border border-gray-300 rounded" placeholder="Email Address" />
                                 </div>
                             </div>
                             <div class="p-1">
@@ -63,19 +63,16 @@
 
                         <Table>
                             <template #tableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Mat #</TableHead>
-                                <TableHead>Email</TableHead>
-                                <TableHead>Department</TableHead>
+
+                                <TableHead>Full Name</TableHead>
+                                <TableHead>Address</TableHead>
                                 <TableHead>Manage</TableHead>
 
                             </template>
 
                             <TableRow v-for="student in students.data" :key="student.id">
-                                <TableData>{{ student.name }}</TableData>
-                                <TableData>{{ student.mat_number }}</TableData>
-                                <TableData>{{ student.email }}</TableData>
-                                <TableData>{{ student.department }}</TableData>
+                                <TableData>{{ student.fullName }}</TableData>
+                                <TableData>{{ student.address }}</TableData>
                                 <TableData>
 
                                     <div class="flex justify-around">
@@ -128,15 +125,15 @@ const props = defineProps(
 
 const search = ref(props.filters.search);
 const perPage = ref(5);
-const tvShowTMDBId = ref('');
+const email_address = ref('');
 
 watch(search, value => {
     Inertia.get('/admin/students', { search: value }, {preserveState: true, replace:true})
 });
 
 function generateStudent(){
-    Inertia.post('/admin/students', {name: matNumber.value}, {
-        onFinish: () => (matNumber.value = "")
+    Inertia.post('/admin/students', {email_address: email_address.value}, {
+        onFinish: () => (email_address.value = "")
     });
 
 }

@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookCopyController;
-use App\Http\Controllers\Admin\BorrowController;
+//use App\Http\Controllers\Admin\BorrowController;
 use App\Http\Controllers\Admin\CastController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EpisodeController;
@@ -66,10 +67,8 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
-        return Inertia::render('Admin/Index');
-    })->name('index');
 
 
     Route::resource('/movies', MovieController::class);

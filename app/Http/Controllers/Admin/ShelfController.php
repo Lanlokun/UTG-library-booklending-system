@@ -21,7 +21,7 @@ class ShelfController extends Controller
             'shelves' => Shelf::query()
                 ->when(Request::input('search'), function ($query, $search){
                     $query->where('name', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
+                })->with('category')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage'])
         ]);
     }
@@ -50,7 +50,8 @@ class ShelfController extends Controller
     public  function edit(Shelf $shelf)
     {
         return Inertia::render('Shelf/Edit', [
-            'shelf' => $shelf
+            'shelf' => $shelf,
+            'categories' => Category::get()
         ]);
     }
 

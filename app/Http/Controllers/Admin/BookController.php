@@ -48,22 +48,24 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Book $book)
     {
-        Book::create([
-            'title' => Request::input('title'),
-            'edition' => Request::input('edition'),
-            'category_id' => Request::input('category_id'),
-            'publisher_id' => Request::input('publisher_id'),
-            'author_1' => Request::input('author_1'),
-            'author_2' => Request::input('author_2'),
-            'etla' => Request::input('etla'),
-            'place_of_pub' => Request::input('place_of_pub'),
-            'year' => Request::input('year'),
-            'isbn' => Request::input('isbn'),
-            'class_no' => Request::input('class_no'),
-            'more_details' => Request::input('more_details'),
+        $validated = Request::validate([
+            'title' => 'required|max:255',
+            'edition' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'publisher_id'  => 'required|exists:publishers,id',
+            'author_1'=> 'required',
+            'author_2' => 'required',
+            'etla' => 'required',
+            'place_of_pub'=> 'required',
+            'year' => 'required | integer',
+            'isbn'=> 'required | integer',
+            'class_no' => 'required | integer',
+            'more_details' => 'sometimes',
         ]);
+
+        $book->create($validated);
 
         return redirect(route('admin.books.index'))->with('flash.banner', 'Book Created Successfully');
     }

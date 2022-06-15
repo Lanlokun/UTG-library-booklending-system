@@ -20,7 +20,7 @@ class CategoryController extends Controller
             'categories' => Category::query()
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
+                })->with('category')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage'])
         ]);
     }

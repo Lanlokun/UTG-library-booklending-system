@@ -51,7 +51,7 @@
                             <tbody class="bg-white">
                             <tr v-for="category in categories.data" :key="category.id" class="text-gray-700">
                                 <td class="px-4 py-3 border"> {{category.name}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{category.category_id}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">{{category.category.name}}</td>
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.categories.edit', category.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
