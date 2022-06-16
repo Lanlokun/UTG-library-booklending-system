@@ -16,7 +16,7 @@ class FetchUserAPI
 
     public function __construct()
     {
-        $this->API_TOKEN = config('more.digitalocean.token');
+        $this->API_TOKEN = config('services.utg.secret');
     }
 
     private function getUrl(): PendingRequest
@@ -26,15 +26,15 @@ class FetchUserAPI
         ]);
     }
 
-    public function makeRequest($email): string|null
+    public function makeRequest($email)
     {
         try {
-            $response = $this->getUrl()->post('get_user', $this->parseEmailInput($email));
+                $response = $this->getUrl()->post('get_user', $this->parseEmailInput($email));
 
             if (! $response->successful())
                 throw new Exception($response->body());
 
-            return $response->json('data');
+            return $response->json()['data'];
         } catch (Exception $exception) {
             Log::emergency($exception);
         }

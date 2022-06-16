@@ -20,7 +20,7 @@ return [
     ],
 
     'utg' => [
-        'secret' => env('UTG_SECRET', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoia2V5IiwiZXhwaXJlcyI6MTY1ODA0 OTAzMi4yNzM0NTc1fQ.xReUCIfPs0-umHhRNGwUxWfAV2RlLwKDJicvR67GVTw'),
+        'secret' => env('UTG_SECRET'),
         'endpoint' => env('UTG_ENDPOINT', 'https://utgerpgsuite.herokuapp.com/')
     ],
 

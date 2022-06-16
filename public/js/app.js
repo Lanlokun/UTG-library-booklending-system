@@ -26380,6 +26380,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     students: Object,
+    student: Object,
+    student_attendance: Object,
     borrow: Object,
     filters: Object
   },
@@ -28015,7 +28017,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100"
+  "class": "min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-green-100"
 };
 var _hoisted_2 = {
   "class": "w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
@@ -28038,20 +28040,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_UTG_Logo_removebg_preview_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/UTG-Logo-removebg-preview.png */ "./public/images/UTG-Logo-removebg-preview.png");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "w-16 h-16",
-  viewBox: "0 0 48 48",
-  fill: "none",
-  xmlns: "http://www.w3.org/2000/svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  d: "M11.395 44.428C4.557 40.198 0 32.632 0 24 0 10.745 10.745 0 24 0a23.891 23.891 0 0113.997 4.502c-.2 17.907-11.097 33.245-26.602 39.926z",
-  fill: "#6875F5"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  d: "M14.134 45.885A23.914 23.914 0 0024 48c13.255 0 24-10.745 24-24 0-3.516-.756-6.856-2.115-9.866-4.659 15.143-16.608 27.092-31.75 31.751z",
-  fill: "#6875F5"
-})], -1
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "mx-96 px-96",
+  src: _public_images_UTG_Logo_removebg_preview_png__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, null, -1
 /* HOISTED */
 );
 
@@ -39038,7 +39034,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return $setup.email_address = $event;
         }),
         id: "address",
-        name: "address",
+        name: "email_address",
         "class": "px-3 py-2 border border-gray-300 rounded",
         placeholder: "Email Address"
       }, null, 512
@@ -39114,8 +39110,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableData"], null, {
                   "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                     return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonLink"], {
-                      "class": "bg-blue-500 hover:bg-blue-700",
-                      link: _ctx.route('admin.student-attendance.index', student - _ctx.attendance.id)
+                      "class": "bg-yellow-500 hover:bg-yellow-700",
+                      link: _ctx.route('admin.student-attendance.index', student.id)
                     }, {
                       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                         return [_hoisted_23];
@@ -39127,16 +39123,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     /* PROPS, DYNAMIC_SLOTS */
                     , ["link"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonLink"], {
                       "class": "bg-blue-500 hover:bg-blue-700",
-                      link: _ctx.route('admin.borrows.index', $props.borrow.id)
+                      link: _ctx.route('admin.borrows.index', student.id)
                     }, {
                       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
                         return [_hoisted_24];
                       }),
-                      _: 1
-                      /* STABLE */
+                      _: 2
+                      /* DYNAMIC */
 
-                    }, 8
-                    /* PROPS */
+                    }, 1032
+                    /* PROPS, DYNAMIC_SLOTS */
                     , ["link"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonLink"], {
                       link: _ctx.route('admin.students.edit', student.id)
                     }, {
@@ -41871,16 +41867,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _public_images_UTG_Logo_removebg_preview_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/images/UTG-Logo-removebg-preview.png */ "./public/images/UTG-Logo-removebg-preview.png");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" hello ");
+var _hoisted_1 = {
+  "class": "overscroll-none px-100 my-9 py-24"
+};
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "mx-96 px-96",
+  src: _public_images_UTG_Logo_removebg_preview_png__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "my-30 text-green-900 text-7xl font-bold text-center"
+}, " Welcome To The University Of The Gambia ", -1
+/* HOISTED */
+);
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "my-20 text-green-900 text-5xl font-bold text-center"
+}, " Library Management System ", -1
+/* HOISTED */
+);
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("GET STARTED");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
     title: "Welcome"
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FrontLayout"], null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_1];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
+        href: "/login",
+        type: "button",
+        "class": "content-center mx-96 px-36 text-white font-bold bg-green-700 hover:bg-green-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-lg py-3.5 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_5];
+        }),
+        _: 1
+        /* STABLE */
+
+      })])];
     }),
     _: 1
     /* STABLE */
@@ -42488,6 +42519,21 @@ var deepmerge_1 = deepmerge;
 
 module.exports = deepmerge_1;
 
+
+/***/ }),
+
+/***/ "./public/images/UTG-Logo-removebg-preview.png":
+/*!*****************************************************!*\
+  !*** ./public/images/UTG-Logo-removebg-preview.png ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/UTG-Logo-removebg-preview.png?2a39c93c4fcc5cb082039fb0a82a3fe3");
 
 /***/ }),
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\FetchUserAPI;
 use App\Models\Student;
 use Illuminate\Support\Facades\Http;
 use Request;
@@ -40,20 +41,18 @@ class StudentController extends Controller
 
         }
 
-        $header = $request->header('Authorization');
-        $get_student_email = Http::asJson()->post(config('services.utg.endpoint').'get_user/' .Request::input('id') . '?api_key='. config('services.utg.secret') . '&language=en-US');
+        $user = (new FetchUserAPI())->makeRequest(Request::input('email_address'));
+//        dd($user);
 
-        if ($get_student_email->successful()) {
+        if (!$user == null) {
             Student::create([
-                'student_id' => $get_student_email['id'],
-                'fullName'    => $get_student_email['fullName'],
-                'address' => $get_student_email['address'],
+                'fullName' => $user['name']['fullName'],
+                'address' => $user['primaryEmail'],
             ]);
             return redirect(route('admin.students.index'))->with('flash.banner', 'Student Created');
 
         }
         else {
-            dd($get_student_email);
             return redirect(route('admin.students.index'))->with('flash.banner', 'Api Error ')->with('flash.bannerStyle', 'danger');
         }
 

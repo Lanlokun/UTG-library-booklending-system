@@ -15,7 +15,7 @@
                             <div class="p-1 flex items-center">
                                 <label for="address" class="block text-sm font-medium text-gray-700 mr-4">Email</label>
                                 <div class="relative rounded-md shadow-sm">
-                                    <input v-model="email_address" id="address" name="address" class="px-3 py-2 border border-gray-300 rounded" placeholder="Email Address" />
+                                    <input v-model="email_address" id="address" name="email_address" class="px-3 py-2 border border-gray-300 rounded" placeholder="Email Address" />
                                 </div>
                             </div>
                             <div class="p-1">
@@ -76,8 +76,8 @@
                                 <TableData>
 
                                     <div class="flex justify-around">
-                                        <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.student-attendance.index', student-attendance.id)">Attendance</ButtonLink>
-                                        <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.borrows.index', borrow.id)">Borrows</ButtonLink>
+                                        <ButtonLink class="bg-yellow-500 hover:bg-yellow-700" :link="route('admin.student-attendance.index', student.id)">Attendance</ButtonLink>
+                                        <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.borrows.index', student.id)">Borrows</ButtonLink>
                                         <ButtonLink :link="route('admin.students.edit', student.id)">Edit</ButtonLink>
                                         <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.students.destroy', student.id)">Delete</ButtonLink>
 
@@ -118,6 +118,8 @@ import ButtonLink from "@/Components/ButtonLink";
 const props = defineProps(
     {
         students:Object,
+        student:Object,
+        student_attendance:Object,
         borrow:Object,
         filters:Object
     });
