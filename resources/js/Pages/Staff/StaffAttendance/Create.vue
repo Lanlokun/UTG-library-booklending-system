@@ -1,10 +1,10 @@
 <template>
 
-    <admin-layout title="Student-Attendance">
+    <admin-layout title="Staff-Attendance">
         <template #header>
             <div class="py-50 px-500">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Create
+                    Create Staff Attendance
                 </h2>
 
 
@@ -15,11 +15,12 @@
         <div class="mt-10 sm:mt-0">
             <div class="md:grid md:grid-cols-6 md:gap-6">
                 <div class="mt-1 md:mt-9 md:col-span-9">
-                    <form @submit.prevent="form.post(route('student-attendance.index'))">
+
+
+                    <form @submit.prevent="form.post(route('admin.staff-attendance.store', staff.id))">
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
-
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="library" class="block text-sm font-medium text-gray-700">Library</label>
                                         <div v-if="errors.library">{{ errors.library }}</div>
@@ -30,25 +31,15 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="student" class="block text-sm font-medium text-gray-700">Student</label>
-                                        <div v-if="errors.first_name">{{ errors.student }}</div>
-
-                                        <select required v-model="form.student_id" id="student" name="student" autocomplete="student" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option v-for="student in students" :key="student.id" :value="student.id"> {{ student.name }}</option>
-
-                                        </select>
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="time-in" class="block text-sm font-medium text-gray-700">Time In </label>
-                                        <div v-if="errors.first_name">{{ errors.time_in }}</div>
+                                        <div v-if="errors.time_in">{{ errors.time_in }}</div>
 
                                         <input required v-model="form.time_in" type="time" name="time-in" id="time-in" autocomplete="time-in" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="time-out" class="block text-sm font-medium text-gray-700">Time Out </label>
-                                        <div v-if="errors.first_name">{{ errors.time_out }}</div>
+                                        <div v-if="errors.time_out">{{ errors.time_out }}</div>
                                         <input v-model="form.time_out" type="time" name="time-out" id="time-out" autocomplete="time-out" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                     </div>
 
@@ -79,7 +70,10 @@ export default {
     props: {
         errors: Object,
         libraries: Object,
-        students: Object
+        staffs: Object,
+        staff: Object,
+        staff_attendance:Object
+
 
     },
 
@@ -90,8 +84,8 @@ export default {
     setup() {
         const form = useForm({
 
+            staff_id:'',
             library_id: '',
-            student_id: '',
             time_in: '',
             time_out: '',
 

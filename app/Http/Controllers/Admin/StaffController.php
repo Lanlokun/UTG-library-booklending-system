@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\FetchUserAPI;
 use App\Models\Staff;
 use Request;
 use Inertia\Inertia;
@@ -33,11 +34,24 @@ class StaffController extends Controller
     public function store()
     {
 
-        Staff::create([
-            'name' => Request::input('name'),
-            'email' => Request::input('email'),
-            'department' => Request::input('department'),
-        ]);
+        $staff = Staff::where('address', Request::input('email_address'))->first();
+        if($staff){
+            return redirect(route('admin.staffs.index'))->with('flash.banner', 'Staff Exists');
+
+        }
+
+        $user = (new FetchUserAPI())->makeRequest(Request::input('email_address'));
+        if (!$user == null) {
+            Staff::create([
+                'fullName' => $user['name']['fullName'],
+                'address' => $user['primaryEmail'],
+            ]);
+            return redirect(route('admin.staffs.index'))->with('flash.banner', 'Staff Created');
+
+        }
+        else {
+            return redirect(route('admin.staffs.index'))->with('flash.banner', 'Api Error ')->with('flash.bannerStyle', 'danger');
+        }
 
         return redirect(route('admin.staffs.index'))->with('flash.banner', 'Staff Created Successfully');
     }
@@ -55,10 +69,8 @@ class StaffController extends Controller
     {
 
         $validated = Request::validate([
-            'staff_id' => 'required|exists:staffs,id',
-            'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'department' => 'required|max:255',
+            'fullName' => 'required|max:255',
+            'address' => 'required|max:255',
 
 
         ]);

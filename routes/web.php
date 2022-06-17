@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BookCopyController;
 //use App\Http\Controllers\Admin\BorrowController;
+use App\Http\Controllers\Admin\BorrowStaffController;
+use App\Http\Controllers\Admin\BorrowStudentController;
 use App\Http\Controllers\Admin\CastController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EpisodeController;
@@ -29,6 +31,7 @@ use App\Http\Controllers\Admin\TvShowController;
 
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BorrowController;
 use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -83,7 +86,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::resource('/books', BookController::class);
     Route::resource('/books/{book}/book-copies', BookCopyController::class);
 //    Route::resource('/books/{book}/book-copies/{book_copy}/borrows', BorrowController::class);
-    Route::resource('/borrows', BorrowController::class);
 
     Route::resource('/library', LibraryController::class);
     Route::resource('/shelves', ShelfController::class);
@@ -92,10 +94,12 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::resource('/posts', PostController::class);
     Route::resource('/staffs', StaffController::class);
     Route::resource('/students', StudentController::class);
-//    Route::resource('/students/{student}/student-attendance', StudentAttendanceController::class);
-    Route::resource('/student-attendance', StudentAttendanceController::class);
-//    Route::resource('/staffs/{staff}/staff-attendance', StaffAttendanceController::class);
-    Route::resource('/staff-attendance', StaffAttendanceController::class);
+    Route::resource('/students/{student}/student-attendance', StudentAttendanceController::class);
+    Route::resource('/students/{student}/student-borrows', BorrowStudentController::class);
+
+    Route::resource('/staffs/{staff}/staff-attendance', StaffAttendanceController::class);
+    Route::resource('/staffs/{staff}/staff-borrows', BorrowStaffController::class);
+
     Route::resource('/user', UserController::class);
 
 

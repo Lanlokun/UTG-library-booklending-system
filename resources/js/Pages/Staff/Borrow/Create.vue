@@ -15,7 +15,7 @@
         <div class="mt-10 sm:mt-0">
             <div class="md:grid md:grid-cols-6 md:gap-6">
                 <div class="mt-1 md:mt-9 md:col-span-9">
-                    <form @submit.prevent="form.post(route('borrow.index'))">
+                    <form @submit.prevent="form.post(route('admin.staff-borrows.store', staff.id))">
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
@@ -40,26 +40,6 @@
                                         </select>
 
                                         <div class = "error" v-if="errors.library_id">{{ errors.library_id }}</div>
-
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="student" class="block text-sm font-medium text-gray-700">Student</label>
-                                        <select required v-model="form.student_id" id="student" name="student" autocomplete="student" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option v-for="student in students" :key="student.id" :value="student.id"> {{ student.name }}</option>
-                                        </select>
-                                        <div class = "error" v-if="errors.student_id">{{ errors.student_id }}</div>
-
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="staff" class="block text-sm font-medium text-gray-700">Staff</label>
-                                        <select required v-model="form.staff_id" id="staff" name="staff" autocomplete="staff" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option v-for="staff in staffs" :key="staff.id" :value="staff.id">{{ staff.name }}</option>
-
-                                        </select>
-
-                                        <div class = "error" v-if="errors.staff_id">{{ errors.staff_id }}</div>
 
                                     </div>
 
@@ -116,6 +96,8 @@ export default {
         book_copies: Object,
         students: Object,
         staffs: Object,
+        staff: Object,
+
         errors: Object
 
     },

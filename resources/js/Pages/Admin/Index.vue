@@ -14,7 +14,6 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                         <div class="w-full flex mb-4 p-2 justify-end">
-                            <Link :href="route('admin.borrows.create')" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Borrow Book  </Link>
                         </div>
 
                         <div class="mt-8 text-2xl">

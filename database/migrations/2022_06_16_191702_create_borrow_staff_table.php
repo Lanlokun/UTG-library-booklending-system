@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('book_copies', function (Blueprint $table) {
+        Schema::create('borrow_staff', function (Blueprint $table) {
             $table->id();
-            $table->integer("number");
-            $table->foreignId("library_id")->constrained();
-            $table->foreignId("shelf_id")->constrained();
+            $table->foreignId('book_copy_id')->constrained();
+            $table->foreignId('library_id')->constrained();
+            $table->foreignId('staff_id')->constrained();
+            $table->datetime("date_borrowed");
+            $table->datetime("date_expected");
+            $table->datetime("date_returned");
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_copies');
+        Schema::dropIfExists('borrow_staff');
     }
 };

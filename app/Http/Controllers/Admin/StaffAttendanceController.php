@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Library;
+use App\Models\Staff;
 use App\Models\StaffAttendance;
-use Illuminate\Http\Request;
+use Request;
 use Inertia\Inertia;
 
 class StaffAttendanceController extends Controller
@@ -14,27 +16,36 @@ class StaffAttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Staff $staff)
     {
-        return Inertia::render('StaffAttendance/Index', );
+        return Inertia::render('Staff/StaffAttendance/Index', [
+            'staffs' => StaffAttendance::query()->where('staff_id', $staff->id)
+                ->when(Request::input('search'), function ($query, $search) {
+                    $query->where('time_in', 'like', "%{$search}%");
+                })->with('library',)->paginate(5)->withQueryString(),
+            'filters' => Request::only(['search', 'perPage']), 'staff' => $staff
+        ]);
+
     }
 
-    public  function  create()
+    public  function  create(Staff $staff)
     {
-        return Inertia::render(('StaffAttendance/Create'));
+        return Inertia::render(('Staff/StaffAttendance/Create'), [
+            'libraries' => Library::get(),
+            'staff' => $staff,
+        ]);
     }
 
-    public function store()
+    public function store(Staff $staff)
     {
-
         StaffAttendance::create([
-            'staff_id' => Request::input('staff_id'),
+            'staff_id' => $staff->id,
             'library_id' => Request::input('library_id'),
             'time_in' => Request::input('time_in'),
             'time_out' => Request::input('time_out'),
         ]);
 
-        return redirect(route('admin.staff-attendance.index'))->with('flash.banner', 'Staff Attendance Created Successfully');
+        return redirect(route('admin.staff-attendance.index', $staff->id))->with('flash.banner', 'Staff Attendance Created Successfully');
     }
 
 

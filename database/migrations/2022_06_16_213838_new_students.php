@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('book_copies', function (Blueprint $table) {
-            $table->id();
-            $table->integer("number");
-            $table->foreignId("library_id")->constrained();
-            $table->foreignId("shelf_id")->constrained();
-            $table->timestamps();
+        Schema::table('student_attendances', function (Blueprint $table) {
+            $table->foreignId('student_id')->constrained();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_copies');
+        //
     }
 };

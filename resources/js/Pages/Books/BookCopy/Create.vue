@@ -42,7 +42,7 @@
 
                                         <div class="error" v-if="errors.shelf">{{ errors.shelf }}</div>
 
-                                        <select required v-model="form.shelf_id" id="shelf" name="shelf" autocomplete="publisher" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <select required v-model="form.shelf_id" id="shelf" name="shelf" autocomplete="shelf" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                             <option v-for="shelf in shelves" :key="shelf.id" :value="shelf.id">{{ shelf.name }}</option>
                                         </select>
 

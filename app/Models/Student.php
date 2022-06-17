@@ -15,9 +15,9 @@ class Student extends Model
         'address',
     ];
 
-    public function student()
+    public function students()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
     }
 
     public function student_attendances()

@@ -3,7 +3,7 @@
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Student Attendance
+                Staff Attendance
             </h2>
         </template>
 
@@ -11,7 +11,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section class="container mx-auto p-6 font-mono">
                     <div class="w-full flex mb-4 p-2 justify-end">
-                        <Link :href="route('admin.student-attendance.create')" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Student Attendance</Link>
+                        <Link :href="route('admin.staff-attendance.create', staff.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Staff Attendance</Link>
                     </div>
 
                     <div class="w-full mb-8 overflow-hidden bg-white rounded-lg shadow-lg">
@@ -50,23 +50,21 @@
                         <Table>
                             <template #tableHead>
                                 <TableHead>Library</TableHead>
-                                <TableHead>Student</TableHead>
                                 <TableHead>Time In</TableHead>
                                 <TableHead>Time Out</TableHead>
                                 <TableHead>Manage</TableHead>
 
                             </template>
 
-                            <TableRow v-for="student in student_attendances" :key="student.id">
-                                <TableData>{{ student.library_id}}</TableData>
-                                <TableData>{{ student.student_id }}</TableData>
-                                <TableData>{{ student.time_in }}</TableData>
-                                <TableData>{{ student.time_out }}</TableData>
+                            <TableRow v-for="staff in staff_attendances" :key="staff.id">
+                                <TableData>{{ staff.library.name}}</TableData>
+                                <TableData>{{ staff.time_in }}</TableData>
+                                <TableData>{{ staff.time_out }}</TableData>
                                 <TableData>
 
                                     <div class="flex justify-around">
-                                        <ButtonLink :link="route('admin.student-attendance.edit', student_attendance.id)">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.student-attendance.destroy', student_attendance.id)">Delete</ButtonLink>
+                                        <ButtonLink :link="route('admin.staff-attendance.edit', [staff.id,staff_attendance.id])">Edit</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staff-attendance.destroy', [staff.id, stuaff_attendance.id])">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -76,7 +74,7 @@
 
                         <div class="bg-white my-1 py-1">
 
-<!--                            <Pagination :links="student_attendances.links"/>-->
+                            <!--                            <Pagination :links="student_attendances.links"/>-->
 
 
                         </div>
@@ -103,7 +101,10 @@ import ButtonLink from "@/Components/ButtonLink";
 
 const props = defineProps(
     {
-        student_attendances:Object,
+        staff_attendance:Object,
+        staff_attendances:Object,
+        staff:Object,
+        staffs:Object,
         filters:Object
     });
 
@@ -112,7 +113,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get('/admin/student-attendance', { search: value }, {preserveState: true, replace:true})
+    // Inertia.get(`/admin/staffs/${student}/staff-attendance`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

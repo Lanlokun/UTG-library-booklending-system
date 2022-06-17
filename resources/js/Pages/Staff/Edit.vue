@@ -38,44 +38,31 @@
 
                         <form @submit.prevent="submitStaff">
                             <div>
-                                <JetLabel for="name" value="Name" />
+                                <JetLabel for="name" value="FUll Name" />
                                 <JetInput
-                                    id="name"
-                                    v-model="form.name"
+                                    id="fullname"
+                                    v-model="form.fullName"
                                     type="text"
                                     class="mt-1 block w-full"
                                     required
                                     autofocus
-                                    autocomplete="name"
+                                    autocomplete="fullname"
                                 />
-                                <div class="text-sm text-red-400" v-if="form.errors.name">{{ form.errors.name }}</div>
+                                <div class="text-sm text-red-400" v-if="form.errors.fullname">{{ form.errors.fullname  }}</div>
 
                             </div>
 
 
                             <div class="mt-4">
-                                <JetLabel for="email" value="Email" />
+                                <JetLabel for="address" value="Email" />
                                 <JetInput
                                     id="email"
-                                    v-model="form.email"
+                                    v-model="form.address"
                                     type="text"
                                     class="mt-1 block w-full"
                                     required
                                 />
-                                <div class="text-sm text-red-400" v-if="form.errors.email">{{ form.errors.email }}</div>
-
-                            </div>
-
-                            <div class="mt-4">
-                                <JetLabel for="department" value="Department" />
-                                <JetInput
-                                    id="department"
-                                    v-model="form.department"
-                                    type="text"
-                                    class="mt-1 block w-full"
-                                    required
-                                />
-                                <div class="text-sm text-red-400" v-if="form.errors.department">{{ form.errors.department }}</div>
+                                <div class="text-sm text-red-400" v-if="form.errors.address">{{ form.errors.address }}</div>
 
                             </div>
 
@@ -109,16 +96,16 @@ import JetLabel from '@/Jetstream/Label.vue';
 const props = defineProps(
     {
         staff:Object,
+
     });
 
 const form = useForm({
-    name: props.staff.name,
-    email: props.staff.email,
-    department: props.staff.department,
+    fullName: props.staff.fullName,
+    address: props.staff.address,
 
 })
 
-function submitTvShow()
+function submitStaff()
 {
     form.put('/admin/staffs/' + props.staff.id)
 }
