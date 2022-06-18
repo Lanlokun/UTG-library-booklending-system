@@ -67,6 +67,7 @@
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
+                                <a :href="route('admin.staffs.index')" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none mx-5 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cancel</a>
 
                                 <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                     Update

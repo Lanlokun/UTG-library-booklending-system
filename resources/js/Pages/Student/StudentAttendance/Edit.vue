@@ -1,111 +1,133 @@
 <template>
+    <admin-layout title="Student">
 
-    <admin-layout title="Student-Attendance">
         <template #header>
-            <div class="py-50 px-500">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Create
-                </h2>
-
-
-            </div>
-
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Edit Student Attendance
+            </h2>
         </template>
 
-        <div class="mt-10 sm:mt-0">
-            <div class="md:grid md:grid-cols-6 md:gap-6">
-                <div class="mt-1 md:mt-9 md:col-span-9">
-                    <form @submit.prevent="form.put(route('student-attendance.update', student_attendance.id))">
-                        <div class="shadow overflow-hidden sm:rounded-md">
-                            <div class="px-4 py-5 bg-white sm:p-6">
-                                <div class="grid grid-cols-6 gap-6">
+        <div class="py-2">
+            <div class="max-w-7xl mx-auto">
+                <section class="container mx-auto p-6 font-mono">
+                    <div class="w-full flex mb-4 p-2">
 
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="library" class="block text-sm font-medium text-gray-700">Library</label>
-                                        <div v-if="errors.library">{{ errors.library }}</div>
-                                        <select required v-model="form.library_id" id="library" name="library" autocomplete="library" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option v-for="library in libraries" :key="library.id" :value="library.id">{{ library.name }}</option>
+                        <Link :href="route('admin.student-attendance.index', student.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">View Student Attendance </Link>
 
-                                        </select>
-                                    </div>
+                    </div>
 
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="student" class="block text-sm font-medium text-gray-700">Student</label>
-                                        <div v-if="errors.student">{{ errors.student}}</div>
+                    <div class="w-full mb-8 sm:max-w-md overflow-hidden bg-white rounded-lg shadow-lg">
 
-                                        <select required v-model="form.student_id" id="student" name="student" autocomplete="student" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option v-for="student in students" :key="student.id" :value="student.id"> {{ student.name }}</option>
+                        <div class="flex justify-between">
+                            <div class="flex-1">
 
-                                        </select>
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="time-in" class="block text-sm font-medium text-gray-700">Time In </label>
-                                        <div v-if="errors.first_name">{{ errors.time_in }}</div>
-
-                                        <input required v-model="form.time_in" type="time" name="time-in" id="time-in" autocomplete="time-in" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="time-out" class="block text-sm font-medium text-gray-700">Time Out </label>
-                                        <div v-if="errors.first_name">{{ errors.time_out }}</div>
-                                        <input v-model="form.time_out" type="time" name="time-out" id="time-out" autocomplete="time-out" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                    </div>
-
-                                </div>
                             </div>
-                            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
-                            </div>
+                            <!--                                <div class="flex">-->
+                            <!--                                    <select v-model="perPage"-->
+                            <!--                                            @onchange="getTags"-->
+                            <!--                                            class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">-->
+                            <!--                                        <option value="5">5 Per Page</option>-->
+                            <!--                                        <option value="10">10 Per Page</option>-->
+                            <!--                                        <option value="15">15 Per Page</option>-->
+                            <!--                                    </select>-->
+                            <!--                                </div>-->
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div class="w-full mb-8 p-6 overflow-hidden bg-white rounded-lg shadow-lg">
+
+                        <form @submit.prevent="submitStudentAttendance">
+                            <div class="col-span-6 sm:col-span-3">
+
+                                <label for="library_id" class="block text-sm font-medium text-gray-700">Library</label>
+                                <select required v-model="form.library_id" id="library_id" name="library" autocomplete="book" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option v-for="library in libraries" :key= "library.id" :value="library.id"> {{library.name}}</option>
+                                </select>
+
+                                <!--                                <div class = "error" v-if="errors.library_id">{{ errors.library_id }}</div>-->
+
+                            </div>
+
+
+
+
+                            <div class="mt-4">
+                                <JetLabel for="time_in" value="TimeIn" />
+                                <JetInput
+                                    id="time_in"
+                                    v-model="form.time_in"
+                                    type="time"
+                                    class="mt-1 block w-full"
+                                    required
+                                />
+                                <div class="text-sm text-red-400" v-if="form.errors.time_in">{{ form.errors.time_in }}</div>
+
+                            </div>
+
+                            <div class="mt-4">
+                                <JetLabel for="time_out" value="TimeOut" />
+                                <JetInput
+                                    id="time_out"
+                                    v-model="form.time_out"
+                                    type="time"
+                                    class="mt-1 block w-full"
+                                    required
+                                />
+                                <div class="text-sm text-red-400" v-if="form.errors.time_out">{{ form.errors.time_out }}</div>
+
+                            </div>
+
+                            <div class="flex items-center justify-end mt-4">
+                                <a :href="route('admin.student-attendance.index', student.id)" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none mx-5 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Cancel</a>
+
+                                <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                    Update
+                                </JetButton>
+                            </div>
+                        </form>
+                    </div>
+
+                </section>
             </div>
         </div>
-
-
-
     </admin-layout>
+
 </template>
 
-<script>
+<script setup>
 
-import  AdminLayout from '@/Layouts/AdminLayout';
-
-import  {useForm} from "@inertiajs/inertia-vue3"
-
-export default {
-
-    props: {
-        errors: Object,
-        libraries: Object,
-        students: Object,
-        student_attendances: Object
-
-    },
-
-    components: {
-        AdminLayout
-    },
-
-    setup(props) {
-        const form = useForm({
-
-            // id: props.user.id,
-            library_id: props.student_attendance.library_id,
-            student_id: props.student_attendance.student_id,
-            time_in: props.student_attendance.time_in,
-            time_out: props.student_attendance.time_out,
+import AdminLayout from '../../../Layouts/AdminLayout.vue';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { ref, watch, defineProps } from 'vue';
+import JetButton from '@/Jetstream/Button.vue'
+import JetInput from '@/Jetstream/Input.vue'
+import JetLabel from '@/Jetstream/Label.vue'
 
 
-        })
 
-        return {form}
-    }
+const props = defineProps(
+    {
+        student: Object,
+        library:Object,
+        libraries:Object,
+        student_attendance: Object
+    });
+
+const form = useForm({
+    library_id: props.student_attendance.library_id,
+    time_in: props.student_attendance.time_in,
+    time_out: props.student_attendance.time_out,
+
+})
+
+function submitStudentAttendance()
+{
+    form.put(`/admin/students/${props.student.id}/student-attendance/${props.student_attendance.id}`)
 }
+
+
 </script>
 
-<style>
+<style scoped>
 
 </style>
-

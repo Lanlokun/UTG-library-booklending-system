@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('staff_id')->constrained();
             $table->datetime("date_borrowed");
             $table->datetime("date_expected");
-            $table->datetime("date_returned");
+            $table->datetime("date_returned")->nullable();
             $table->timestamps();
         });
     }

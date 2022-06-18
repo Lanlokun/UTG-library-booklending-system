@@ -22,10 +22,10 @@ class BorrowStaffController extends Controller
     public function index(Staff $staff)
     {
         return Inertia::render('Staff/Borrow/Index', [
-            'borrows' => BorrowStaff::query()->where('staff_id', $staff->id)
+            'borrow_staffs' => BorrowStaff::query()->where('staff_id', $staff->id)
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('book_copy_id', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
+                })->with('book_copy', 'library')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage']), 'staff' => $staff
         ]);
     }
@@ -39,7 +39,7 @@ class BorrowStaffController extends Controller
     {
         return Inertia::render('Staff/Borrow/Create', [
             'book_copies' => BookCopy::get(),
-            'staffs' => $staff,
+            'staff' => $staff,
             'libraries' => Library::get()
         ]);
     }
@@ -50,21 +50,31 @@ class BorrowStaffController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BorrowStaff $borrowStaff)
+    public function store(Staff $staff)
     {
-        $validated = Request::validate([
+        BorrowStaff::create([
+            'book_copy_id' => Request::input('book_copy_id'),
+            'library_id' => Request::input('library_id'),
+            'staff_id' => $staff->id,
+            'date_borrowed' => Request::input('date_borrowed'),
+            'date_expected' => Request::input('date_expected'),
+            'date_returned' => Request::input('date_returned'),
 
-            'book_copy_id' => 'required|exists:book_copies,id',
-            'library_id'  => 'required|exists:libraries,id',
-            'staff_id'  => 'required|exists:staffs,id',
-            'date_borrowed' => 'required | date',
-            'date_expected'=> 'required | date',
-            'date_returned' => 'required | date',
         ]);
 
-        $borrowStaff->create($validated);
+//        $validated = Request::validate([
+//
+//            'book_copy_id' => 'required|exists:book_copies,id',
+//            'library_id'  => 'required|exists:libraries,id',
+//            'staff_id' =>  'required|exists:staffs,id',
+//            'date_borrowed' => 'required | date',
+//            'date_expected'=> 'required | date',
+//            'date_returned' => 'date',
+//        ]);
+//
+//        $borrowStaff->create($validated);
 
-        return redirect(route('admin.staff-borrows.index'))->with('flash.banner', 'Book Borrowed to Staff Successfully');
+        return redirect(route('admin.staff-borrows.index', $staff->id))->with('flash.banner', 'Book Borrowed to Staff Successfully');
 
     }
 
@@ -85,22 +95,15 @@ class BorrowStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BorrowStaff $borrowStaff)
+    public function edit(Staff $staff, $borrow_staff)
     {
+        $borrow_staff = BorrowStaff::find($borrow_staff);
+
         return Inertia::render('Staff/Borrow/Edit', [
-            'borrow_staff' => [
-                'id' => $borrowStaff->id,
-                'book_copies' => $borrowStaff->when('book_copies'),
-                'libraries' => $borrowStaff->when('libraries'),
-                'staffs' => $borrowStaff->when('staffs'),
-                'date_borrowed' => $borrowStaff->date_borrowed,
-                'date_expected' => $borrowStaff->date_expected,
-                'date_returned' => $borrowStaff->date_returned,
-            ],
+            'borrow_staff' => $borrow_staff,
             'book_copies' => BookCopy::get(),
             'libraries' => Library::get(),
-            'staffs' => Staff::get(),
-
+            'staff' => $staff
         ]);
     }
 
@@ -111,20 +114,21 @@ class BorrowStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BorrowStaff $borrowStaff)
+    public function update(Staff $staff, $borrowStaff)
     {
-        $validated = Request::validate([
-            'boo_copy_id' => 'required|exists:book_copies,id',
-            'library_id'  => 'required|exists:libraries,id',
-            'staff_id'  => 'required|exists:staffs,id',
-            'date_borrowed' => 'required | date',
-            'date_expected'=> 'required | date',
-            'date_returned' => 'required | date',
-        ]);
 
+        $borrowStaff = BorrowStaff::find($borrowStaff);
+        $validated = Request::validate([
+            'book_copy_id' => 'required|exists:book_copies,id',
+            'library_id'  => 'required|exists:libraries,id',
+            'staff_id' => $staff,
+            'date_borrowed' => 'required',
+            'date_expected'=> 'required',
+            'date_returned' => 'required'
+        ]);
         $borrowStaff->update($validated);
 
-        return redirect()->route('admin.staff-borrows.index')->with('flash.banner', 'Book borrowed to staff updated succesfully');
+        return redirect()->route('admin.staff-borrows.index', $staff->id)->with('flash.banner', 'Book borrowed to staff updated succesfully');
     }
 
     /**
@@ -133,11 +137,13 @@ class BorrowStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BorrowStaff $borrowStaff)
+    public function destroy(Staff $staff, $borrowStaff)
     {
+        $borrowStaff = BorrowStaff::find($borrowStaff);
+
         $borrowStaff->delete();
 
-        return redirect()->route('admin.staff-borrows.index')->with('flash.banner', 'Borrowed Book deleted Successfully')->with('flash.bannerStyle', 'danger');
+        return redirect()->route('admin.staff-borrows.index', $staff->id)->with('flash.banner', 'Borrowed Book deleted Successfully')->with('flash.bannerStyle', 'danger');
 
     }
 }

@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\BookCopy;
 use App\Models\BorrowStudent;
 use App\Models\Library;
+use App\Models\Staff;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use Request;
+use Inertia\Inertia;
 
 class BorrowStudentController extends Controller
 {
@@ -16,14 +18,14 @@ class BorrowStudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Student $student)
     {
         return Inertia::render('Student/Borrow/Index', [
-            'borrows' => BorrowStudent::query()
+            'borrow_students' => BorrowStudent::query()->where('student_id', $student->id)
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('book_copy_id', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
-            'filters' => Request::only(['search', 'perPage'])
+                })->with('book_copy', 'library')->paginate(5)->withQueryString(),
+            'filters' => Request::only(['search', 'perPage']), 'student' => $student
         ]);
     }
 
@@ -32,11 +34,11 @@ class BorrowStudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Student $student)
     {
-        return Inertia::render('Student/Borrows/Create', [
+        return Inertia::render('Student/Borrow/Create', [
             'book_copies' => BookCopy::get(),
-            'students' => Student::get(),
+            'student' => $student,
             'libraries' => Library::get()
         ]);
     }
@@ -47,21 +49,31 @@ class BorrowStudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BorrowStudent $borrowStudent)
+    public function store(Student $student, BorrowStudent $borrowStudent)
     {
-        $validated = Request::validate([
 
-            'book_copy_id' => 'required|exists:book_copies,id',
-            'library_id'  => 'required|exists:libraries,id',
-            'student_id'  => 'required|exists:students,id',
-            'date_borrowed' => 'required | date',
-            'date_expected'=> 'required | date',
-            'date_returned' => 'required | date',
+        BorrowStudent::create([
+            'book_copy_id' => Request::input('book_copy_id'),
+            'library_id' => Request::input('library_id'),
+            'student_id' => $student->id,
+            'date_borrowed' => Request::input('date_borrowed'),
+            'date_expected' => Request::input('date_expected'),
+            'date_returned' => Request::input('date_returned'),
+
         ]);
+//        $validated = Request::validate([
+//
+//            'book_copy_id' => 'required|exists:book_copies,id',
+//            'library_id'  => 'required|exists:libraries,id',
+//            'student_id'  => 'required|exists:students,id',
+//            'date_borrowed' => 'required | date',
+//            'date_expected'=> 'required | date',
+//            'date_returned' => 'required | date',
+//        ]);
 
-        $borrowStudent->create($validated);
+//        $borrowStudent->create($validated);
 
-        return redirect(route('admin.student-borrows.index'))->with('flash.banner', 'Book Borrowed to Student Successfully');
+        return redirect(route('admin.student-borrows.index', $student->id))->with('flash.banner', 'Book Borrowed to Student Successfully');
 
     }
 
@@ -82,21 +94,14 @@ class BorrowStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BorrowStudent $borrowStudent)
+    public function edit(Student $student,$borrowStudent)
     {
+        $borrowStudent = BorrowStudent::find($borrowStudent);
         return Inertia::render('Student/Borrow/Edit', [
-            'borro_student' => [
-                'id' => $borrowStudent->id,
-                'book_copies' => $borrowStudent->when('book_copies'),
-                'libraries' => $borrowStudent->when('libraries'),
-                'students' => $borrowStudent->when('students'),
-                'date_borrowed' => $borrowStudent->date_borrowed,
-                'date_expected' => $borrowStudent->date_expected,
-                'date_returned' => $borrowStudent->date_returned,
-            ],
+            'borrow_student' => $borrowStudent,
             'book_copies' => BookCopy::get(),
             'libraries' => Library::get(),
-            'students' => Student::get(),
+            'student' => $student,
 
         ]);
     }
@@ -108,20 +113,20 @@ class BorrowStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BorrowStudent $borrowStudent)
+    public function update(Student $student,     $borrowStudent)
     {
+        $borrowStudent = BorrowStudent::find($borrowStudent);
         $validated = Request::validate([
-            'boo_copy_id' => 'required|exists:book_copies,id',
+            'book_copy_id' => 'required|exists:book_copies,id',
             'library_id'  => 'required|exists:libraries,id',
-            'student_id'  => 'required|exists:students,id',
-            'date_borrowed' => 'required | date',
-            'date_expected'=> 'required | date',
-            'date_returned' => 'required | date',
+            'student_id' => $student,
+            'date_borrowed' => 'required',
+            'date_expected'=> 'required',
+            'date_returned' => 'required'
         ]);
-
         $borrowStudent->update($validated);
 
-        return redirect()->route('admin.student-borrows.index')->with('flash.banner', 'Book borrowed to student updated succesfully');
+        return redirect()->route('admin.student-borrows.index', $student->id)->with('flash.banner', 'Book borrowed to student updated succesfully');
 
     }
 
@@ -131,11 +136,13 @@ class BorrowStudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BorrowStudent $borrowStudent)
+    public function destroy(Student $student, $borrowStudent)
     {
+
+        $borrowStudent = BorrowStudent::find($borrowStudent);
         $borrowStudent->delete();
 
-        return redirect()->route('admin.student-borrows.index')->with('flash.banner', 'Borrowed Book deleted Successfully')->with('flash.bannerStyle', 'danger');
+        return redirect()->route('admin.student-borrows.index', $student->id)->with('flash.banner', 'Borrowed Book deleted Successfully')->with('flash.bannerStyle', 'danger');
 
     }
 }

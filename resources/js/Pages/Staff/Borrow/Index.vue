@@ -31,7 +31,7 @@
                                         </svg>
                                     </div>
 
-                                    <input v-model="search" type="text" placeholder="Search by title"
+                                    <input v-model="search" type="text" placeholder="Search by book copy"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
                                 </div>
                             </div>
@@ -48,29 +48,36 @@
                                 <th class="px-4 py-3">Date Borrowed</th>
                                 <th class="px-4 py-3">Date Expected</th>
                                 <th class="px-4 py-3">Date Returned</th>
-                                <th class="px-4 py-3">Library</th>
                                 <th class="px-4 py-3">Manage</th>
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-                            <tr v-for="borrow_staff in borrow_staffs" :key="borrow_staff.id" class="text-gray-700">
-                                <td class="px-4 py-3 border"> {{borrow_staff.book_copy_id}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.library_id}}</td>
+
+                            <tr v-for="borrow_staff in borrow_staffs.data" :key="borrow_staff.id" class="text-gray-700">
+                                <td class="px-4 py-3 border"> {{borrow_staff.book_copy.number}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.library.name}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.date_borrowed}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.date_expected}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.date_returned}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">
+                                     <span v-if="borrow_staff.date_returned" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        {{borrow_staff.date_returned}}
+                                    </span>
+                                    <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        Not Returned
+                                    </span></td>
                                 <td class="flex justify-around px-4 py-3 text-sm border">
-                                    <Link :href="route('admin.staff-borrows.edit', staff.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.staff-borrrows.destroy', staff.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.staff-borrows.edit', [staff.id, borrow_staff.id])" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
+                                    <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staff-borrows.destroy', [staff.id, borrow_staff.id])">Delete</ButtonLink>
                                 </td>
                             </tr>
 
                             </tbody>
 
                         </table>
+
                         <div class="bg-white my-1 py-1">
 
-<!--                            <Pagination :links="borrow_staffs.links"/>-->
+                            <Pagination :links="borrow_staffs.links"/>
 
 
                         </div>
@@ -84,6 +91,7 @@
 
 <script setup>
 
+import ButtonLink from "@/Components/ButtonLink";
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import Pagination from "@/Components/Pagination";
@@ -95,10 +103,11 @@ const props = defineProps(
     {
         book_copies:Object,
         libraries:Object,
+        borrow_staffs:Object,
+        borrow_staff:Object,
         staffs:Object,
         staff:Object,
-
-        filters:Object
+        filters:Object,
     });
 
 
@@ -106,7 +115,8 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get('/admin/staffs/{staff}/staff-borrows', { search: value }, {preserveState: true, replace:true})
+    Inertia.get(`/admin/staffs/${props.staff.id}/staff-borrows`, { search: value }, {preserveState: true, replace:true})
+
 });
 
 </script>

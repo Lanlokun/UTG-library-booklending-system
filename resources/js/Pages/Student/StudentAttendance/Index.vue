@@ -55,11 +55,15 @@
                                 <TableHead>Manage</TableHead>
 
                             </template>
-
-                            <TableRow v-for="student in student_attendances" :key="student.id">
-                                <TableData>{{ student.library_id}}</TableData>
-                                <TableData>{{ student.time_in }}</TableData>
-                                <TableData>{{ student.time_out }}</TableData>
+                            <TableRow v-for="student_attendance in student_attendances.data" :key="student_attendance.id">
+                                <TableData>{{ student_attendance.library_id}}</TableData>
+                                <TableData>{{ student_attendance.time_in }}</TableData>
+                                <TableData><span v-if="student_attendance.time_out" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                         {{ student_attendance.time_out }}
+                                    </span>
+                                    <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                       Not Out
+                                    </span></TableData>
                                 <TableData>
 
                                     <div class="flex justify-around">
@@ -113,7 +117,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get(`/admin/students/${student}/student-attendance`, { search: value }, {preserveState: true, replace:true})
+    Inertia.get(`/admin/students/${props.students.id}/student-attendance`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

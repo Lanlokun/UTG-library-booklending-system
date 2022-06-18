@@ -106,7 +106,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    // Inertia.get(`/admin/books/${props.book_copies.id}/book-copies`, { search: value }, {preserveState: true, replace:true})
+    Inertia.get(`/admin/books/${props.book_copies.id}/book-copies`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

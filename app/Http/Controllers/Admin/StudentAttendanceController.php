@@ -19,10 +19,10 @@ class StudentAttendanceController extends Controller
     public function index(Student $student)
     {
         return Inertia::render('Student/StudentAttendance/Index', [
-            'students' => StudentAttendance::query()->where('student_id', $student->id)
+            'student_attendances' => StudentAttendance::query()->where('student_id', $student->id)
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('student_id', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
+                })->with('library')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage']), 'student' => $student
         ]);
 
@@ -52,18 +52,19 @@ class StudentAttendanceController extends Controller
 
 
 
-    public  function edit(StudentAttendance $studentAttendance)
+    public  function edit(Student $student, StudentAttendance $studentAttendance)
     {
-        return Inertia::render('StudentAttendance/Edit', [
-            'student_attendance' => $studentAttendance
+        return Inertia::render('Student/StudentAttendance/Edit', [
+            'student_attendance' => $studentAttendance,
+            'student' => $student,
+            'libraries' => Library::get()
         ]);
     }
 
-    public function update(StudentAttendance $studentAttendance)
+    public function update(Student $student, StudentAttendance $studentAttendance)
     {
 
         $validated = Request::validate([
-            'student_id' => 'required|exists:students,id',
             'library_id' => 'required|exists:libraries,id',
             'time_in' => 'required',
             'time_out' => 'required'
@@ -72,13 +73,13 @@ class StudentAttendanceController extends Controller
 
         $studentAttendance->update($validated);
 
-        return redirect()->route('admin.student-attendance.index')->with('flash.banner', 'Student Attendance Updated Successfully');
+        return redirect()->route('admin.student-attendance.index', $student->id)->with('flash.banner', 'Student Attendance Updated Successfully');
     }
 
-    public function destroy(StudentAttendance $studentAttendance)
+    public function destroy(Student $student, StudentAttendance $studentAttendance)
     {
         $studentAttendance->delete();
 
-        return redirect()->route('admin.student-attendance.index')->with('flash.banner', 'Student Attendance deleted successfully')->with('flash.bannerStyle', 'danger');
+        return redirect()->route('admin.student-attendance.index', $student->id)->with('flash.banner', 'Student Attendance deleted successfully')->with('flash.bannerStyle', 'danger');
     }
 }

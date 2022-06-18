@@ -56,15 +56,24 @@
 
                             </template>
 
-                            <TableRow v-for="staff in staff_attendances" :key="staff.id">
-                                <TableData>{{ staff.library.name}}</TableData>
-                                <TableData>{{ staff.time_in }}</TableData>
-                                <TableData>{{ staff.time_out }}</TableData>
+<!--                            {{staff_attendances}}-->
+
+                            <TableRow v-for="staff_attendance in staff_attendances.data" :key="staff_attendance.id">
+                                <TableData>{{ staff_attendance.library.name}}</TableData>
+                                <TableData>{{ staff_attendance.time_in }}</TableData>
+                                <TableData>
+                                     <span v-if="staff_attendance.time_out" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                         {{ staff_attendance.time_out }}
+                                    </span>
+                                    <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                       Not Out
+                                    </span>
+                                   </TableData>
                                 <TableData>
 
                                     <div class="flex justify-around">
-                                        <ButtonLink :link="route('admin.staff-attendance.edit', [staff.id,staff_attendance.id])">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staff-attendance.destroy', [staff.id, stuaff_attendance.id])">Delete</ButtonLink>
+                                        <ButtonLink :link="route('admin.staff-attendance.edit', [staff.id, staff_attendance.id])">Edit</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staff-attendance.destroy', [staff.id, staff_attendance.id])">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -74,7 +83,7 @@
 
                         <div class="bg-white my-1 py-1">
 
-                            <!--                            <Pagination :links="student_attendances.links"/>-->
+                                                        <Pagination :links="staff_attendances.links"/>
 
 
                         </div>
@@ -103,9 +112,11 @@ const props = defineProps(
     {
         staff_attendance:Object,
         staff_attendances:Object,
+        library:Object,
         staff:Object,
         staffs:Object,
         filters:Object
+
     });
 
 
@@ -113,7 +124,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    // Inertia.get(`/admin/staffs/${student}/staff-attendance`, { search: value }, {preserveState: true, replace:true})
+    Inertia.get(`/admin/staffs/${props.staff.id}/staff-attendance`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

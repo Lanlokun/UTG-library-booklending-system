@@ -10,7 +10,6 @@ class BorrowStaff extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'book_copy_id',
         'library_id',
         'staff_id',
@@ -35,7 +34,7 @@ class BorrowStaff extends Model
     }
 
     protected $casts = [
-        'date_borrowed' => 'datetime',
+        'date_borrowed' => 'datetime:m/d/y',
         'date_expected' => 'datetime',
         'date_returned' => 'datetime'
     ];
