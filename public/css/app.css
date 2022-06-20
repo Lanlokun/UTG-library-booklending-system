@@ -1128,10 +1128,6 @@ select {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
 }
-.my-3 {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -1694,6 +1690,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
+.bg-green-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(20 83 45 / var(--tw-bg-opacity));
+}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -1800,6 +1800,10 @@ select {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+.py-96 {
+  padding-top: 24rem;
+  padding-bottom: 24rem;
 }
 .pt-6 {
   padding-top: 1.5rem;

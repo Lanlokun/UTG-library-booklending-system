@@ -35,8 +35,8 @@ class BorrowStudent extends Model
     }
 
     protected $casts = [
-        'date_borrowed' => 'datetime',
-        'date_expected' => 'datetime',
-        'date_returned' => 'datetime'
+        'date_borrowed' => 'date:Y-m-d',
+        'date_expected' => 'date:Y-m-d',
+        'date_returned' => 'date:Y-m-d'
     ];
 }

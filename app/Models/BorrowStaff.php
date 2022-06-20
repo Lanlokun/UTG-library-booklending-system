@@ -34,8 +34,8 @@ class BorrowStaff extends Model
     }
 
     protected $casts = [
-        'date_borrowed' => 'datetime:m/d/y',
-        'date_expected' => 'datetime',
-        'date_returned' => 'datetime'
+        'date_borrowed' => 'date:Y-m-d',
+        'date_expected' => 'date:Y-m-d',
+        'date_returned' => 'date:Y-m-d'
     ];
 }

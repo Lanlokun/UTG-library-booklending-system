@@ -17,7 +17,7 @@ defineProps({
 
     <body>
     <div class=" ">
-                    <img class="bg-white  mr-6 mx-72 px-6" src="../../../public/images/UTG-Logo-removebg-preview.png">
+                    <img class="mr-6 mx-72 px-6" src="../../../public/images/UTG-Logo-removebg-preview.png">
         <h1 class="animate-character text-white mx-56"> WELCOME </h1>
 <!--                    <div class=" mb-36 text-white text-5xl font-bold text-center">-->
 <!--                        Welcome To The University Of The Gambia  Library Management System-->
@@ -50,6 +50,7 @@ defineProps({
 <!--            </div>-->
 
             <Link href="/login" type="button" class="content-center  px-96 text-white font-bold bg-green-700 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-lg py-3.5 mb-4 dark:bg-green-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</Link>
+<!--            <Link href="/register" type="button" class="px-96 text-white font-bold bg-green-900 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-lg py-3.5 mb-46 dark:bg-green-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</Link>-->
 
 
 
@@ -65,10 +66,10 @@ defineProps({
     text-transform: uppercase;
     background-image: linear-gradient(
         -225deg,
-        #231557 0%,
-        #44107a 29%,
-        #ff1361 67%,
-        #fff800 100%
+        #1f5715 0%,
+        #4a7a10 29%,
+        #d2ffa0 67%,
+        #4a7a10 100%
     );
     background-size: auto auto;
     background-clip: border-box;
@@ -97,7 +98,7 @@ defineProps({
 }
 
 body {
-    background-color:  #151719;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,7 +113,7 @@ body {
     font-family: 'Alfa Slab One', cursive;
     position: relative;
     display: inline-block;
-    color: #fff;
+    color: #112302;
     text-transform: uppercase;
     animation: waviy 1s infinite;
     animation-delay: calc(.1s * var(--i));

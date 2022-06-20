@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,7 +33,11 @@ class StaffAttendance extends Model
     }
 
     protected $casts = [
-        'time_in' => 'datetime',
-        'time_out' => 'datetime'
+        'time_in' => 'datetime:H:i',
+        'time_out' => 'datetime:H:i'
     ];
+
+    protected  function setTimeInAttribute($value){
+        $this->attributes['time_in'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
+    }
 }

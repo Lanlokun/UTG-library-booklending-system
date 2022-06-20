@@ -63,7 +63,7 @@
                                 <TableData>{{ staff_attendance.time_in }}</TableData>
                                 <TableData>
                                      <span v-if="staff_attendance.time_out" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                         {{ staff_attendance.time_out }}
+                                         {{ staff_attendance.time_out}}
                                     </span>
                                     <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                        Not Out
@@ -106,6 +106,8 @@ import TableHead from "@/Components/TableHead";
 import TableRow from "@/Components/TableRow";
 import TableData from "@/Components/TableData";
 import ButtonLink from "@/Components/ButtonLink";
+import moment from "moment";
+
 
 
 const props = defineProps(
@@ -118,6 +120,7 @@ const props = defineProps(
         filters:Object
 
     });
+
 
 
 const search = ref(props.filters.search);
