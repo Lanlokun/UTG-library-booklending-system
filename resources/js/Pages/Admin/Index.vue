@@ -74,7 +74,7 @@
                                     </path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> </span> Borrowed Books
+                                    <span class="text-xl font-bold text-blue-500"> {{borrows}} </span> Borrowed Books
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                     </path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> </span> Student in the Library
+                                    <span class="text-xl font-bold text-blue-500"> {{students}} </span> Registered Students
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                     </path>
                                 </svg>
                                 <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-                                    <span class="text-xl font-bold text-blue-500"> </span> Staffs in the Library
+                                    <span class="text-xl font-bold text-blue-500"> {{staffs}}</span> Registered Staffs
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,9 @@ const props = defineProps(
         books: Object,
         users_count: Object ,
         borrows: Object,
-        publishers: Object
+        publishers: Object,
+        students: Object,
+        staffs: Object
     });
 
 import AdminLayout from  '@/Layouts/AdminLayout.vue';

@@ -20,7 +20,7 @@ class StaffController extends Controller
         return Inertia::render('Staff/Index', [
             'staffs' => Staff::query()
                 ->when(Request::input('search'), function ($query, $search){
-                    $query->where('name', 'like', "%{$search}%");
+                    $query->where('fullName', 'like', "%{$search}%");
                 })->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage'])
         ]);

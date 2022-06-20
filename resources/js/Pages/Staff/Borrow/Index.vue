@@ -1,5 +1,5 @@
 <template>
-    <admin-layout title="Dashboard">
+    <admin-layout title="Borrow Staffs">
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -57,7 +57,8 @@
                                 <td class="px-4 py-3 border"> {{borrow_staff.book_copy.number}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.library.name}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.date_borrowed}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{borrow_staff.date_expected}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">{{ (borrow_staff.date_expected).format('d/m/Y')}}
+                                    {{borrow_staff.date_expected}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">
                                      <span v-if="borrow_staff.date_returned" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         {{borrow_staff.date_returned}}

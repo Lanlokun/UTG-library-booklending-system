@@ -106,6 +106,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.user.index')->with('flash.banner', 'Users deleted Successfully')->with('flash.bannerStyle', 'danger');
+        return redirect()->route('admin.user.index')->with('flash.banner', 'User deleted Successfully')->with('flash.bannerStyle', 'danger');
     }
 }

@@ -51,7 +51,14 @@
                             <tbody class="bg-white">
                             <tr v-for="category in categories.data" :key="category.id" class="text-gray-700">
                                 <td class="px-4 py-3 border"> {{category.name}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{category.category.name}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">
+                                     <span v-if="category.category_id" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        {{category.category.name}}
+                                    </span>
+                                    <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        None
+                                    </span>
+                                    </td>
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.categories.edit', category.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>

@@ -11,6 +11,7 @@ use App\Models\BookCopy;
 use App\Models\Staff;
 use Request;
 use Inertia\Inertia;
+use function GuzzleHttp\Promise\all;
 
 class BorrowStaffController extends Controller
 {
@@ -21,6 +22,9 @@ class BorrowStaffController extends Controller
      */
     public function index(Staff $staff)
     {
+
+        $borrowStaffCount = BorrowStaff::query()->where('date_returned');
+        
         return Inertia::render('Staff/Borrow/Index', [
             'borrow_staffs' => BorrowStaff::query()->where('staff_id', $staff->id)
                 ->when(Request::input('search'), function ($query, $search) {

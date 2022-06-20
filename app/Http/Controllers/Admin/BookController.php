@@ -20,6 +20,7 @@ class BookController extends Controller
      */
     public function index()
     {
+
         return Inertia::render('Books/Index', [
             'books' => Book::query()
                 ->when(Request::input('search'), function ($query, $search) {
