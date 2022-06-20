@@ -54,7 +54,6 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::resource('/shelves', ShelfController::class);
     Route::resource('/categories', CategoryController::class);
     Route::resource('/publishers', PublisherController::class);
-    Route::resource('/posts', PostController::class);
     Route::resource('/staffs', StaffController::class);
     Route::resource('/students', StudentController::class);
     Route::resource('/students/{student}/student-attendance', StudentAttendanceController::class);

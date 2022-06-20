@@ -39,6 +39,13 @@
                         </div>
                     </div>
                     <div class="w-full overflow-x-auto">
+                        <p v-if="borrowStaffCount">
+                            Has not returned {{borrowStaffCount}}
+                            <span v-if="borrowStaffCount == 1">book</span>
+                            <span v-else>books</span>
+                        </p>
+<!--                        <p v-if="borrowStaffCount == 1"> Has not returned {{borrowStaffCount}} book</p>-->
+                        <p v-else> Has returned all books</p>
                         <table class="w-full">
                             <thead>
                             <tr
@@ -107,6 +114,7 @@ const props = defineProps(
         borrow_staff:Object,
         staffs:Object,
         staff:Object,
+        borrowStaffCount:Object,
         filters:Object,
     });
 

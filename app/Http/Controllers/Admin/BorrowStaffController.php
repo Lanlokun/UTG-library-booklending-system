@@ -23,14 +23,17 @@ class BorrowStaffController extends Controller
     public function index(Staff $staff)
     {
 
-        $borrowStaffCount = BorrowStaff::query()->where('date_returned');
-        
+        $borrowStaffCount = BorrowStaff::where([
+            ['date_returned', null],
+            ['staff_id', $staff->id],
+        ])->count();
+
         return Inertia::render('Staff/Borrow/Index', [
             'borrow_staffs' => BorrowStaff::query()->where('staff_id', $staff->id)
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('book_copy_id', 'like', "%{$search}%");
                 })->with('book_copy', 'library')->paginate(5)->withQueryString(),
-            'filters' => Request::only(['search', 'perPage']), 'staff' => $staff
+            'filters' => Request::only(['search', 'perPage']), 'staff' => $staff, 'borrowStaffCount' => $borrowStaffCount
         ]);
     }
 

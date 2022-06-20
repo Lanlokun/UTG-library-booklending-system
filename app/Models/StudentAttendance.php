@@ -30,7 +30,7 @@ class StudentAttendance extends Model
     }
 
     protected $casts = [
-        'time_in' => 'datetime',
-        'time_out' => 'datetime'
+        'time_in' => 'datetime:H:i',
+        'time_out' => 'datetime:H:i'
     ];
 }

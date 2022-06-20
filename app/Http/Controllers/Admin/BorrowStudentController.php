@@ -20,12 +20,17 @@ class BorrowStudentController extends Controller
      */
     public function index(Student $student)
     {
+
+        $borrowStudentCount = BorrowStudent::where([
+            ['date_returned', null],
+            ['student_id', $student->id],
+        ])->count();
         return Inertia::render('Student/Borrow/Index', [
             'borrow_students' => BorrowStudent::query()->where('student_id', $student->id)
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('book_copy_id', 'like', "%{$search}%");
                 })->with('book_copy', 'library')->paginate(5)->withQueryString(),
-            'filters' => Request::only(['search', 'perPage']), 'student' => $student
+            'filters' => Request::only(['search', 'perPage']), 'student' => $student, 'borrowStudentCount' => $borrowStudentCount
         ]);
     }
 
