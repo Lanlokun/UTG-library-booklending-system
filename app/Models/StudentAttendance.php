@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +28,31 @@ class StudentAttendance extends Model
 
         return $this->belongsTo(Student::class);
 
+    }
+
+    public function setTimeInAttribute($value)
+    {
+        if($value)
+        {
+            $this->attributes['time_in'] =  Carbon::parse($value);
+        }
+        else
+        {
+            return $value;
+        }
+
+    }
+
+    public function setTimeOutAttribute($value)
+    {
+        if($value)
+        {
+            $this->attributes['time_out'] =  Carbon::parse($value);
+        }
+        else
+        {
+            return $value;
+        }
     }
 
     protected $casts = [

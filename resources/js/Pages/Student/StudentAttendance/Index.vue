@@ -29,7 +29,7 @@
                                         </svg>
                                     </div>
 
-                                    <input v-model="search" type="text" placeholder="Search by title"
+                                    <input v-model="search" type="text" placeholder="Search by time in"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
 
                             </template>
                             <TableRow v-for="student_attendance in student_attendances.data" :key="student_attendance.id">
-                                <TableData>{{ student_attendance.library_id}}</TableData>
+                                <TableData>{{ student_attendance.library.name}}</TableData>
                                 <TableData>{{ student_attendance.time_in }}</TableData>
                                 <TableData><span v-if="student_attendance.time_out" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                          {{ student_attendance.time_out }}
@@ -78,7 +78,7 @@
 
                         <div class="bg-white my-1 py-1">
 
-<!--                            <Pagination :links="student_attendances.links"/>-->
+                            <Pagination :links="student_attendances.links"/>
 
 
                         </div>
@@ -117,7 +117,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get(`/admin/students/${props.students.id}/student-attendance`, { search: value }, {preserveState: true, replace:true})
+    Inertia.get(`/admin/students/${props.student.id}/student-attendance`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

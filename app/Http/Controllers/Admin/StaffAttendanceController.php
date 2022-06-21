@@ -21,7 +21,7 @@ class StaffAttendanceController extends Controller
         return Inertia::render('Staff/StaffAttendance/Index', [
             'staff_attendances' => StaffAttendance::query()->where('staff_id', $staff->id)
                 ->when(Request::input('search'), function ($query, $search) {
-                    $query->where('library_id', 'like', "%{$search}%");
+                    $query->where('time_in', 'like', "%{$search}%");
                 })->with('library')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage']), 'staff' => $staff
         ]);

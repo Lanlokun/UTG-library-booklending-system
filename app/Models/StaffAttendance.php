@@ -31,13 +31,33 @@ class StaffAttendance extends Model
         return $this->belongsTo(Staff::class);
 
     }
+    public function setTimeInAttribute($value)
+    {
+        if($value)
+        {
+            $this->attributes['time_in'] =  Carbon::parse($value);
+        }
+        else
+        {
+            return $value;
+        }
 
+    }
+
+    public function setTimeOutAttribute($value)
+    {
+        if($value)
+        {
+            $this->attributes['time_out'] =  Carbon::parse($value);
+        }
+        else
+        {
+            return $value;
+        }
+    }
     protected $casts = [
         'time_in' => 'datetime:H:i',
         'time_out' => 'datetime:H:i'
     ];
 
-    protected  function setTimeInAttribute($value){
-        $this->attributes['time_in'] = Carbon::createFromFormat('m/d/Y', $value)->format('Y-m-d');
-    }
 }

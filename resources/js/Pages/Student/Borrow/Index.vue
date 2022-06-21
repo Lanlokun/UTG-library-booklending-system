@@ -33,6 +33,13 @@
 
                                     <input v-model="search" type="text" placeholder="Search by book copy"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
+
+                                    <p class="text-red-800  text-2xl float-right" v-if="borrowStudentCount">
+                                        Has not returned {{borrowStudentCount}}
+                                        <span v-if="borrowStudentCount == 1">book</span>
+                                        <span v-else>books</span>
+                                    </p>
+                                    <p v-else class="float-right text-2xl text-green-900"> Has returned all books</p>
                                 </div>
                             </div>
 
@@ -40,12 +47,6 @@
                     </div>
                     <div class="w-full overflow-x-auto">
 
-                        <p class="text-red-800  " v-if="borrowStudentCount">
-                            Has not returned {{borrowStudentCount}}
-                            <span v-if="borrowStudentCount == 1">book</span>
-                            <span v-else>books</span>
-                        </p>
-                        <p v-else class=" text-green-900"> Has returned all books</p>
                         <table class="w-full">
                             <thead>
                             <tr

@@ -21,7 +21,7 @@ class StudentAttendanceController extends Controller
         return Inertia::render('Student/StudentAttendance/Index', [
             'student_attendances' => StudentAttendance::query()->where('student_id', $student->id)
                 ->when(Request::input('search'), function ($query, $search) {
-                    $query->where('student_id', 'like', "%{$search}%");
+                    $query->where('time_in', 'like', "%{$search}%");
                 })->with('library')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage']), 'student' => $student
         ]);
