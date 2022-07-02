@@ -33,14 +33,16 @@ class ShelfController extends Controller
         ] );
     }
 
-    public function store()
+    public function store(Shelf $shelf)
     {
 
-        Shelf::create([
-            'name' => Request::input('name'),
-            'category_id' => Request::input('category_id'),
-            'capacity' => Request::input('capacity')
+        $validated = Request::validate([
+            'name' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'capacity' => 'required | integer'
         ]);
+
+        $shelf->create($validated);
 
         return redirect(route('admin.shelves.index'))->with('flash.banner', 'Shelf Created Successfully');
     }
@@ -71,8 +73,8 @@ class ShelfController extends Controller
 
     public function destroy(Shelf $shelf)
     {
+        $shelf->book_copies()->delete();
         $shelf->delete();
-
         return redirect()->route('admin.shelves.index')->with('flash.banner', 'Shelf deleted successfully')->with('flash.bannerStyle', 'danger');
     }
 }

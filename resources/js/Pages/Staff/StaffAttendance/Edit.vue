@@ -71,7 +71,6 @@
                                     v-model="form.time_out"
                                     type="time"
                                     class="mt-1 block w-full"
-                                    required
                                 />
                                 <div class="text-sm text-red-400" v-if="form.errors.time_out">{{ form.errors.time_out }}</div>
 

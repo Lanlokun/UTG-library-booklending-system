@@ -95,7 +95,7 @@ export default {
 
 <style>
 
-.errors {
+.error{
     color: red;
 }
 

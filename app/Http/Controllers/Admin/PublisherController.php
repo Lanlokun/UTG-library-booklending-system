@@ -66,6 +66,8 @@ class PublisherController extends Controller
 
     public function destroy(Publisher $publisher)
     {
+
+        $publisher->books()->delete();
         $publisher->delete();
 
         return redirect()->route('admin.publishers.index')->with('flash.banner', 'Publisher deleted successfully')->with('flash.bannerStyle', 'danger');

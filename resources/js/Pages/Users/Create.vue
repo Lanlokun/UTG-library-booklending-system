@@ -1,3 +1,27 @@
+<script setup>
+import  AdminLayout from '@/Layouts/AdminLayout';
+import  {useForm} from "@inertiajs/inertia-vue3"
+import {defineProps} from "vue";
+
+const props = defineProps({
+
+    errors:Object,
+
+})
+const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+});
+
+// const submit = () => {
+//     form.post(route('register'), {
+//         onFinish: () => form.reset('password', 'password_confirmation'),
+//     });
+// };
+</script>
+
 <template>
 
     <admin-layout title="Users">
@@ -40,6 +64,13 @@
 
                                     </div>
 
+                                    <div class="col-span-6 sm:col-span-6">
+                                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password </label>
+                                        <input required v-model="form.password_confirmation" type="password" name="password_confirmation" id="password_confirmation" autocomplete="password_confirmation" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        <div class="errors" v-if="errors.password_confirmation">{{ errors.password_confirmation }}</div>
+
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -60,41 +91,10 @@
     </admin-layout>
 </template>
 
-<script>
-
-import  AdminLayout from '@/Layouts/AdminLayout';
-
-import  {useForm} from "@inertiajs/inertia-vue3"
-
-export default {
-
-    props: {
-        errors: Object
-    },
-
-    components: {
-        AdminLayout
-    },
-
-    setup() {
-        const form = useForm({
-
-            name: '',
-            email: '',
-            password: ''
-
-        })
-
-        return {form}
-    }
-}
-</script>
 
 <style>
-
-.errors {
-    color: red;
-}
-
+    .errors {
+        color: red;
+    }
 </style>
 

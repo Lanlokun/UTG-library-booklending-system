@@ -12,6 +12,8 @@
                 <section class="container mx-auto p-6 font-mono">
 
 
+                        <Link :href="route('admin.books.index')" class="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg">Back </Link>
+
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <Link :href="route('admin.book-copies.create', book.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Copy </Link>
                     </div>
@@ -33,7 +35,7 @@
                                         </svg>
                                     </div>
 
-                                    <input v-model="search" type="text" placeholder="Search by title"
+                                    <input v-model="search" type="text" placeholder="Search by number"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
                                 </div>
                             </div>
@@ -106,7 +108,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get(`/admin/books/${props.book_copies.id}/book-copies`, { search: value }, {preserveState: true, replace:true})
+    Inertia.get(`/admin/books/${props.book.id}/book-copies`, { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

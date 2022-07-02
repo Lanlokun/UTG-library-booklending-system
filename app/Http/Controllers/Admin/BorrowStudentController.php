@@ -127,7 +127,7 @@ class BorrowStudentController extends Controller
             'student_id' => $student,
             'date_borrowed' => 'required',
             'date_expected'=> 'required',
-            'date_returned' => 'required'
+            'date_returned' => 'sometimes'
         ]);
         $borrowStudent->update($validated);
 

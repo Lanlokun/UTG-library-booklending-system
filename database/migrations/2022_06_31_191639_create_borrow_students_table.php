@@ -15,12 +15,9 @@ return new class extends Migration
     {
         Schema::create('borrow_students', function (Blueprint $table) {
             $table->id();
-            $table->index('book_copy_id');
-            $table->foreign('book_copy_id')->references('id')->on('book_copies')->onDelete('cascade');
-            $table->index('library_id');
-            $table->foreign('library_id')->references('id')->on('libraries')->onDelete('cascade');
-            $table->index('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreignId('book_copy_id')->constrained()->onDelete('cascade');
+            $table->foreignId('library_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->datetime("date_borrowed");
             $table->datetime("date_expected");
             $table->datetime("date_returned")->nullable();

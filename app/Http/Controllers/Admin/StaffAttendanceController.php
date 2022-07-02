@@ -18,6 +18,7 @@ class StaffAttendanceController extends Controller
      */
     public function index(Staff $staff)
     {
+//        dd($staff);
         return Inertia::render('Staff/StaffAttendance/Index', [
             'staff_attendances' => StaffAttendance::query()->where('staff_id', $staff->id)
                 ->when(Request::input('search'), function ($query, $search) {
@@ -64,7 +65,7 @@ class StaffAttendanceController extends Controller
         $validated = Request::validate([
             'library_id' => 'required|exists:libraries,id',
             'time_in' => 'required',
-            'time_out' => 'required'
+            'time_out' => 'sometimes'
 
         ]);
 

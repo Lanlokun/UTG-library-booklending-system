@@ -124,27 +124,53 @@ const logout = () => {
                                 </a>
                             </div>
                         </div>
+                        <JetDropdown align="right" width="48">
+                            <template #trigger>
+                                <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
+                                </button>
 
-                        <div class="relative">
-                            <button @click="dropdownOpen = ! dropdownOpen"
-                                    class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
-                                <img class="h-full w-full object-cover"
-                                     src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
-                                     alt="Your avatar">
-                            </button>
+                                <span v-else class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                {{ $page.props.user.name }}
 
-                            <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+                                                <svg
+                                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                >
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                            </template>
 
-                            <div v-show="dropdownOpen"
-                                 class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10">
-                                <a href=""
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
+                            <template #content>
+                                <!-- Account Management -->
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    Manage Account
+                                </div>
 
-                                <a href=""
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Admin</a>
+                                <JetDropdownLink :href="route('profile.show')">
+                                    Profile
+                                </JetDropdownLink>
 
-                            </div>
-                        </div>
+                                <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
+                                    API Tokens
+                                </JetDropdownLink>
+
+                                <div class="border-t border-gray-100" />
+
+                                <!-- Authentication -->
+                                <form @submit.prevent="logout">
+                                    <JetDropdownLink as="button">
+                                        Log Out
+                                    </JetDropdownLink>
+                                </form>
+                            </template>
+                        </JetDropdown>
+
                     </div>
                 </header>
 
@@ -156,12 +182,17 @@ const logout = () => {
                     </div>
                 </header>
 
+
+
                 <!-- Page Content -->
                 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     <slot />
                 </main>
 
+
+
         </div>
     </div>
     </div>
+
 </template>

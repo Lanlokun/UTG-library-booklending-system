@@ -42,13 +42,12 @@ Route::get('/', function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
 
     Route::resource('/books', BookController::class);
     Route::resource('/books/{book}/book-copies', BookCopyController::class);
-//    Route::resource('/books/{book}/book-copies/{book_copy}/borrows', BorrowController::class);
 
     Route::resource('/library', LibraryController::class);
     Route::resource('/shelves', ShelfController::class);
@@ -73,7 +72,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        auth()->user()->assignRole('admin');
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+
+//Route::post('send-mail', 'MailController@sendMail')->name('mail');
+

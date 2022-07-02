@@ -24,6 +24,10 @@ return [
         'endpoint' => env('UTG_ENDPOINT', 'https://utgerpgsuite.herokuapp.com/')
     ],
 
+//    'sendgrid' => [
+//        'api_key' => env('SENDGRID_API_KEY'),
+//    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

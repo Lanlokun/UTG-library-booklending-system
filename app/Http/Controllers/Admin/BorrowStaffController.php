@@ -59,6 +59,15 @@ class BorrowStaffController extends Controller
      */
     public function store(Staff $staff)
     {
+        $borrows = BorrowStaff::all('book_copy_id');
+
+
+//        if ($borrows == Request::input('book_copy_id')) {
+//            return "Book copy is not available";
+//        }
+
+
+
         BorrowStaff::create([
             'book_copy_id' => Request::input('book_copy_id'),
             'library_id' => Request::input('library_id'),
@@ -68,6 +77,7 @@ class BorrowStaffController extends Controller
             'date_returned' => Request::input('date_returned'),
 
         ]);
+
 
 //        $validated = Request::validate([
 //
@@ -81,9 +91,9 @@ class BorrowStaffController extends Controller
 //
 //        $borrowStaff->create($validated);
 
-        return redirect(route('admin.staff-borrows.index', $staff->id))->with('flash.banner', 'Book Borrowed to Staff Successfully');
+            return redirect(route('admin.staff-borrows.index', $staff->id))->with('flash.banner', 'Book Borrowed to Staff Successfully');
 
-    }
+        }
 
     /**
      * Display the specified resource.
@@ -131,7 +141,7 @@ class BorrowStaffController extends Controller
             'staff_id' => $staff,
             'date_borrowed' => 'required',
             'date_expected'=> 'required',
-            'date_returned' => 'required'
+            'date_returned' => 'sometimes'
         ]);
         $borrowStaff->update($validated);
 

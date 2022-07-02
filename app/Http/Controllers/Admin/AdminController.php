@@ -21,13 +21,15 @@ class AdminController extends Controller
     {
         $users_count = User::count();
         $publishers = Publisher::count();
-        $books = BookCopy::count();
+        $book = Book::count();
+        $books_copy= BookCopy::count();
         $studentBorrows = BorrowStudent::count();
         $staffBorrows = BorrowStaff::count();
         $students = Student::count();
         $staffs =Staff::count();
 
         $borrows = $studentBorrows + $staffBorrows;
+        $books = $book + $books_copy;
 
         return Inertia::render('Admin/Index', [
             'users_count' => $users_count,

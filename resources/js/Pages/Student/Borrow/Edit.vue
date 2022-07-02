@@ -97,7 +97,6 @@
                                     v-model="form.date_returned"
                                     type="date"
                                     class="mt-1 block w-full"
-                                    required
                                 />
                                 <div class="text-sm text-red-400" v-if="form.errors.date_returned">{{ form.errors.date_returned }}</div>
 

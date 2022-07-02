@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("student_id")->constrained();
             $table->string("fullName", 50);
             $table->string("address", 100);
             $table->timestamps();

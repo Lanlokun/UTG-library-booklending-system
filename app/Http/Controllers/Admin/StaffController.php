@@ -7,6 +7,8 @@ use App\Http\Services\FetchUserAPI;
 use App\Models\Staff;
 use Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
+
 
 class StaffController extends Controller
 {
@@ -31,16 +33,30 @@ class StaffController extends Controller
         return Inertia::render(('Staff/Create'));
     }
 
+    private function parseEmailInput($email): array
+    {
+        if (! str_contains($email, '@'))
+            $email .= '@utg.edu.gm';
+
+        return [
+            "email_address" => $email,
+        ];
+    }
+
     public function store()
     {
 
-        $staff = Staff::where('address', Request::input('email_address'))->first();
-        if($staff){
-            return redirect(route('admin.staffs.index'))->with('flash.banner', 'Staff Exists');
-
-        }
 
         $user = (new FetchUserAPI())->makeRequest(Request::input('email_address'));
+        $staffEmail = Request::input('email_address');
+
+        $staff = Staff::where('address', $this->parseEmailInput($staffEmail))->first();
+
+
+        if($staff){
+            return redirect(route('admin.staffs.index'))->with('flash.banner', 'Staff Already Exists');
+
+        }
         if (!$user == null) {
             Staff::create([
                 'fullName' => $user['name']['fullName'],
@@ -82,6 +98,8 @@ class StaffController extends Controller
 
     public function destroy(Staff $staff)
     {
+        $staff->borrowStaffs()->delete();
+        $staff->staff_attendances()->delete();
         $staff->delete();
 
         return redirect()->route('admin.staffs.index')->with('flash.banner', 'Staff deleted successfully')->with('flash.bannerStyle', 'danger');

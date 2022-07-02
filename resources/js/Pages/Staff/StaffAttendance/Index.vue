@@ -10,6 +10,9 @@
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section class="container mx-auto p-6 font-mono">
+
+                    <Link :href="route('admin.staffs.index')" class="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg">Back </Link>
+
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <Link :href="route('admin.staff-attendance.create', staff.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Staff Attendance</Link>
                     </div>
@@ -56,10 +59,8 @@
 
                             </template>
 
-<!--                            {{staff_attendances}}-->
-
                             <TableRow v-for="staff_attendance in staff_attendances.data" :key="staff_attendance.id">
-                                <TableData>{{ staff_attendance.library.name}}</TableData>
+                                <TableData>{{ staff_attendance.library.name }}</TableData>
                                 <TableData>{{ staff_attendance.time_in }}</TableData>
                                 <TableData>
                                      <span v-if="staff_attendance.time_out" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -114,7 +115,6 @@ const props = defineProps(
     {
         staff_attendance:Object,
         staff_attendances:Object,
-        library:Object,
         staff:Object,
         staffs:Object,
         filters:Object

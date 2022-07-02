@@ -60,6 +60,7 @@
                                         <div class="error" v-if="errors.publisher">{{ errors.publisher }}</div>
 
                                         <select required v-model="form.publisher_id" id="publisher" name="publisher" autocomplete="publisher" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
                                             <option v-for="publisher in publishers" :key="publisher.id" :value="publisher.id">{{ publisher.name }}</option>
                                         </select>
 

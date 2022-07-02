@@ -14,18 +14,23 @@ class Staff extends Model
         'address',
     ];
 
-    public function staff()
+    public function staff_attendances()
     {
-        return $this->belongsTo(Staff::class);
+        return $this->hasMany(StaffAttendance::class);
     }
 
-    public function attendances()
+    public function student_attendances()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(StudentAttendance::class);
     }
 
-    public function borrows()
+    public function borrowStaffs()
     {
-        return $this->hasMany(Borrow::class);
+        return $this->hasMany(BorrowStaff::class);
+    }
+
+    public function borrowStudents()
+    {
+        return $this->hasMany(BorrowStudent::class);
     }
 }

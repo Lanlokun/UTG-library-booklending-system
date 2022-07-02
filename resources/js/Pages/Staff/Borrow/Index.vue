@@ -10,6 +10,9 @@
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section class="container mx-auto p-6 font-mono">
+
+                    <Link :href="route('admin.staffs.index')" class="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg">Back </Link>
+
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <Link :href="route('admin.staff-borrows.create', staff.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Borrow Book </Link>
                     </div>
@@ -36,6 +39,7 @@
 
                                     <p class="text-red-800  text-2xl float-right" v-if="borrowStaffCount">
                                         Has not returned {{borrowStaffCount}}
+
                                         <span v-if="borrowStaffCount == 1">book</span>
                                         <span v-else>books</span>
                                     </p>

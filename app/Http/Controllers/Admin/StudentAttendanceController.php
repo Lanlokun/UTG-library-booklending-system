@@ -67,7 +67,7 @@ class StudentAttendanceController extends Controller
         $validated = Request::validate([
             'library_id' => 'required|exists:libraries,id',
             'time_in' => 'required',
-            'time_out' => 'required'
+            'time_out' => 'sometimes'
 
         ]);
 

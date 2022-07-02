@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'sendgrid'),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,6 +48,7 @@ return [
         'ses' => [
             'transport' => 'ses',
         ],
+
 
         'mailgun' => [
             'transport' => 'mailgun',
@@ -92,8 +93,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'library@utg.edu.gm'),
+        'name' => env('MAIL_FROM_NAME', 'UTG-LIBRARY'),
     ],
 
     /*

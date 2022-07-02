@@ -25,8 +25,8 @@ class Student extends Model
         return $this->hasMany(StudentAttendance::class);
     }
 
-    public function borrows()
+    public function borrowStudents()
     {
-        return $this->hasMany(Borrow::class);
+        return $this->hasMany(BorrowStudent::class);
     }
 }

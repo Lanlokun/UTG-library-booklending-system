@@ -10,6 +10,9 @@
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section class="container mx-auto p-6 font-mono">
+
+                    <Link :href="route('admin.students.index')" class="px-4 py-2 bg-blue-500 hover:bg-blue-800 text-white rounded-lg">Back </Link>
+
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <Link :href="route('admin.student-attendance.create', student.id)" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Student Attendance</Link>
                     </div>

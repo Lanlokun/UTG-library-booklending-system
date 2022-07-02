@@ -32,31 +32,47 @@ class StudentController extends Controller
         return Inertia::render('Student/Create');
     }
 
+    private function parseEmailInput($email): array
+    {
+        if (! str_contains($email, '@'))
+            $email .= '@utg.edu.gm';
+
+        return [
+            "email_address" => $email,
+        ];
+    }
+
     public function store(\Illuminate\Http\Request $request)
     {
 
-        $student = Student::where('address', Request::input('email_address'))->first();
+        $studentEmail = Request::input('email_address');
+
+        $student = Student::where('address', $this->parseEmailInput($studentEmail))->first();
+
+
         if($student){
-            return redirect(route('admin.students.index'))->with('flash.banner', 'Student Exists');
+            return redirect(route('admin.students.index'))->with('flash.banner', 'Student Already Exists');
 
         }
-
         $user = (new FetchUserAPI())->makeRequest(Request::input('email_address'));
-//        dd($user);
 
-        if (!$user == null) {
+        if($user == $studentEmail)
+        {
+            return redirect(route('admin.students.index'))->with('flash.banner', 'Student Exists');
+        }
+
+        else if (!$user == null) {
             Student::create([
                 'fullName' => $user['name']['fullName'],
                 'address' => $user['primaryEmail'],
             ]);
             return redirect(route('admin.students.index'))->with('flash.banner', 'Student Created');
-
         }
+
         else {
             return redirect(route('admin.students.index'))->with('flash.banner', 'Api Error ')->with('flash.bannerStyle', 'danger');
         }
 
-        return redirect(route('admin.students.index'))->with('flash.banner', 'Student Created Successfully');
     }
 
 
@@ -72,7 +88,6 @@ class StudentController extends Controller
     {
 
         $validated = Request::validate([
-            'student_id' => 'required|exists:students,id',
             'fullName' => 'required|max:255',
             'address' => 'required',
         ]);
@@ -84,6 +99,8 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
+        $student->student_attendances()->delete();
+        $student->borrowStudents()->delete();
         $student->delete();
 
         return redirect()->route('admin.students.index')->with('flash.banner', 'Student deleted successfully')->with('flash.bannerStyle', 'danger');
