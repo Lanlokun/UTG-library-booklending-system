@@ -62,7 +62,7 @@
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.categories.edit', category.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.categories.destroy', category.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.categories.destroy', category.id)" method="delete" as="button" @click="destroy(category.id)" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -91,10 +91,19 @@ import Pagination from "@/Components/Pagination";
 import { ref, watch, defineProps } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 
+const destroy = (id) => {
 
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.categories.destroy', category.id))
+    }
+    return { destroy };
+
+}
 const props = defineProps(
     {
         categories:Object,
+        category:Object,
         filters:Object
     });
 

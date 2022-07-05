@@ -55,7 +55,7 @@
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.user.edit', user.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.user.destroy', user.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.user.destroy', user.id)" method="delete" @click="destroy(user.id)" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -88,9 +88,18 @@ import { Inertia } from "@inertiajs/inertia";
 const props = defineProps(
     {
         users:Object,
+        user:Object,
         filters:Object
     });
+const destroy = (id) => {
 
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.users.destroy', user.id))
+    }
+    return { destroy };
+
+}
 
 const search = ref(props.filters.search);
 const perPage = ref(5);

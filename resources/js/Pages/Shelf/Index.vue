@@ -59,7 +59,7 @@
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.shelves.edit', shelf.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.shelves.destroy', shelf.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.shelves.destroy', shelf.id)" method="delete" @click="destroy(shelf.id)" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -89,9 +89,21 @@ import { ref, watch, defineProps } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.shelves.destroy', shelf.id))
+    }
+    return { destroy };
+
+}
+
+
 const props = defineProps(
     {
         shelves:Object,
+        shelf:Object,
         filters:Object
     });
 

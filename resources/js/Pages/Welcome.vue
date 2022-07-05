@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import FrontLayout from "../Layouts/FrontLayout";
+import Footer from "../Components/Footer";
 
 defineProps({
     canLogin: Boolean,
@@ -50,8 +51,8 @@ defineProps({
 <!--            </div>-->
 
             <Link href="/login" type="button" class="content-center  px-96 text-white font-bold bg-green-700 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-lg py-3.5 mb-4 dark:bg-green-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</Link><br><br>
-            <Link href="/register" type="button" class="px-96 text-green-500 font-bold border-double border-4 border-green-600 hover:bg-green-700 hover:text-white focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-lg py-3.5 mb-46 dark:bg-gray-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</Link>
-
+<!--            <Link href="/register" type="button" class="px-96 text-green-500 font-bold border-double border-4 border-green-600 hover:bg-green-700 hover:text-white focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-lg py-3.5 mb-46 dark:bg-gray-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</Link>-->
+<Footer/>
 
 
 <!--        </div>-->

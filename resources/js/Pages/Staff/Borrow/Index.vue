@@ -79,7 +79,7 @@
                                     </span></td>
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.staff-borrows.edit', [staff.id, borrow_staff.id])" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staff-borrows.destroy', [staff.id, borrow_staff.id])">Delete</ButtonLink>
+                                    <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" @click="destroy(borrow_staff.id)" :link="route('admin.staff-borrows.destroy', [staff.id, borrow_staff.id])">Delete</ButtonLink>
                                 </td>
                             </tr>
 
@@ -110,6 +110,15 @@ import Pagination from "@/Components/Pagination";
 import { ref, watch, defineProps } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.staff-borrow.destroy', borrow_staff.id))
+    }
+    return { destroy };
+
+}
 
 const props = defineProps(
     {

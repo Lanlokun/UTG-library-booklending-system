@@ -74,7 +74,7 @@
 
                                     <div class="flex justify-around">
                                         <ButtonLink :link="route('admin.staff-attendance.edit', [staff.id, staff_attendance.id])">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staff-attendance.destroy', [staff.id, staff_attendance.id])">Delete</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" @click="destroy(staff_attendance.id)" :link="route('admin.staff-attendance.destroy', [staff.id, staff_attendance.id])">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -109,6 +109,15 @@ import TableData from "@/Components/TableData";
 import ButtonLink from "@/Components/ButtonLink";
 import moment from "moment";
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.staff-attendances.destroy', staff_attendance.id))
+    }
+    return { destroy };
+
+}
 
 
 const props = defineProps(

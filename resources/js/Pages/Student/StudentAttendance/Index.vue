@@ -71,7 +71,7 @@
 
                                     <div class="flex justify-around">
                                         <ButtonLink :link="route('admin.student-attendance.edit', [student.id,student_attendance.id])">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.student-attendance.destroy', [student.id, student_attendance.id])">Delete</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" @click="destroy(student_attendance.id)" :link="route('admin.student-attendance.destroy', [student.id, student_attendance.id])">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -104,7 +104,15 @@ import TableHead from "@/Components/TableHead";
 import TableRow from "@/Components/TableRow";
 import TableData from "@/Components/TableData";
 import ButtonLink from "@/Components/ButtonLink";
+const destroy = (id) => {
 
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.student-attendance.destroy', student_attendance.id))
+    }
+    return { destroy };
+
+}
 
 const props = defineProps(
     {

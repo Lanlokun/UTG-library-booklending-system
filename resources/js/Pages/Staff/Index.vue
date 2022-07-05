@@ -78,7 +78,7 @@
                                         <ButtonLink class="bg-yellow-500 hover:bg-yellow-700" :link="route('admin.staff-attendance.index', staff.id)">Attendance</ButtonLink>
                                         <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.staff-borrows.index', staff.id)">Borrows</ButtonLink>
                                         <ButtonLink :link="route('admin.staffs.edit', staff.id)">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staffs.destroy', staff.id)">Delete</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" @click="destroy(staff.id)" :link="route('admin.staffs.destroy', staff.id)">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -113,6 +113,15 @@ import TableRow from "../../Components/TableRow";
 import TableData from "../../Components/TableData";
 import ButtonLink from "@/Components/ButtonLink";
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.staffs.destroy', staff.id))
+    }
+    return { destroy };
+
+}
 
 const props = defineProps(
     {
