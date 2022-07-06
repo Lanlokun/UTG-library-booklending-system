@@ -24,7 +24,7 @@ const form = useForm({
 
 <template>
 
-    <admin-layout title="Users">
+    <admin-layout title="Visitors">
         <template #header>
             <div class="py-50 px-500">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">

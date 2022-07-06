@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\StudentController;
 
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VisitorController;
 use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -48,7 +49,6 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')
 
     Route::resource('/books', BookController::class);
     Route::resource('/books/{book}/book-copies', BookCopyController::class);
-
     Route::resource('/library', LibraryController::class);
     Route::resource('/shelves', ShelfController::class);
     Route::resource('/categories', CategoryController::class);
@@ -57,11 +57,10 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')
     Route::resource('/students', StudentController::class);
     Route::resource('/students/{student}/student-attendance', StudentAttendanceController::class);
     Route::resource('/students/{student}/student-borrows', BorrowStudentController::class);
-
     Route::resource('/staffs/{staff}/staff-attendance', StaffAttendanceController::class);
     Route::resource('/staffs/{staff}/staff-borrows', BorrowStaffController::class);
-
     Route::resource('/user', UserController::class);
+    Route::resource('/visitor', VisitorController::class);
 
 
 });
