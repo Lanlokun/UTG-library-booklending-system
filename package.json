@@ -27,6 +27,8 @@
     },
     "dependencies": {
         "@vueform/multiselect": "^2.3.4",
+        "moment": "^2.29.3",
+        "vue-moment": "^4.1.0",
         "vue-multiselect": "^2.1.6"
     }
 }

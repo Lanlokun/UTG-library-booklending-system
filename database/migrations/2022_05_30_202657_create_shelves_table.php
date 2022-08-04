@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('shelves', function (Blueprint $table) {
             $table->id();
             $table->string("name", 50);
-            $table->foreignId("category_id")->constrained();
+            $table->unsignedBigInteger("category_id");
+            $table->foreign("category_id")->references('id')->on('categories')->onDelete('cascade');
             $table->integer("capacity")->nullable();
             $table->timestamps();
         });

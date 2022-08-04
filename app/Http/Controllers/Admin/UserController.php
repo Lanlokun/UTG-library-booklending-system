@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Laravel\Jetstream\Jetstream;
 use Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    use PasswordValidationRules;
+
     /**
      * Display a listing of the resource.
      *
@@ -41,12 +47,24 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(User $user)
     {
+
+        $validated = Request::validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'password' => $this->passwordRules(),
+        ]);
+//        Validator::make($input, [
+//            'name' => ['required', 'string', 'max:255'],
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+//            'password' => $this->passwordRules(),
+//        ])->validate();
+
         User::create([
-            'name' => Request::input('name'),
-            'email' => Request::input('email'),
-            'password' => Request::input('password'),
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
         ]);
 
         return redirect(route('admin.user.index'))->with('flash.banner', 'User Created Successfully');
@@ -106,6 +124,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.user.index')->with('flash.banner', 'Users deleted Successfully')->with('flash.bannerStyle', 'danger');
+        return redirect()->route('admin.user.index')->with('flash.banner', 'User deleted Successfully')->with('flash.bannerStyle', 'danger');
     }
 }

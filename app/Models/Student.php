@@ -10,18 +10,14 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
-        'name',
-        'mat_number',
-        'department',
-        'email'
-
-
+//        'student_id',
+        'fullName',
+        'address',
     ];
 
-    public function student()
+    public function students()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
     }
 
     public function student_attendances()
@@ -29,8 +25,8 @@ class Student extends Model
         return $this->hasMany(StudentAttendance::class);
     }
 
-    public function borrows()
+    public function borrowStudents()
     {
-        return $this->hasMany(Borrow::class);
+        return $this->hasMany(BorrowStudent::class);
     }
 }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('book_copies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("book_id");
             $table->integer("number");
-            $table->foreignId("book_id")->constrained();
             $table->foreignId("library_id")->constrained();
             $table->foreignId("shelf_id")->constrained();
             $table->timestamps();

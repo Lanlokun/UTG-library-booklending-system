@@ -20,7 +20,7 @@ class CategoryController extends Controller
             'categories' => Category::query()
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
+                })->with('category')->paginate(5)->withQueryString(),
             'filters' => Request::only(['search', 'perPage'])
         ]);
     }
@@ -72,7 +72,9 @@ class CategoryController extends Controller
     public  function edit(Category $category)
     {
         return Inertia::render('Category/Edit', [
-            'category' => $category
+            'category' => $category,
+            'categories' => Category::get()
+
         ]);
     }
 
@@ -104,7 +106,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category->books()->delete();
+        $category->categories()->delete();
+        $category->shelves()->delete();
         $category->delete();
+
 
         return redirect()->route('admin.categories.index')->with('flash.banner', 'Category deleted Successfully')->with('flash.bannerStyle', 'danger');
     }

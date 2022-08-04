@@ -97,6 +97,12 @@ class LibraryController extends Controller
      */
     public function destroy(Library $library)
     {
+
+        $library->book_copies()->delete();
+        $library->borrowStaffs()->delete();
+        $library->borrowStaffs()->delete();
+        $library->staff_attendances()->delete();
+        $library->student_attendances()->delete();
         $library->delete();
 
         return redirect()->route('admin.library.index')->with('flash.banner', 'Library deleted Successfully')->with('flash.bannerStyle', 'danger');

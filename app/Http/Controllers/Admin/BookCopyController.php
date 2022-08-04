@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Models\BookCopy;
+use App\Models\Library;
+use App\Models\Shelf;
+use Illuminate\Support\Facades\Redirect;
 use Request;
 use Inertia\Inertia;
 
@@ -14,60 +18,78 @@ class BookCopyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Book $book)
     {
         return Inertia::render('Books/BookCopy/Index', [
-            'book_copies' => BookCopy::query()
+            'book_copies' => BookCopy::query()->where('book_id', $book->id)
                 ->when(Request::input('search'), function ($query, $search){
                     $query->where('number', 'like', "%{$search}%");
-                })->paginate(5)->withQueryString(),
-            'filters' => Request::only(['search', 'perPage'])
+                })->with('book', 'library', 'shelf')->paginate(5)->withQueryString(),
+            'filters' => Request::only(['search', 'perPage']), 'book' => $book
         ]);
     }
 
-    public  function  create()
+    public  function  create(Book $book)
     {
-        return Inertia::render(('BookCopy/Create'));
+        return Inertia::render('Books/BookCopy/Create', [
+            'books' => Book::get(),
+            'libraries' => Library::get(),
+            'book' => $book,
+            'shelves' => Shelf::get()
+        ]);
     }
 
-    public function store()
+    public function store(Book $book)
     {
         BookCopy::create([
             'number' => Request::input('number'),
-            'book_id' => Request::input('book_id'),
+            'book_id' => $book->id,
             'library_id' => Request::input('library_id'),
             'shelf_id' => Request::input('shelf_id')
         ]);
 
-        return redirect(route('admin.tags.index'))->with('flash.banner', 'Tag Created');
+        return Redirect::route('admin.book-copies.index', $book->id)->with('flash.banner', 'Book Copy Created');
     }
 
 
 
-    public  function edit(BookCopy $bookCopy)
+    public  function edit(Book $book, BookCopy $bookCopy)
     {
-        return Inertia::render('BookCopy/Edit', [
-            'book_copy' => $bookCopy
+        return Inertia::render('Books/BookCopy/Edit', [
+
+            'book_copy' => [
+                'id' => $bookCopy->id,
+                'number' => $bookCopy->number,
+                'libraries' => $bookCopy->when('libraries'),
+                'shelves' => $bookCopy->when('shelves'),
+            ],
+            'libraries' => Library::get(),
+            'shelves' => Shelf::get(),
+            'book' => $book,
+            'book_copy' => $bookCopy,
+
+
         ]);
     }
 
-    public function update(BookCopy $bookCopy)
+    public function update(Book $book, BookCopy $bookCopy)
     {
 
-        $bookCopy->update([
-            'number' => Request::input('number'),
-            'book_id' => Request::input('book_id'),
-            'library_id' => Request::input('library_id'),
-            'shelf_id' => Request::input('shelf_id')
+        $validated = Request::validate([
+            'number' => 'required | integer',
+            'library_id' => 'required|exists:libraries,id',
+            'shelf_id' => 'required|exists:shelves,id',
 
         ]);
-        return redirect()->route('admin.book-copies.index')->with('flash.banner', 'BookCopy Updated');
+
+        $bookCopy->update($validated);
+        return redirect()->route('admin.book-copies.index', $book->id)->with('flash.banner', 'Book Copy Updated');
     }
 
-    public function destroy(BookCopy $bookCopy)
+    public function destroy(Book $book , BookCopy $bookCopy)
     {
         $bookCopy->delete();
 
-        return redirect()->route('admin.book-copies.index')->with('flash.banner', 'Book copy deleted')->with('flash.bannerStyle', 'danger');
+        return redirect()->back()->with('flash.banner', 'Book copy deleted')->with('flash.bannerStyle', 'danger');
     }
 }

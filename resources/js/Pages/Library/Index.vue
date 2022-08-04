@@ -1,5 +1,5 @@
 <template>
-    <admin-layout title="Dashboard">
+    <admin-layout title="Library">
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -31,7 +31,7 @@
                                         </svg>
                                     </div>
 
-                                    <input v-model="search" type="text" placeholder="Search by title"
+                                    <input v-model="search" type="text" placeholder="Search by name"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.library.edit', library.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.library.destroy', library.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.library.destroy', library.id)" method="delete" @click="destroy(library.id)" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -85,9 +85,23 @@ import { ref, watch, defineProps } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.library.destroy', library.id))
+    }
+    else {
+        Inertia.get(route('admin.library.index'))
+    }
+    return { destroy };
+
+}
+
 const props = defineProps(
     {
         libraries:Object,
+        library:Object,
         filters:Object
     });
 

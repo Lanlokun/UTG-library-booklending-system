@@ -31,7 +31,7 @@
                                         </svg>
                                     </div>
 
-                                    <input v-model="search" type="text" placeholder="Search by title"
+                                    <input v-model="search" type="text" placeholder="Search by name"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
                                 </div>
                             </div>
@@ -51,11 +51,18 @@
                             <tbody class="bg-white">
                             <tr v-for="category in categories.data" :key="category.id" class="text-gray-700">
                                 <td class="px-4 py-3 border"> {{category.name}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{category.category_id}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">
+                                     <span v-if="category.category_id" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        {{category.category.name}}
+                                    </span>
+                                    <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        None
+                                    </span>
+                                    </td>
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.categories.edit', category.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.categories.destroy', category.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.categories.destroy', category.id)" method="delete" as="button" @click="destroy(category.id)" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -84,10 +91,19 @@ import Pagination from "@/Components/Pagination";
 import { ref, watch, defineProps } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 
+const destroy = (id) => {
 
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.categories.destroy', category.id))
+    }
+    return { destroy };
+
+}
 const props = defineProps(
     {
         categories:Object,
+        category:Object,
         filters:Object
     });
 

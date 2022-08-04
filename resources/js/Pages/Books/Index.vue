@@ -8,7 +8,7 @@
         </template>
 
         <div class="py-2">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                 <section class="container mx-auto p-6 font-mono">
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <Link :href="route('admin.books.create')" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create Books  </Link>
@@ -69,7 +69,7 @@
                                     <div class="flex justify-around">
                                         <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.book-copies.index', book.id)">Copy</ButtonLink>
                                         <ButtonLink :link="route('admin.books.edit', book.id)">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.books.destroy', book.id)">Delete</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" @click="destroy(book.id)"  :link="route('admin.books.destroy', book.id)">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -103,10 +103,19 @@ import TableRow from "@/Components/TableRow";
 import TableData from "@/Components/TableData";
 import ButtonLink from "@/Components/ButtonLink";
 
+const destroy = (id) => {
 
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.book-copies.destroy', book.id))
+    }
+    return { destroy };
+
+}
 const props = defineProps(
     {
         books:Object,
+        book:Object,
         filters:Object
     });
 
@@ -115,7 +124,7 @@ const search = ref(props.filters.search);
 const perPage = ref(5);
 
 watch(search, value => {
-    Inertia.get('/admin/library', { search: value }, {preserveState: true, replace:true})
+    Inertia.get('/admin/books', { search: value }, {preserveState: true, replace:true})
 });
 
 </script>

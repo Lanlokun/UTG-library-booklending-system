@@ -24,14 +24,22 @@ class Library extends Model
     {
         return $this->hasMany(StudentAttendance::class);
     }
+    public function staff_attendances()
+    {
+        return $this->hasMany(StaffAttendance::class);
+    }
 
     public function book_copies()
     {
         return $this->hasMany(BookCopy::class);
     }
 
-    public function borrows()
+    public function borrowStaffs()
     {
-        return $this->hasMany(Borrow::class);
+        return $this->hasMany(BorrowStaff::class);
+    }
+    public function borrowStudents()
+    {
+        return $this->hasMany(BorrowStudent::class);
     }
 }

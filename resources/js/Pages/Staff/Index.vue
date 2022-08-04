@@ -1,5 +1,5 @@
 <template>
-    <admin-layout title="Dashboard">
+    <admin-layout title="Staff">
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -13,9 +13,9 @@
                     <div class="w-full flex mb-4 p-2 justify-end">
                         <form class="flex space-x-4 shadow bg-white rounded-md m-2 p-2">
                             <div class="p-1 flex items-center">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mr-4">name</label>
+                                <label for="address" class="block text-sm font-medium text-gray-700 mr-4">Email</label>
                                 <div class="relative rounded-md shadow-sm">
-                                    <input v-model="name" id="name" name="name" class="px-3 py-2 border border-gray-300 rounded" placeholder="Staff name" />
+                                    <input v-model="email_address" id="address" name="email_address" class="px-3 py-2 border border-gray-300 rounded" placeholder="Email Address" />
                                 </div>
                             </div>
                             <div class="p-1">
@@ -63,23 +63,22 @@
 
                         <Table>
                             <template #tableHead>
-                                <TableHead>Name</TableHead>
+                                <TableHead>FUll Name</TableHead>
                                 <TableHead>Email</TableHead>
-                                <TableHead>Department</TableHead>
                                 <TableHead>Manage</TableHead>
 
                             </template>
 
                             <TableRow v-for="staff in staffs.data" :key="staff.id">
-                                <TableData>{{ staff.name }}</TableData>
-                                <TableData>{{ staff.email }}</TableData>
-                                <TableData>{{ staff.department }}</TableData>
+                                <TableData>{{ staff.fullName }}</TableData>
+                                <TableData>{{ staff.address }}</TableData>
                                 <TableData>
 
                                     <div class="flex justify-around">
-                                        <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.borrows.index', borrow.id)">Borrows</ButtonLink>
+                                        <ButtonLink class="bg-yellow-500 hover:bg-yellow-700" :link="route('admin.staff-attendance.index', staff.id)">Attendance</ButtonLink>
+                                        <ButtonLink class="bg-blue-500 hover:bg-blue-700" :link="route('admin.staff-borrows.index', staff.id)">Borrows</ButtonLink>
                                         <ButtonLink :link="route('admin.staffs.edit', staff.id)">Edit</ButtonLink>
-                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" :link="route('admin.staffs.destroy', staff.id)">Delete</ButtonLink>
+                                        <ButtonLink method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700" @click="destroy(staff.id)" :link="route('admin.staffs.destroy', staff.id)">Delete</ButtonLink>
 
                                     </div>
                                 </TableData>
@@ -114,6 +113,15 @@ import TableRow from "../../Components/TableRow";
 import TableData from "../../Components/TableData";
 import ButtonLink from "@/Components/ButtonLink";
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.staffs.destroy', staff.id))
+    }
+    return { destroy };
+
+}
 
 const props = defineProps(
     {
@@ -125,15 +133,15 @@ const props = defineProps(
 
 const search = ref(props.filters.search);
 const perPage = ref(5);
-const tvShowTMDBId = ref('');
+const email_address = ref('');
 
 watch(search, value => {
     Inertia.get('/admin/staffs', { search: value }, {preserveState: true, replace:true})
 });
 
 function generateStaff(){
-    Inertia.post('/admin/staffs', {name: name.value}, {
-        onFinish: () => (name.value = "")
+    Inertia.post('/admin/staffs', {email_address: email_address.value}, {
+        onFinish: () => (email_address.value = "")
     });
 
 }

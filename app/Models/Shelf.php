@@ -24,4 +24,6 @@ class Shelf extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+
 }

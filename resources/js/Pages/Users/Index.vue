@@ -1,5 +1,5 @@
 <template>
-    <admin-layout title="Dashboard">
+    <admin-layout title="Library">
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -11,7 +11,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section class="container mx-auto p-6 font-mono">
                     <div class="w-full flex mb-4 p-2 justify-end">
-                        <Link :href="route('admin.user.create')" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create User</Link>
+                        <Link :href="route('admin.user.create')" class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Create User </Link>
                     </div>
 
                     <div class="w-full mb-8 overflow-hidden bg-white rounded-lg shadow-lg">
@@ -55,7 +55,7 @@
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.user.edit', user.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.user.destroy', user.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.user.destroy', user.id)" method="delete" @click="destroy(user.id)" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -88,9 +88,18 @@ import { Inertia } from "@inertiajs/inertia";
 const props = defineProps(
     {
         users:Object,
+        user:Object,
         filters:Object
     });
+const destroy = (id) => {
 
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.users.destroy', user.id))
+    }
+    return { destroy };
+
+}
 
 const search = ref(props.filters.search);
 const perPage = ref(5);

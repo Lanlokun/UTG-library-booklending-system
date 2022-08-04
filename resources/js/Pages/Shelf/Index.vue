@@ -1,5 +1,5 @@
 <template>
-    <admin-layout title="Dashboard">
+    <admin-layout title="Shelf">
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -31,7 +31,7 @@
                                         </svg>
                                     </div>
 
-                                    <input v-model="search" type="text" placeholder="Search by title"
+                                    <input v-model="search" type="text" placeholder="Search by name"
                                            class="px-8 py-4 w-full md:w-2/6 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm" />
                                 </div>
                             </div>
@@ -53,13 +53,13 @@
                             <tbody class="bg-white">
                             <tr v-for="shelf in shelves.data" :key="shelf.id" class="text-gray-700">
                                 <td class="px-4 py-3 border"> {{shelf.name}}</td>
-                                <td class="px-4 py-3 text-ms font-semibold border">{{shelf.category_id}}</td>
+                                <td class="px-4 py-3 text-ms font-semibold border">{{shelf.category.name}}</td>
                                 <td class="px-4 py-3 text-ms font-semibold border">{{shelf.capacity}}</td>
 
 
                                 <td class="flex justify-around px-4 py-3 text-sm border">
                                     <Link :href="route('admin.shelves.edit', shelf.id)" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 mx-3 rounded-lg">Edit</Link>
-                                    <Link :href="route('admin.shelves.destroy', shelf.id)" method="delete" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
+                                    <Link :href="route('admin.shelves.destroy', shelf.id)" method="delete" @click="destroy(shelf.id)" as="button" type="button" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Delete</Link>
                                 </td>
                             </tr>
 
@@ -89,9 +89,21 @@ import { ref, watch, defineProps } from 'vue';
 import { Inertia } from "@inertiajs/inertia";
 
 
+const destroy = (id) => {
+
+
+    if(confirm('Are you sure you want to delete ?')){
+        Inertia.delete(route('admin.shelves.destroy', shelf.id))
+    }
+    return { destroy };
+
+}
+
+
 const props = defineProps(
     {
         shelves:Object,
+        shelf:Object,
         filters:Object
     });
 
