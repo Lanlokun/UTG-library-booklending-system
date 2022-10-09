@@ -1,8 +1,8 @@
 # UTG-Library
 A library management system for the university of The Gambia.  
 
-Features
+<h1>Features</h1>
 
-Manages Books 
-Manages Library access
-Manages Book Lending
+<p>Manages Books</p> <br/> <br/> 
+<p>Manages Library access </p> <br/> <br/>
+<p>Manages Book Lending </p>
