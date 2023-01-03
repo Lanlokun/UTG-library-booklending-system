@@ -12,13 +12,13 @@ A library management system for the university of The Gambia.
 <ul>
     <p>After Fresh Clone </p>
     
-    <li> composer install</li>
-    <li> composer update</li>
-    <li> npm install</li>
-    <li> npm update</li>
-    <li>  create env file and establish connection with your database </li>
-    <li> php artisan migrate </li>
-    <li> php artisan serve </li>
+     composer install
+     composer update
+     npm install 
+     npm update
+     create env file and establish connection with your database
+     php artisan migrate
+     php artisan serve
     
    </ul>
 
